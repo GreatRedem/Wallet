@@ -26,7 +26,7 @@ export default function HomePage()
     }, [ ]);
 
     return (
-        <div className='relative flex h-full w-full flex-col items-center justify-center bg-base'>
+        <div className='relative flex h-full w-full'>
 
             {
                 HomePage

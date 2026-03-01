@@ -43,17 +43,18 @@ export default function Navigation()
     };
 
     return (
-        <div className='absolute bottom-0 m-4 flex h-[56px] items-center justify-center gap-[16px] rounded-full border border-base-border bg-base-secondary/50 px-[4px] backdrop-blur-sm'>
+        <div className='absolute bottom-0 left-1/2 z-50 my-4 flex h-[56px] -translate-x-1/2 items-center justify-center gap-[16px] rounded-full border border-base-border bg-base px-[4px] backdrop-blur-sm'>
 
             <div
-                className={ `flex h-[48px] w-[80px] cursor-pointer flex-col items-center justify-center gap-[2px] rounded-full ${ Nav === 'WALLET' && 'bg-black/10 backdrop-blur-sm' }` }
+                className={ `flex h-[48px] w-[80px] cursor-pointer flex-col items-center justify-center gap-[2px] rounded-full ${ Nav === 'WALLET' && 'bg-black/1 backdrop-blur-sm' }` }
                 onClick={ () => OnClickNav('WALLET') }>
 
                 <HiMiniWallet className={ `size-[20px] ${ Nav === 'WALLET' ? 'text-base-reverse' : 'text-base-text/50' }` } />
 
                 <div className={ `text-[12px] ${ Nav === 'WALLET' ? 'text-base-reverse' : 'text-base-text/50' }` }>
+
                     {
-                        T('Home.Wallet')
+                        T('Home.Wallet.Wallet')
                     }
 
                 </div>

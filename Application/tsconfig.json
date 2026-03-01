@@ -35,11 +35,11 @@
         "allowSyntheticDefaultImports": true,
 
         // Misc
-        "noEmit": true,
+        "outDir": "dist",
+        "noEmit": false,
         "allowJs": false,
-        "incremental": true,
-        "isolatedModules": true,
-        "allowImportingTsExtensions": true
+        "incremental": false,
+        "isolatedModules": true
     },
     "include":
     [

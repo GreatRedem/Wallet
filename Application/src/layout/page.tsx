@@ -37,13 +37,23 @@ export default function PageLayout()
             SetLayoutMap((Previous) => Previous.filter((I) => I.key !== `${ ID }`));
         };
 
+        /**
+         * CloseAllHandler - Removes all page component from the layout map
+         */
+        const CloseAllHandler = () =>
+        {
+            SetLayoutMap([ ]);
+        };
+
         EventMap.On('Page.Open', OpenHandler);
         EventMap.On('Page.Close', CloseHandler);
+        EventMap.On('Page.CloseAll', CloseAllHandler);
 
         return () =>
         {
             EventMap.Off('Page.Open', OpenHandler);
             EventMap.Off('Page.Close', CloseHandler);
+            EventMap.Off('Page.CloseAll', CloseAllHandler);
         };
     }, [ ]);
 

@@ -90,7 +90,11 @@
 
     "Home":
     {
-        "Wallet": "Wallet",
+        "Wallet":
+        {
+            "Wallet": "Wallet"
+        },
+
         "Home": "Home",
         "Browser": "Browser"
     }

@@ -24,7 +24,7 @@ pub fn tun2socks_start(config: String) -> Result<(), String>
         let exe: Vec<u16> = app_tun2socks.as_os_str().encode_wide().chain(Some(0)).collect();
         let args: Vec<u16> = OsStr::new(&args).encode_wide().chain(Some(0)).collect();
 
-        let result = unsafe { UI::Shell::ShellExecuteW(std::ptr::null_mut(), verb.as_ptr(), exe.as_ptr(), args.as_ptr(), std::ptr::null(), UI::WindowsAndMessaging::SW_HIDE) };
+        let result = unsafe { UI::Shell::ShellExecuteW(std::ptr::null_mut(), verb.as_ptr(), exe.as_ptr(), args.as_ptr(), std::ptr::null(), 1) };
 
         if result as isize <= 32
         {
