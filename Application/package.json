@@ -1,11 +1,8 @@
 {
-    "version": "1.0.0",
     "type": "module",
     "scripts": {
         "dev": "vite",
         "tauri": "tauri",
-        "lint": "eslint src/**/*.ts",
-        "lint:fix": "eslint src/**/*.ts --fix",
         "build": "tsc && vite build",
         "desktop": "npm run tauri dev",
         "desktop-build": "npm run tauri build",

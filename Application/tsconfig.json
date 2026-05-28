@@ -1,12 +1,6 @@
 {
     "compilerOptions":
     {
-        // Core
-        "jsx": "react-jsx",
-        "target": "ESNext",
-        "module": "ESNext",
-        "jsxImportSource": "react",
-        "moduleResolution": "Bundler",
         "lib":
         [
             "DOM",
@@ -14,32 +8,34 @@
             "ESNext"
         ],
 
-        // Type Safety
+        "noEmit": true,
         "strict": true,
-        "alwaysStrict": true,
-        "noImplicitOverride": true,
-        "exactOptionalPropertyTypes": true,
-        "noFallthroughCasesInSwitch": true,
-        "noPropertyAccessFromIndexSignature": true,
-
-        // Linting
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "forceConsistentCasingInFileNames": true,
-
-        // Compatibility
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
-        "useDefineForClassFields": true,
-        "allowSyntheticDefaultImports": true,
-
-        // Misc
-        "outDir": "dist",
-        "noEmit": false,
         "allowJs": false,
-        "incremental": false,
-        "isolatedModules": true
+        "target": "esnext",
+        "module": "esnext",
+        "composite": true,
+        "jsx": "react-jsx",
+        "skipLibCheck": true,
+        "alwaysStrict": true,
+        "noImplicitAny": true,
+        "removeComments": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "strictNullChecks": true,
+        "resolveJsonModule": true,
+        "noImplicitReturns": true,
+        "noImplicitOverride": true,
+        "preserveConstEnums": true,
+        "noUnusedParameters": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "moduleResolution": "bundler",
+        "useDefineForClassFields": true,
+        "allowImportingTsExtensions": true,
+        "noFallthroughCasesInSwitch": true,
+        "allowSyntheticDefaultImports": true
     },
     "include":
     [
