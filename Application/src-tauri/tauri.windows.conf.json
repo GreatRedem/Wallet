@@ -1,27 +1,18 @@
 {
     "$schema": "https://schema.tauri.app/config/2",
-    "identifier": "io.gapp",
-    "build":
-    {
-        "frontendDist": "../dist",
-        "beforeDevCommand": "npm run dev",
-        "devUrl": "http://localhost:1420",
-        "beforeBuildCommand": "npm run build"
-    },
+    "identifier": "io.anonymous.windows",
     "app":
     {
-        "withGlobalTauri": false,
         "windows":
         [
             {
-                "title": "GApp",
+                "title": "Anonymous VPN",
                 "decorations": false,
                 "maximizable": false,
-                "alwaysOnTop": true,
                 "fullscreen": false,
-                "resizable": true,
+                "resizable": false,
                 "center": true,
-                "height": 700,
+                "height": 640,
                 "width": 360
             }
         ],
@@ -41,10 +32,7 @@
                         "core:app:allow-default-window-icon",
 
                         "core:window:allow-start-dragging",
-                        "core:window:allow-set-size",
-                        "core:window:allow-maximize",
                         "core:window:allow-minimize",
-                        "core:window:allow-center",
                         "core:window:allow-close",
                         "core:window:allow-hide",
                         "core:window:allow-show",
@@ -53,18 +41,8 @@
 
                         "core:tray:allow-new",
 
-                        "store:allow-load",
-                        "store:allow-save",
-                        "store:allow-get",
-                        "store:allow-set",
-
                         "os:allow-hostname",
-                        "os:allow-platform",
-                        "os:allow-os-type",
-                        "os:allow-version",
-                        "os:allow-family",
-                        "os:allow-locale",
-                        "os:allow-arch"
+                        "os:allow-locale"
                     ]
                 }
             ]
@@ -72,14 +50,11 @@
     },
     "bundle":
     {
-        "android":
-        {
-            "minSdkVersion": 25
-        },
         "active": true,
         "targets": "all",
         "icon":
         [
+            "icons/icon.png",
             "icons/icon.ico"
         ]
     }
