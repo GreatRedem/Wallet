@@ -59,7 +59,26 @@ export default defineConfig([
             '@stylistic/function-call-argument-newline': [ 'error', 'consistent' ],
             '@stylistic/object-property-newline': [ 'error', { allowAllPropertiesOnSameLine: true } ],
             '@stylistic/indent': [ 'error', 4, { SwitchCase: 1, ObjectExpression: 1, assignmentOperator: 0 } ],
-            '@stylistic/space-before-function-paren': [ 'error', { anonymous: 'never', named: 'never', asyncArrow: 'never', catch: 'always' } ]
+            '@stylistic/space-before-function-paren': [ 'error', { anonymous: 'never', named: 'never', asyncArrow: 'never', catch: 'always' } ],
+            '@stylistic/operator-linebreak': [ 'error', 'after' ],
+            '@stylistic/jsx-wrap-multilines': 'off',
+            '@stylistic/jsx-closing-tag-location': 'off',
+            '@typescript-eslint/naming-convention':
+            [
+                'error',
+                {
+                    selector: 'variableLike',
+                    format: [ 'camelCase' ]
+                },
+                {
+                    selector: 'function',
+                    format: [ 'PascalCase' ]
+                },
+                {
+                    selector: 'typeLike',
+                    format: [ 'PascalCase' ]
+                }
+            ]
         }
     }
 ]);

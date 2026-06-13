@@ -384,8 +384,6 @@ npm run desktop-build    # Release desktop binary
 npm run android          # Android dev
 npm run android-apk      # APK output
 npm run android-aab      # AAB for Play Store
-npm run lint             # ESLint
-npm run lint:fix         # Auto-fix
 ```
 
 **Tauri identifier:** `io.gapp` (base), `io.gapp.windows` (Windows overlay config)

@@ -32,13 +32,13 @@ function Application()
     {
         if (platform() === 'windows')
         {
-            const AsyncTaskTray = async() =>
+            const applyTrayUpdate = async() =>
             {
-                const AppIcon = await defaultWindowIcon();
+                const appIcon = await defaultWindowIcon();
 
-                if (AppIcon)
+                if (appIcon)
                 {
-                    const TryMenu: MenuOptions =
+                    const trayMenuOption: MenuOptions =
                     {
                         items:
                         [
@@ -55,22 +55,22 @@ function Application()
                                 text: T('App.Tray.Quit'),
                                 action: () =>
                                 {
-                                    void getCurrentWindow().close();
+                                    getCurrentWindow().close();
                                 }
                             }
                         ]
                     };
 
-                    const AppTrayMenu = await Menu.new(TryMenu);
+                    const trayMenu = await Menu.new(trayMenuOption);
 
-                    await TrayIcon.new({ menu: AppTrayMenu, icon: AppIcon, showMenuOnLeftClick: false });
+                    await TrayIcon.new({ menu: trayMenu, icon: appIcon, showMenuOnLeftClick: false });
                 }
             };
 
-            void AsyncTaskTray();
+            void applyTrayUpdate();
         }
 
-        const updatePage = async() =>
+        const applyPageUpdate = async() =>
         {
             if (await IsLogged())
             {
@@ -82,7 +82,7 @@ function Application()
             }
         };
 
-        void updatePage();
+        void applyPageUpdate();
     }, [ ]);
 
     return <>
@@ -107,9 +107,9 @@ document.addEventListener('keydown', (event) =>
     }
 });
 
-document.addEventListener('contextmenu', (Ev) =>
+document.addEventListener('contextmenu', (event) =>
 {
-    Ev.preventDefault();
+    event.preventDefault();
 });
 
 const rootElement = document.querySelector('#root');

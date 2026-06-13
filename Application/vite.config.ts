@@ -7,7 +7,7 @@ const host = process.env.TAURI_DEV_HOST;
 
 export default defineConfig(() => ({
 
-    root: './src',
+    root: 'src',
     clearScreen: false,
 
     plugins:
@@ -15,6 +15,12 @@ export default defineConfig(() => ({
         react(),
         tailwind()
     ],
+
+    build:
+    {
+        outDir: '../dist',
+        chunkSizeWarningLimit: 1024
+    },
 
     server:
     {

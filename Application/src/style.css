@@ -28,7 +28,6 @@
 
 *
 {
-    flex-shrink: 0;
     user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
@@ -38,6 +37,6 @@ html, body
 {
     line-height: 1;
     font-size: 12px;
-    font-family: monospace, 'IranSans';
-    background: transparent !important;
+    font-family: 'IranSans';
+    background: transparent;
 }
