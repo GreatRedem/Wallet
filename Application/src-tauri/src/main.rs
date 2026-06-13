@@ -2,5 +2,5 @@
 
 fn main()
 {
-    global_application_lib::run()
+    gapp_lib::run()
 }

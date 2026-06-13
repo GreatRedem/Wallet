@@ -1,13 +1,10 @@
-import type { MenuOptions } from '@tauri-apps/api/menu';
-
-import * as OS from '@tauri-apps/plugin-os';
-
 import { useEffect } from 'react';
-import { Menu } from '@tauri-apps/api/menu';
 import { createRoot } from 'react-dom/client';
 import { TrayIcon } from '@tauri-apps/api/tray';
+import { platform } from '@tauri-apps/plugin-os';
 import { defaultWindowIcon } from '@tauri-apps/api/app';
 import { getCurrentWindow } from '@tauri-apps/api/window';
+import { Menu, type MenuOptions } from '@tauri-apps/api/menu';
 
 import HomePage from './page/home';
 import SplashPage from './page/splash';
@@ -16,15 +13,13 @@ import PageLayout from './layout/page';
 import ModalLayout from './layout/modal';
 import ToastLayout from './layout/toast';
 
-import Account from './core/account';
-
 import Theme from './utility/theme';
 import Context from './utility/context';
-import Language from './utility/language';
+import Language, { T } from './utility/language';
 
-import { T } from './utility/language';
+import { IsLogged } from './core/account';
 
-import './app.css';
+import './style.css';
 
 /**
  * Application - Root React application component that initializes platform integrations
@@ -35,11 +30,8 @@ function Application()
 {
     useEffect(() =>
     {
-        if (OS.platform() === 'windows')
+        if (platform() === 'windows')
         {
-            /**
-             * AsyncTask - Performs async platform-specific initialization (tray/menu/icon)
-             */
             const AsyncTaskTray = async() =>
             {
                 const AppIcon = await defaultWindowIcon();
@@ -78,9 +70,9 @@ function Application()
             void AsyncTaskTray();
         }
 
-        const AsyncTaskAccount = async() =>
+        const updatePage = async() =>
         {
-            if (await Account.IsLogged())
+            if (await IsLogged())
             {
                 Context.OpenPage(HomePage, { ID: 1 });
             }
@@ -90,43 +82,8 @@ function Application()
             }
         };
 
-        void AsyncTaskAccount();
-
-        const OnlineInterval = setInterval(async() =>
-        {
-            console.log('Arch:', OS.arch());
-            console.log('family:', OS.family());
-            console.log('hostname:', await OS.hostname());
-            console.log('locale:', await OS.locale());
-            console.log('platform:', OS.platform());
-            console.log('type:', OS.type());
-            console.log('version:', OS.version());
-
-            // Keep the user online every 5 minutes
-        }, 5 * 60 * 1000);
-
-        return () =>
-        {
-            clearInterval(OnlineInterval);
-        };
+        void updatePage();
     }, [ ]);
-
-    useEffect(() =>
-    {
-        function MessageHandler(event: MessageEvent)
-        {
-            console.log(event.origin);
-            console.log(event.data.type);
-            console.log(event.data.payload);
-        }
-
-        window.addEventListener('message', MessageHandler);
-
-        return () =>
-        {
-            window.removeEventListener('message', MessageHandler);
-        };
-    }, []);
 
     return <>
 
@@ -142,14 +99,12 @@ function Application()
 /**
  * Prevent certain keyboard shortcuts from triggering browser behavior
  */
-document.addEventListener('keydown', (_Ev) =>
+document.addEventListener('keydown', (event) =>
 {
-    /*
-    if (_Ev.key === 'F3' || _Ev.key === 'F5' || _Ev.key === 'F7' || _Ev.ctrlKey && _Ev.key === 'r')
+    if (event.key === 'F3' || event.key === 'F5' || event.key === 'F7' || (event.ctrlKey && event.key === 'r'))
     {
-        _Ev.preventDefault();
+        // event.preventDefault();
     }
-    */
 });
 
 document.addEventListener('contextmenu', (Ev) =>
@@ -157,13 +112,13 @@ document.addEventListener('contextmenu', (Ev) =>
     Ev.preventDefault();
 });
 
-const AppDOM = document.querySelector('#App');
+const rootElement = document.querySelector('#root');
 
-if (AppDOM)
+if (rootElement)
 {
     await Theme.Initialize();
 
     await Language.Initialize();
 
-    createRoot(AppDOM).render(<Application />);
+    createRoot(rootElement).render(<Application />);
 }

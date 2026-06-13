@@ -192,7 +192,6 @@ export default function SplashPage()
             <div className='m-[8px] text-center text-[12px] text-base-text/25'>
 
                 {
-                    T('Splash.Version', Package.version)
                 }
 
             </div>

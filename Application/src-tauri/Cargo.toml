@@ -1,10 +1,10 @@
 [package]
-name = "global-application"
+name = "gapp"
 version = "1.0.0"
 edition = "2021"
 
 [lib]
-name = "global_application_lib"
+name = "gapp_lib"
 crate-type = [ "staticlib", "cdylib", "rlib" ]
 
 [build-dependencies]
