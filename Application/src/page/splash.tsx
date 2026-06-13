@@ -14,7 +14,6 @@ import Context from '../utility/context';
 
 import { T } from '../utility/language';
 
-import Package from '../../package.json';
 import SlideIcon1 from '../assets/image/splash-slide-1.png';
 import SlideIcon2 from '../assets/image/splash-slide-2.png';
 import SlideIcon3 from '../assets/image/splash-slide-3.png';

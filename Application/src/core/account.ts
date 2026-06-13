@@ -22,7 +22,7 @@ export const IsLogged = async() =>
     const Passcode = await GetValueSafe('App.Passcode');
     const Phrase = await GetValueSafe('App.Phrase');
 
-    return false; //Passcode !== undefined && Phrase !== undefined;
+    return Passcode !== undefined && Phrase !== undefined;
 };
 
 /**
