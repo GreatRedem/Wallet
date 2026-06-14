@@ -1,80 +1,62 @@
 import type { JSX } from 'react';
 
 import { useEffect, useState } from 'react';
-import { platform } from '@tauri-apps/plugin-os';
-
-import WindowBarComponent from '../components/window_bar';
 
 import EventMap from '../utility/event';
 
 /**
- * PageLayout - Renders the active pages stack and the platform window bar
- * @returns {JSX.Element} The page container including the window bar and page views
+ * PageLayout - Hosts the global page stack.
+ *
+ * The layout listens to the shared event bus and renders every active page component in insertion order.
+ *
+ * @returns {JSX.Element | undefined} The page stack container, or `undefined` when empty.
  */
 export default function PageLayout()
 {
-    const IsWindow = platform() === 'windows';
-
-    const [ LayoutMap, SetLayoutMap ] = useState<JSX.Element[]>([ ]);
+    const [ layoutMap, setLayoutMap ] = useState<JSX.Element[]>([ ]);
 
     useEffect(() =>
     {
         /**
-         * OpenHandler - Adds a page component to the layout map
-         * @param {JSX.Element} Component - The page component instance to add
+         * OpenHandler - Appends a page component to the active stack.
+         * @param {JSX.Element} Component - The page element to render.
          */
-        const OpenHandler = (Component: JSX.Element) =>
+        const openHandler = (component: JSX.Element) =>
         {
-            SetLayoutMap((Previous) => [ ...Previous, Component ]);
+            setLayoutMap((prev) => [ ...prev, component ]);
         };
 
         /**
-         * CloseHandler - Removes a page component from the layout map by ID
-         * @param {number} ID - The page component numeric identifier
+         * CloseHandler - Removes a page component from the active stack.
+         * @param {number} ID - The page identifier used as the React key.
          */
-        const CloseHandler = (ID: number) =>
+        const closeHandler = (id: number) =>
         {
-            SetLayoutMap((Previous) => Previous.filter((I) => I.key !== `${ ID }`));
+            setLayoutMap((prev) => prev.filter((i) => i.key !== `${ id }`));
         };
 
-        /**
-         * CloseAllHandler - Removes all page component from the layout map
-         */
-        const CloseAllHandler = () =>
-        {
-            SetLayoutMap([ ]);
-        };
-
-        EventMap.On('Page.Open', OpenHandler);
-        EventMap.On('Page.Close', CloseHandler);
-        EventMap.On('Page.CloseAll', CloseAllHandler);
+        EventMap.On('Page.Open', openHandler);
+        EventMap.On('Page.Close', closeHandler);
 
         return () =>
         {
-            EventMap.Off('Page.Open', OpenHandler);
-            EventMap.Off('Page.Close', CloseHandler);
-            EventMap.Off('Page.CloseAll', CloseAllHandler);
+            EventMap.Off('Page.Open', openHandler);
+            EventMap.Off('Page.Close', closeHandler);
         };
     }, [ ]);
 
-    if (LayoutMap.length === 0)
+    if (layoutMap.length === 0)
     {
-        return;
+        return undefined;
     }
 
-    return <>
-
-        <WindowBarComponent />
-
-        <div
-            className='absolute left-1/2 z-1 flex h-full min-h-[700px] w-full max-w-[720px] min-w-[360px] -translate-x-1/2'
-            style={ { paddingTop: IsWindow ? '32px' : '0px' } }>
+    return (
+        <div className='relative h-screen w-screen overflow-hidden bg-base-1'>
 
             {
-                LayoutMap
+                layoutMap
             }
 
         </div>
-
-    </>;
+    );
 }
