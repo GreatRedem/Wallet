@@ -6,98 +6,88 @@ import { defaultWindowIcon } from '@tauri-apps/api/app';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { Menu, type MenuOptions } from '@tauri-apps/api/menu';
 
-import HomePage from './page/home';
-import SplashPage from './page/splash';
+import IntroPage from './page/intro';
 
 import PageLayout from './layout/page';
-import ModalLayout from './layout/modal';
-import ToastLayout from './layout/toast';
 
-import Theme from './utility/theme';
 import Context from './utility/context';
-import Language, { T } from './utility/language';
 
-import { IsLogged } from './core/account';
+import { T, initLanguage } from './utility/language';
 
 import './style.css';
 
 /**
- * Application - Root React application component that initializes platform integrations
- * and opens the initial page (home or splash)
+ * Root application.
+ *
+ * Responsibilities:
+ * - Initialize platform-specific integrations like the Windows tray icon.
+ * - Register global browser-event guards that should apply to the whole app.
+ * - Open the first page so the UI has content as soon as the shell mounts.
  * @returns {JSX.Element} The root application component
  */
 function Application()
 {
     useEffect(() =>
     {
-        if (platform() === 'windows')
+        const applyTasks = () =>
         {
-            const applyTrayUpdate = async() =>
+            if (platform() === 'windows')
             {
-                const appIcon = await defaultWindowIcon();
-
-                if (appIcon)
+                const applyWindowsTray = async() =>
                 {
-                    const trayMenuOption: MenuOptions =
+                    const appIcon = await defaultWindowIcon();
+
+                    if (appIcon)
                     {
-                        items:
-                        [
-                            {
-                                id: 'open',
-                                text: T('App.Tray.Open'),
-                                action: () =>
+                        const trayMenuOption: MenuOptions =
+                        {
+                            items:
+                            [
                                 {
-                                    void getCurrentWindow().show();
-                                }
-                            },
-                            {
-                                id: 'quit',
-                                text: T('App.Tray.Quit'),
-                                action: () =>
+                                    id: 'open',
+                                    text: T('App.Tray.Open'),
+                                    action: () =>
+                                    {
+                                        void getCurrentWindow().show();
+                                    }
+                                },
                                 {
-                                    getCurrentWindow().close();
+                                    id: 'quit',
+                                    text: T('App.Tray.Quit'),
+                                    action: () =>
+                                    {
+                                        void getCurrentWindow().close();
+                                    }
                                 }
-                            }
-                        ]
-                    };
+                            ]
+                        };
 
-                    const trayMenu = await Menu.new(trayMenuOption);
+                        const trayMenu = await Menu.new(trayMenuOption);
 
-                    await TrayIcon.new({ menu: trayMenu, icon: appIcon, showMenuOnLeftClick: false });
-                }
-            };
+                        await TrayIcon.new({ tooltip: T('App.Tray.Title'), menu: trayMenu, icon: appIcon, showMenuOnLeftClick: false });
+                    }
+                };
 
-            void applyTrayUpdate();
-        }
-
-        const applyPageUpdate = async() =>
-        {
-            if (await IsLogged())
-            {
-                Context.OpenPage(HomePage, { ID: 1 });
-            }
-            else
-            {
-                Context.OpenPage(SplashPage, { ID: 1 });
+                void applyWindowsTray();
             }
         };
 
-        void applyPageUpdate();
+        applyTasks();
+
+        Context.OpenPage(IntroPage, { ID: 1 });
     }, [ ]);
 
-    return <>
+    return (
+        <>
 
-        <PageLayout />
+            <PageLayout />
 
-        <ModalLayout />
-
-        <ToastLayout />
-
-    </>;
+        </>
+    );
 }
 
 /**
- * Prevent certain keyboard shortcuts from triggering browser behavior
+ * Prevent browser-default shortcuts and context menu actions that conflict with the desktop app experience.
  */
 document.addEventListener('keydown', (event) =>
 {
@@ -116,9 +106,7 @@ const rootElement = document.querySelector('#root');
 
 if (rootElement)
 {
-    await Theme.Initialize();
-
-    await Language.Initialize();
+    await initLanguage();
 
     createRoot(rootElement).render(<Application />);
 }

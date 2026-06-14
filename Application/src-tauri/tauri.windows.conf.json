@@ -1,21 +1,21 @@
 {
     "$schema": "https://schema.tauri.app/config/2",
-    "identifier": "io.gapp.windows",
+    "identifier": "io.gwallet.windows",
     "app":
     {
         "withGlobalTauri": false,
         "windows":
         [
             {
-                "title": "GApp",
+                "title": "GWallet",
                 "decorations": false,
                 "maximizable": false,
                 "alwaysOnTop": false,
                 "fullscreen": false,
                 "resizable": true,
                 "center": true,
-                "height": 640,
-                "width": 360
+                "height": 800,
+                "width": 600
             }
         ],
         "security":

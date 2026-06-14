@@ -1,6 +1,3 @@
-mod tun;
-mod command;
-
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run()
 {
@@ -39,8 +36,6 @@ pub fn run()
     builder = builder.plugin(tauri_plugin_os::init());
 
     builder = builder.plugin(tauri_plugin_store::Builder::new().build());
-
-    builder = builder.invoke_handler(tauri::generate_handler![ command::tun_start, command::tun_stop ]);
 
     builder.run(tauri::generate_context!()).expect("Application Failed");
 }
