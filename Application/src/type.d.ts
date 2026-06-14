@@ -1,25 +1,6 @@
 // Home Navigation
 type NavigationMap = 'WALLET' | 'HOME' | 'BROWSER';
 
-// Event
-interface EventMap
-{
-    'Page.Open': [component: JSX.Element];
-    'Page.Close': [id: number];
-    'Page.CloseAll': [id: number];
-
-    'Toast.Open': [component: JSX.Element];
-    'Toast.Close': [id: number];
-
-    'Modal.Open': [component: JSX.Element];
-    'Modal.Close': [id: number];
-    'Modal.CloseAll': [id: number];
-
-    'Home.Page': [component: JSX.Element];
-}
-
-type EventCall<T extends keyof EventMap> = (...Args: EventMap[T]) => void;
-
 // Storage
 type StorageKey = 'App.Language' | 'App.Theme' | 'App.Phrase' | 'App.Passcode';
 

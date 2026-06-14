@@ -2,7 +2,7 @@ import type { JSX } from 'react';
 
 import { useEffect, useState } from 'react';
 
-import EventMap from '../utility/event';
+import { on, off } from '../utility/event';
 
 /**
  * PageLayout - Hosts the global page stack.
@@ -19,7 +19,7 @@ export default function PageLayout()
     {
         /**
          * OpenHandler - Appends a page component to the active stack.
-         * @param {JSX.Element} Component - The page element to render.
+         * @param {JSX.Element} component - The page element to render.
          */
         const openHandler = (component: JSX.Element) =>
         {
@@ -28,20 +28,20 @@ export default function PageLayout()
 
         /**
          * CloseHandler - Removes a page component from the active stack.
-         * @param {number} ID - The page identifier used as the React key.
+         * @param {number} id - The page identifier used as the React key.
          */
         const closeHandler = (id: number) =>
         {
             setLayoutMap((prev) => prev.filter((i) => i.key !== `${ id }`));
         };
 
-        EventMap.On('Page.Open', openHandler);
-        EventMap.On('Page.Close', closeHandler);
+        on('Page.Open', openHandler);
+        on('Page.Close', closeHandler);
 
         return () =>
         {
-            EventMap.Off('Page.Open', openHandler);
-            EventMap.Off('Page.Close', closeHandler);
+            off('Page.Open', openHandler);
+            off('Page.Close', closeHandler);
         };
     }, [ ]);
 
@@ -51,7 +51,7 @@ export default function PageLayout()
     }
 
     return (
-        <div className='relative h-screen w-screen overflow-hidden bg-base-1'>
+        <div className='relative h-screen w-screen overflow-hidden bg-background'>
 
             {
                 layoutMap

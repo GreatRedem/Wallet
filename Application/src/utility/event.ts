@@ -1,61 +1,77 @@
+import type { JSX } from 'react';
+
+interface EventMap
+{
+    'Page.Open': [component: JSX.Element];
+    'Page.Close': [id: number];
+
+    'Toast.Open': [component: JSX.Element];
+    'Toast.Close': [id: number];
+    'Toast.CloseAll': [id: number];
+
+    'Modal.Open': [component: JSX.Element];
+    'Modal.Close': [id: number];
+    'Modal.CloseAll': [id: number];
+}
+
+type EventCall<T extends keyof EventMap> = (...args: EventMap[T]) => void;
+
 /**
- * Event - Internal map storing event listeners keyed by event name
+ * eventMap - Internal map storing listeners by event name.
  * @type {Map<keyof EventMap, EventCall<keyof EventMap>[]>}
  */
-const Event = new Map<keyof EventMap, EventCall<keyof EventMap>[]>();
+const eventMap = new Map<keyof EventMap, EventCall<keyof EventMap>[]>();
 
 /**
- * On - Registers an event listener for the specified event name
+ * on - Registers a listener for the specified event name.
  * @template T
- * @param {T} Name - The event name to listen for
- * @param {EventCall<T>} Call - The callback invoked when the event is emitted
+ * @param {T} name - The event name to listen for.
+ * @param {EventCall<T>} listener - The callback invoked when the event is emitted.
  */
-const On = <T extends keyof EventMap>(Name: T, Call: EventCall<T>) =>
+export const on = <T extends keyof EventMap>(name: T, listener: EventCall<T>) =>
 {
-    const M = Event.get(Name) ?? [];
+    const listeners = eventMap.get(name) ?? [];
 
-    M.push(Call);
+    listeners.push(listener);
 
-    Event.set(Name, M);
+    eventMap.set(name, listeners);
 };
 
 /**
- * Emit - Emits an event and invokes all registered listeners with provided arguments
+ * emit - Invokes every listener registered for the event name.
  * @template T
- * @param {T} Name - The event name to emit
- * @param {...EventMap[T]} Args - Arguments forwarded to each listener
+ * @param {T} name - The event name to emit.
+ * @param {...EventMap[T]} args - Arguments forwarded to each listener.
  */
-const Emit = <T extends keyof EventMap>(Name: T, ...Args: EventMap[T]) =>
+export const emit = <T extends keyof EventMap>(name: T, ...args: EventMap[T]) =>
 {
-    const M = Event.get(Name);
+    const listeners = eventMap.get(name);
 
-    if (M === undefined)
+    if (listeners === undefined)
     {
         return;
     }
 
-    for (const Call of M)
+    for (const listener of listeners)
     {
-        Call(...Args);
+        listener(...args);
     }
 };
 
 /**
- * Off - Removes a previously registered listener for an event
+ * off - Removes a previously registered listener for an event.
  * @template T
- * @param {T} Name - The event name
- * @param {EventCall<T>} Call - The listener to remove
+ * @param {T} name - The event name.
+ * @param {EventCall<T>} listener - The listener to remove.
  */
-const Off = <T extends keyof EventMap>(Name: T, Call: EventCall<T>) =>
+export const off = <T extends keyof EventMap>(name: T, listener: EventCall<T>) =>
 {
-    const M = Event.get(Name);
+    const listeners = eventMap.get(name);
 
-    if (M === undefined)
+    if (listeners === undefined)
     {
         return;
     }
 
-    Event.set(Name, M.filter((fn) => fn !== Call));
+    eventMap.set(name, listeners.filter((fn) => fn !== listener));
 };
-
-export default { On, Emit, Off };
