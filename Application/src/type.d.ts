@@ -4,63 +4,60 @@ type NavigationMap = 'WALLET' | 'HOME' | 'BROWSER';
 // Event
 interface EventMap
 {
-    'Page.Open': [Component: JSX.Element];
-    'Page.Close': [ID: number];
-    'Page.CloseAll': [ID: number];
+    'Page.Open': [component: JSX.Element];
+    'Page.Close': [id: number];
+    'Page.CloseAll': [id: number];
 
-    'Toast.Open': [Component: JSX.Element];
-    'Toast.Close': [ID: number];
+    'Toast.Open': [component: JSX.Element];
+    'Toast.Close': [id: number];
 
-    'Modal.Open': [Component: JSX.Element];
-    'Modal.Close': [ID: number];
-    'Modal.CloseAll': [ID: number];
+    'Modal.Open': [component: JSX.Element];
+    'Modal.Close': [id: number];
+    'Modal.CloseAll': [id: number];
 
-    'Home.Page': [Component: JSX.Element];
+    'Home.Page': [component: JSX.Element];
 }
 
 type EventCall<T extends keyof EventMap> = (...Args: EventMap[T]) => void;
 
-// Phrase Word Count
-type PhraseKey = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
-
 // Storage
 type StorageKey = 'App.Language' | 'App.Theme' | 'App.Phrase' | 'App.Passcode';
 
-// Language
-type LanguageType = 'en' | 'fa' | 'tr' | 'ar' | 'zh' | 'ru' | 'hi';
+// Phrase Word Count
+type PhraseKey = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
 
 // General
 declare module 'swiper/css'
 {
-    const Value: string;
+    const value: string;
 
-    export default Value;
+    export default value;
 }
 
 declare module '*.css'
 {
-    const Value: string;
+    const value: string;
 
-    export default Value;
+    export default value;
 }
 
 declare module '*.png'
 {
-    const Value: string;
+    const value: string;
 
-    export default Value;
+    export default value;
 }
 
 declare module '*.jpg'
 {
-    const Value: string;
+    const value: string;
 
-    export default Value;
+    export default value;
 }
 
 declare module '*.svg'
 {
-    const Value: string;
+    const value: string;
 
-    export default Value;
+    export default value;
 }

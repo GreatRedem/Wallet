@@ -1,148 +1,137 @@
 import Storage from './storage';
 
-let LangCurrent: LanguageType = 'en';
-let LanguageMap: Record<string, Record<string, never>> = {};
+export type LanguageType = 'en' | 'fa' | 'tr' | 'ar' | 'zh' | 'ru' | 'hi';
 
-const Language: { Code: LanguageType; Country: string } [] =
+let languageCurrent: LanguageType = 'en';
+let languageMap: Record<string, Record<string, never>> = {};
+
+/**
+ * Language metadata used by the UI for display and locale selection.
+ */
+const languageRecord: { code: LanguageType; country: string } [] =
 [
-    { Code: 'en', Country: 'us' },
-    { Code: 'fa', Country: 'ir' },
-    { Code: 'tr', Country: 'tr' },
-    { Code: 'ar', Country: 'sa' },
-    { Code: 'zh', Country: 'cn' },
-    { Code: 'ru', Country: 'ru' },
-    { Code: 'hi', Country: 'in' }
+    { code: 'en', country: 'us' },
+    { code: 'fa', country: 'ir' },
+    { code: 'tr', country: 'tr' },
+    { code: 'ar', country: 'sa' },
+    { code: 'zh', country: 'cn' },
+    { code: 'ru', country: 'ru' },
+    { code: 'hi', country: 'in' }
 ];
 
 /**
- * ResolveKey - Resolves a dotted translation key into a localized string value
- * @param {string} K - Dot-separated key path (e.g. 'Splash.Slide1Header')
- * @returns {string | undefined} The resolved string or undefined if missing
+ * Resolve a dotted translation key against the loaded language tree.
+ *
+ * Example:
+ * - `Splash.Header`
+ * - `App.Tray.Open`
+ *
+ * Missing segments return `undefined`, which lets the caller decide on a fallback.
+ * @param {string} name Dot-separated key path.
+ * @returns {string | undefined} Resolved localized string or undefined.
  */
-const ResolveKey = (K: string): string | undefined =>
+const resolve = (name: string): string | undefined =>
 {
-    let Result = LanguageMap;
+    let result = languageMap;
 
-    for (const Key of K.split('.'))
+    for (const key of name.split('.'))
     {
-        if (typeof Result[Key] === 'undefined')
+        if (typeof result[key] === 'undefined')
         {
             continue;
         }
 
-        Result = Result[Key];
+        result = result[key];
     }
 
-    return typeof Result === 'string' ? Result : undefined;
+    return typeof result === 'string' ? result : undefined;
 };
 
 /**
- * Initialize - Loads persisted language preference and applies it
- * @returns {Promise<void>} Resolves after language resources are loaded
+ * Apply a language bundle.
+ *
+ * This updates:
+ * - the in-memory translation map
+ * - persisted language preference
+ * - the document text direction
+ *
+ * @param {LanguageType} lang Language code to activate.
+ * @returns {Promise<void>} Resolves after the bundle is loaded and applied.
  */
-const Initialize = async() =>
+export const setLanguage = async(lang: LanguageType) =>
 {
-    let Lang: LanguageType = 'en';
+    languageCurrent = lang;
 
-    switch (await Storage.GetValue('App.Language') ?? '')
-    {
-        case 'fa':
-        {
-            Lang = 'fa';
+    await Storage.SetValue('App.Language', lang);
 
-            break;
-        }
-        case 'tr':
-        {
-            Lang = 'tr';
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    languageMap = (await import(`../assets/lang/${ lang }.json`)).default;
 
-            break;
-        }
-        case 'ar':
-        {
-            Lang = 'ar';
-
-            break;
-        }
-        case 'zh':
-        {
-            Lang = 'zh';
-
-            break;
-        }
-        case 'ru':
-        {
-            Lang = 'ru';
-
-            break;
-        }
-        case 'hi':
-        {
-            Lang = 'hi';
-
-            break;
-        }
-    }
-
-    await SetLang(Lang);
+    document.documentElement.dir = [ 'fa', 'ar' ].includes(lang) ? 'rtl' : 'ltr';
 };
 
 /**
- * SetLang - Sets the current language and loads language resource file
- * @param {LanguageType} Lang - The language code to set (e.g. 'en')
- * @returns {Promise<void>} Resolves when resource has been loaded and applied
+ * Return metadata for the current language.
+ *
+ * The returned object can be used for flags, labels, or locale-specific UI.
+ * @returns {{ Code: LanguageType; Country: string }} Current language metadata.
  */
-const SetLang = async(Lang: LanguageType) =>
+export const getLanguage = () =>
 {
-    LangCurrent = Lang;
+    const lang = languageRecord.find((i) => i.code === languageCurrent);
 
-    void Storage.SetValue('App.Language', Lang);
-
-    LanguageMap = (await import(`../assets/lang/${ Lang }.json`)).default;
-
-    let Dir = 'ltr';
-
-    if (Lang === 'fa' || Lang === 'ar')
+    if (lang === undefined)
     {
-        Dir = 'rtl';
+        return languageRecord[0];
     }
 
-    document.documentElement.dir = Dir;
+    return lang;
 };
 
 /**
- * GetLang - Returns the metadata for the currently selected language
- * @returns {{ Code: LanguageType; Country: string }} Language metadata object
+ * Translate a key using the active language bundle.
+ *
+ * If the key is missing, the helper returns a bracketed placeholder so missing translations are visible during development.
+ *
+ * `%s` placeholders are replaced in order with the provided arguments.
+ * @param {string} name Translation key.
+ * @param {...(string|number)} args Replacement values for `%s` tokens.
+ * @returns {string} Translated string or a visible fallback placeholder.
  */
-const GetLang = () =>
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const T = (name: string, ...args: (string | number)[]): string =>
 {
-    const Lang = Language.find((I) => I.Code === LangCurrent);
+    let template = resolve(name) ?? `[${ name }]`;
 
-    if (Lang === undefined)
+    for (const arg of args)
     {
-        return Language[0];
+        template = template.replace(/%s/, arg.toString());
     }
 
-    return Lang;
+    return template;
 };
 
 /**
- * T - Translation helper that resolves a localized string and applies simple
- * positional substitutions using %s tokens
- * @param {string} Name - The translation key
- * @param {...(string|number)} Args - Optional substitution values for %s tokens
- * @returns {string} The final translated string
+ * Load the persisted language selection and apply it.
+ *
+ * Unknown or missing stored values fall back to English.
+ * @returns {Promise<void>} Resolves after the active language is initialized.
  */
-export const T = (Name: string, ...Args: (string | number)[]): string =>
+export const initLanguage = async() =>
 {
-    let Template = ResolveKey(Name) ?? `[${ Name }]`;
+    const language = await Storage.GetValue('App.Language');
 
-    for (const Arg of Args)
+    if (language !== undefined)
     {
-        Template = Template.replace(/%s/, Arg.toString());
+        const record = languageRecord.find((i) => i.code === language);
+
+        if (record)
+        {
+            await setLanguage(record.code);
+
+            return;
+        }
     }
 
-    return Template;
+    await setLanguage('en');
 };
-
-export default { Initialize, SetLang, GetLang, Language };
