@@ -2,93 +2,93 @@ import { ethers } from 'ethers';
 
 class WalletManager
 {
-    private WalletDerive: ethers.HDNodeWallet;
-    private WalletAddress: string;
+    private readonly WalletAddress: string;
+    private readonly WalletDerive: ethers.HDNodeWallet;
 
     /**
      * Constructor - Initializes a wallet manager from a mnemonic phrase
-     * @param {string} Mnemonic - The BIP39 mnemonic phrase
-     * @param {number} Index - The wallet derivation index path
+     * @param {string} mnemonic - The BIP39 mnemonic phrase
+     * @param {number} index - The wallet derivation index path
      */
-    constructor(Mnemonic: string, Index: number)
+    public constructor(mnemonic: string, index: number)
     {
-        const Normalized = Mnemonic.normalize('NFKD');
+        const normalized = mnemonic.normalize('NFKD');
 
-        const Wallet = ethers.HDNodeWallet.fromPhrase(Normalized, '', `m/44'/60'/0'`);
+        const wallet = ethers.HDNodeWallet.fromPhrase(normalized, '', `m/44'/60'/0'`);
 
-        this.WalletDerive = Wallet.derivePath(`0/${ Index }`);
+        this.WalletDerive = wallet.derivePath(`0/${ index }`);
         this.WalletAddress = this.WalletDerive.address;
     }
 
     /**
-     * Retrieve - Returns the public and private keys of the derived wallet
+     * retrieve - Returns the public and private keys of the derived wallet
      * @returns {Object} Object containing Public and Private key strings
      */
-    public Retrieve(): { Public: string; Private: string }
+    public retrieve()
     {
         return { Public: this.WalletDerive.address, Private: this.WalletDerive.privateKey };
     }
 
     /**
-     * Sign - Signs a message using the wallet's private key
-     * @param {string | Uint8Array} Message - The message to sign
+     * sign - Signs a message using the wallet's private key
+     * @param {string | Uint8Array} message - The message to sign
      * @returns {Promise<string>} The signature string
      */
-    public async Sign(Message: string | Uint8Array<ArrayBufferLike>): Promise<string>
+    public async sign(message: string | Uint8Array)
     {
-        return await this.WalletDerive.signMessage(Message);
+        return this.WalletDerive.signMessage(message);
     }
 
     /**
-     * Verify - Verifies that a signature was created by this wallet
-     * @param {string} Message - The original message
-     * @param {string} Signature - The signature to verify
+     * verify - Verifies that a signature was created by this wallet
+     * @param {string} message - The original message
+     * @param {string} signature - The signature to verify
      * @returns {boolean} True if signature is valid for this wallet, false otherwise
      */
-    public Verify(Message: string, Signature: string): boolean
+    public verify(message: string, signature: string)
     {
-        return ethers.verifyMessage(Message, Signature) === this.WalletAddress;
+        return ethers.verifyMessage(message, signature) === this.WalletAddress;
     }
 
     /**
-     * ToString - Returns the wallet address as a string
+     * toString - Returns the wallet address as a string
      * @returns {string} The wallet address
      */
-    public ToString(): string
+    public toString()
     {
-        return `${ this.WalletAddress }`;
+        return this.WalletAddress;
     }
 
     /**
      * Generate - Generates a new random BIP39 mnemonic phrase
      * @returns {string} A new mnemonic phrase
      */
-    public static Generate(): string
+    public static Generate()
     {
-        const Wallet = ethers.Wallet.createRandom();
+        const wallet = ethers.Wallet.createRandom();
 
-        return Wallet.mnemonic!.phrase;
+        return wallet.mnemonic?.phrase;
     }
 
     /**
      * Validate - Validates if a mnemonic phrase is valid BIP39
-     * @param {string} Mnemonic - The mnemonic phrase to validate
+     * @param {string} mnemonic - The mnemonic phrase to validate
      * @returns {boolean} True if the mnemonic is valid, false otherwise
      */
-    public static Validate(Mnemonic: string): boolean
+    public static Validate(mnemonic: string)
     {
-        return ethers.Mnemonic.isValidMnemonic(Mnemonic);
+        return ethers.Mnemonic.isValidMnemonic(mnemonic);
     }
 
     /**
      * Verify - Recovers the wallet address from a signed message
-     * @param {string} Message - The original message
-     * @param {string} Signature - The signature
+     * @param {string} message - The original message
+     * @param {string} signature - The signature
      * @returns {string} The recovered wallet address
      */
-    public static Verify(Message: string, Signature: string): string
+    public static Verify(message: string, signature: string)
     {
-        return ethers.verifyMessage(Message, Signature);
+        return ethers.verifyMessage(message, signature);
     }
 }
 

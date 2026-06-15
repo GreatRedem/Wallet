@@ -6,12 +6,11 @@ import { defaultWindowIcon } from '@tauri-apps/api/app';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { Menu, type MenuOptions } from '@tauri-apps/api/menu';
 
-import IntroPage from './page/intro';
-
 import PageLayout from './layout/page';
 
-import { openPage } from './utility/context';
+import IntroPage from './page/intro';
 
+import { openPage } from './utility/context';
 import { T, initLanguage } from './utility/language';
 
 import './style.css';

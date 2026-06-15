@@ -63,6 +63,7 @@ export default defineConfig([
             '@stylistic/indent': [ 'error', 4, { SwitchCase: 1, ObjectExpression: 1, assignmentOperator: 0 } ],
             '@stylistic/space-before-function-paren': [ 'error', { anonymous: 'never', named: 'never', asyncArrow: 'never', catch: 'always' } ],
 
+            '@typescript-eslint/member-ordering': 'off',
             '@typescript-eslint/no-magic-numbers': 'off',
             '@typescript-eslint/no-floating-promises': 'warn',
             '@typescript-eslint/explicit-function-return-type': 'off',

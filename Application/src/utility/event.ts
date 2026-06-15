@@ -32,6 +32,7 @@ export const on = <T extends keyof EventMap>(name: T, listener: EventCall<T>) =>
 {
     const listeners = eventMap.get(name) ?? [];
 
+    // @ts-expect-error - TypeScript cannot infer the correct type for listeners, but we ensure type safety through the function signature.
     listeners.push(listener);
 
     eventMap.set(name, listeners);

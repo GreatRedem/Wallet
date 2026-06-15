@@ -1,6 +1,3 @@
-// Storage
-type StorageKey = 'App.Language' | 'App.Theme' | 'App.Phrase' | 'App.Passcode';
-
 // General
 declare module 'swiper/css'
 {

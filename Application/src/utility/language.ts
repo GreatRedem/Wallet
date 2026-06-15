@@ -1,4 +1,4 @@
-import Storage from './storage';
+import { setValue, getValue } from './storage';
 
 export type LanguageType = 'en' | 'fa' | 'tr' | 'ar' | 'zh' | 'ru' | 'hi';
 
@@ -62,7 +62,7 @@ export const setLanguage = async(lang: LanguageType) =>
 {
     languageCurrent = lang;
 
-    await Storage.SetValue('App.Language', lang);
+    await setValue('App.Language', lang);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     languageMap = (await import(`../assets/lang/${ lang }.json`)).default;
@@ -119,7 +119,7 @@ export const T = (name: string, ...args: (string | number)[]): string =>
  */
 export const initLanguage = async() =>
 {
-    const language = await Storage.GetValue('App.Language');
+    const language = await getValue('App.Language');
 
     if (language !== undefined)
     {
