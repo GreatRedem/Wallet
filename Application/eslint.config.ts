@@ -48,6 +48,7 @@ export default defineConfig([
             '@stylistic/padded-blocks': [ 'error', 'never' ],
             '@stylistic/linebreak-style': [ 'error', 'unix' ],
             '@stylistic/quote-props': [ 'error', 'as-needed' ],
+            '@stylistic/jsx-curly-spacing': [ 'error', 'always' ],
             '@stylistic/operator-linebreak': [ 'error', 'after' ],
             '@stylistic/jsx-quotes': [ 'error', 'prefer-single' ],
             '@stylistic/object-curly-spacing': [ 'error', 'always' ],

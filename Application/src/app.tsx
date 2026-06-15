@@ -10,7 +10,7 @@ import IntroPage from './page/intro';
 
 import PageLayout from './layout/page';
 
-import Context from './utility/context';
+import { openPage } from './utility/context';
 
 import { T, initLanguage } from './utility/language';
 
@@ -74,7 +74,7 @@ function Application()
 
         applyTasks();
 
-        Context.OpenPage(IntroPage, { ID: 1 });
+        openPage(IntroPage);
     }, [ ]);
 
     return (

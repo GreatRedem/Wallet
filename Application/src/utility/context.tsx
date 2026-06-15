@@ -1,102 +1,32 @@
-import type { JSX } from 'react';
+import type { ComponentType } from 'react';
 
-import EventMap from './event';
+import { emit } from './event';
 
 /**
- * OpenPage - Emits a page open event to render a new page component
+ * openPage - Emits a page-open event for the provided component.
+ *
+ * If `options.id` is provided, it is used as the React key. Otherwise, a
+ * timestamp-based key is generated so the page can be tracked by the layout.
+ *
  * @template T
- * @param {(Prop: { ID: number } & T) => JSX.Element} Component - The page component to render
- * @param {object} [Option] - Props to pass into the page
+ * @param {ComponentType<T>} Component - The page component to render.
+ * @param {T} [props] - Props forwarded to the component.
  */
-const OpenPage = <T extends object>(Component: (Prop: { ID: number } & T) => JSX.Element, Option: keyof T extends never ? { ID: number } : { ID: number } & T) =>
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const openPage = <T extends { id?: string }>(Component: ComponentType<T>, props?: T) =>
 {
-    const ID = Option.ID;
+    const id = props && props.id !== undefined ? props.id : Date.now();
 
-    const Props = { ...Option } as { ID: number } & T;
-
-    EventMap.Emit('Page.Open', <Component { ...Props } key={ ID } />);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+    emit('Page.Open', <Component { ...(props ?? { } as T) } key={ id } />);
 };
 
 /**
- * ClosePage - Emits a page close event for a given page ID
- * @param {number} ID - The page instance identifier to close
+ * closePage - Emits a page-close event for the given page ID.
+ *
+ * @param {number} id - The page instance identifier to close.
  */
-const ClosePage = (ID: number) =>
+export const closePage = (id: number) =>
 {
-    EventMap.Emit('Page.Close', ID);
+    emit('Page.Close', id);
 };
-
-/**
- * CloseAllPage - Emits a page close all event
- */
-const CloseAllPage = () =>
-{
-    EventMap.Emit('Page.CloseAll', 0);
-};
-
-/**
- * OpenModal - Emits a modal open event to render a modal component
- * @template T
- * @param {(Prop: { ID: number } & T) => JSX.Element} Component - The modal component to open
- * @param {object} [Option] - Optional props to pass into the modal (may include ID)
- */
-const OpenModal = <T extends object = object>(Component: (Prop: { ID: number } & T) => JSX.Element, Option?: keyof T extends never ? { ID?: number } : { ID?: number } & T) =>
-{
-    const ID = Option?.ID || Date.now();
-
-    const Props = { ...Option, ID } as { ID: number } & T;
-
-    EventMap.Emit('Modal.Open', <Component { ...Props } key={ ID } />);
-};
-
-/**
- * CloseModal - Emits a modal close event for a given modal ID
- * @param {number} ID - The modal instance identifier to close
- */
-const CloseModal = (ID: number) =>
-{
-    EventMap.Emit('Modal.Close', ID);
-};
-
-/**
- * CloseAllModal - Emits a modal close all event
- */
-const CloseAllModal = () =>
-{
-    EventMap.Emit('Modal.CloseAll', 0);
-};
-
-/**
- * OpenToast - Emits a toast open event to render a transient toast component
- * @template T
- * @param {(Prop: { ID: number } & T) => JSX.Element} Component - The toast component to open
- * @param {object} [Option] - Optional props to pass into the toast (may include ID)
- */
-const OpenToast = <T extends object = object>(Component: (Prop: { ID: number } & T) => JSX.Element, Option?: keyof T extends never ? { ID?: number } : { ID?: number } & T) =>
-{
-    const ID = Option?.ID || Date.now();
-
-    const Props = { ...Option, ID } as { ID: number } & T;
-
-    EventMap.Emit('Toast.Open', <Component { ...Props } key={ ID } />);
-};
-
-/**
- * CloseToast - Emits a toast close event for a given toast ID
- * @param {number} ID - The toast instance identifier to close
- */
-const CloseToast = (ID: number) =>
-{
-    EventMap.Emit('Toast.Close', ID);
-};
-
-/**
- * SetHomePage - Emits a page event to render a new page component
- * @param {() => JSX.Element} Component - The page component to render
- */
-const SetHomePage = (Component: () => JSX.Element) =>
-{
-    EventMap.Emit('Home.Page', <Component />);
-};
-
-export default { OpenPage, ClosePage, CloseAllPage, OpenModal, CloseModal, CloseAllModal, OpenToast, CloseToast, SetHomePage };
