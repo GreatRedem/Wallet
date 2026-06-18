@@ -2,26 +2,21 @@ import { useState } from 'react';
 import { FiArrowLeft, FiArrowRight, FiCreditCard, FiGlobe, FiPlus } from 'react-icons/fi';
 import { TbFingerprint } from 'react-icons/tb';
 
+import { ButtonIcon } from '../components/button';
 import { Background } from '../components/background';
 
 import { getLanguage, T } from '../utility/language';
 
-import Image1 from '../assets/image/splash-slide-1.png';
-import Image2 from '../assets/image/splash-slide-2.png';
-import Image3 from '../assets/image/splash-slide-3.png';
+import Logo from '../assets/image/logo.png';
 
 export default function IntroPage()
 {
     return (
         <Background type='primary' className='flex size-full flex-col p-2.5'>
 
-            <div className='flex h-10 items-center gap-2 bg-amber-400!'>
+            <div className='flex h-10 items-center gap-2'>
 
-                <div className='size-10 bg-amber-300 p-1'>
-
-                    <img src={ Image1 } className='size-full' />
-
-                </div>
+                <ButtonIcon icon={ Logo } />
 
                 <div className='text-lg font-bold text-white'>GWallet</div>
 
