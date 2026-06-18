@@ -12,7 +12,7 @@ interface ButtonProps
 
 export function ButtonIcon({ icon, type = 'normal', size = 'medium', className = '', onClick }: ButtonProps)
 {
-    const getSizeClass = (buttonSize: ButtonSize) =>
+    const getSize = (buttonSize: ButtonSize) =>
     {
         switch (buttonSize)
         {
@@ -35,9 +35,28 @@ export function ButtonIcon({ icon, type = 'normal', size = 'medium', className =
         }
     };
 
+    const getClass = (buttonType: ButtonType) =>
+    {
+        switch (buttonType)
+        {
+            case 'disabled':
+            {
+                return `rounded-[var(--button-disabled-radius)] bg-[var(--button-disabled-bg)] border border-[var(--button-disabled-border)] cursor-not-allowed`;
+            }
+            case 'normal':
+            {
+                return `rounded-[var(--button-normal-radius)] bg-[var(--button-normal-bg)] border border-[var(--button-normal-border)] cursor-pointer hover:border-[var(--button-normal-border-hover)] hover:bg-[var(--button-normal-bg-hover)] active:bg-[var(--button-normal-bg-active)]`;
+            }
+            default:
+            {
+                return '';
+            }
+        }
+    };
+
     return (
         <button
-            className={ `border border-gray-300 p-1 ${ type === 'disabled' ? 'cursor-not-allowed opacity-50' : 'cursor-pointer' } ${ getSizeClass(size) } ${ className }` }
+            className={ `p-1 transition-colors ${ getClass(type) } ${ getSize(size) } ${ className }` }
             disabled={ type === 'disabled' }
             onClick={ onClick }>
 

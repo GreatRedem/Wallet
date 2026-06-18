@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FiArrowLeft, FiArrowRight, FiCreditCard, FiGlobe, FiPlus } from 'react-icons/fi';
 import { TbFingerprint } from 'react-icons/tb';
 
+import { Text } from '../components/text';
 import { ButtonIcon } from '../components/button';
 import { Background } from '../components/background';
 
@@ -18,7 +19,7 @@ export default function IntroPage()
 
                 <ButtonIcon icon={ Logo } />
 
-                <div className='text-lg font-bold text-white'>GWallet</div>
+                <Text type='primary' message={ T('app_name') } />
 
                 <div className='flex-1' />
 

@@ -9,17 +9,17 @@ interface BackgroundProps
     className?: string;
 }
 
-const getBackgroundColor = (type: BackgroundType) =>
+const getClass = (type: BackgroundType) =>
 {
     switch (type)
     {
         case 'primary':
         {
-            return 'bg-background';
+            return 'bg-[var(--background-primary)]';
         }
         case 'transparent':
         {
-            return 'bg-transparent';
+            return 'bg-[var(--background-transparent)]';
         }
         default:
         {
@@ -31,7 +31,7 @@ const getBackgroundColor = (type: BackgroundType) =>
 export function Background({ children, type = 'transparent', className = '' }: BackgroundProps)
 {
     return (
-        <div className={ `${ getBackgroundColor(type) } ${ className }` }>
+        <div className={ `${ getClass(type) } ${ className }` }>
 
             {
                 children
