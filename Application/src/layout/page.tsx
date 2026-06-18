@@ -50,13 +50,5 @@ export default function PageLayout()
         return undefined;
     }
 
-    return (
-        <div className='relative h-screen w-screen overflow-hidden bg-background'>
-
-            {
-                layoutMap
-            }
-
-        </div>
-    );
+    return <>{ layoutMap }</>;
 }

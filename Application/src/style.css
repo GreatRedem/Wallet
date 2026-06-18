@@ -19,7 +19,7 @@
     --color-accent-foreground: #ffffff;
 
     /* Backgrounds */
-    --color-background: #0f172a;
+    --color-background: #FFFFFF;
     --color-background-secondary: #162033;
     --color-background-tertiary: #1e293b;
 
@@ -112,4 +112,13 @@
 html, body
 {
     background: transparent !important;
+}
+
+#root
+{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background: var(--color-background);
 }

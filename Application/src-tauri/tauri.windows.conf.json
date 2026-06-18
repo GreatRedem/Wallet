@@ -8,14 +8,14 @@
         [
             {
                 "title": "GWallet",
-                "decorations": false,
-                "maximizable": false,
+                "decorations": true,
+                "maximizable": true,
                 "alwaysOnTop": false,
                 "fullscreen": false,
                 "resizable": true,
                 "center": true,
-                "height": 800,
-                "width": 600
+                "height": 600,
+                "width": 360
             }
         ],
         "security":

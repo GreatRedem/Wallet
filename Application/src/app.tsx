@@ -15,11 +15,50 @@ import { T, initLanguage } from './utility/language';
 
 import './style.css';
 
+// Initialize platform-specific integrations
+if (platform() === 'windows')
+{
+    const applyWindowsTray = async() =>
+    {
+        const appIcon = await defaultWindowIcon();
+
+        if (appIcon)
+        {
+            const trayMenuOption: MenuOptions =
+            {
+                items: [
+                    {
+                        id: 'open',
+                        text: T('App.Tray.Open'),
+                        action: () =>
+                        {
+                            void getCurrentWindow().show();
+                        }
+                    },
+                    {
+                        id: 'quit',
+                        text: T('App.Tray.Quit'),
+                        action: () =>
+                        {
+                            void getCurrentWindow().close();
+                        }
+                    }
+                ]
+            };
+
+            const trayMenu = await Menu.new(trayMenuOption);
+
+            await TrayIcon.new({ tooltip: T('App.Tray.Title'), menu: trayMenu, icon: appIcon, showMenuOnLeftClick: false });
+        }
+    };
+
+    void applyWindowsTray();
+}
+
 /**
  * Root application.
  *
  * Responsibilities:
- * - Initialize platform-specific integrations like the Windows tray icon.
  * - Register global browser-event guards that should apply to the whole app.
  * - Open the first page so the UI has content as soon as the shell mounts.
  * @returns {JSX.Element} The root application component
@@ -28,51 +67,6 @@ function Application()
 {
     useEffect(() =>
     {
-        const applyTasks = () =>
-        {
-            if (platform() === 'windows')
-            {
-                const applyWindowsTray = async() =>
-                {
-                    const appIcon = await defaultWindowIcon();
-
-                    if (appIcon)
-                    {
-                        const trayMenuOption: MenuOptions =
-                        {
-                            items:
-                            [
-                                {
-                                    id: 'open',
-                                    text: T('App.Tray.Open'),
-                                    action: () =>
-                                    {
-                                        void getCurrentWindow().show();
-                                    }
-                                },
-                                {
-                                    id: 'quit',
-                                    text: T('App.Tray.Quit'),
-                                    action: () =>
-                                    {
-                                        void getCurrentWindow().close();
-                                    }
-                                }
-                            ]
-                        };
-
-                        const trayMenu = await Menu.new(trayMenuOption);
-
-                        await TrayIcon.new({ tooltip: T('App.Tray.Title'), menu: trayMenu, icon: appIcon, showMenuOnLeftClick: false });
-                    }
-                };
-
-                void applyWindowsTray();
-            }
-        };
-
-        applyTasks();
-
         openPage(IntroPage);
     }, [ ]);
 
