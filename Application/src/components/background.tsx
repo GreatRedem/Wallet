@@ -1,25 +1,29 @@
 import type { ReactNode } from 'react';
 
-type BackgroundType = 'primary' | 'transparent';
+type BackgroundType = 'normal' | 'transparent' | 'none';
 
 interface BackgroundProps
 {
     children: ReactNode;
-    type?: BackgroundType;
     className?: string;
+    type?: BackgroundType;
 }
 
-const getClass = (type: BackgroundType) =>
+const getBackgroundClass = (type: BackgroundType) =>
 {
     switch (type)
     {
-        case 'primary':
+        case 'normal':
         {
-            return 'bg-[var(--background-primary)]';
+            return 'bg-[var(--background-normal)]';
         }
         case 'transparent':
         {
             return 'bg-[var(--background-transparent)]';
+        }
+        case 'none':
+        {
+            return '';
         }
         default:
         {
@@ -28,10 +32,10 @@ const getClass = (type: BackgroundType) =>
     }
 };
 
-export function Background({ children, type = 'transparent', className = '' }: BackgroundProps)
+export function Background({ children, type = 'none', className = '' }: BackgroundProps)
 {
     return (
-        <div className={ `${ getClass(type) } ${ className }` }>
+        <div className={ `${ getBackgroundClass(type) } ${ className }` }>
 
             {
                 children

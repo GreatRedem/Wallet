@@ -4,23 +4,27 @@
 @theme
 {
     /* Background */
-    --background-primary: #FFFFFF;
+    --background-normal: #FFFFFF;
     --background-transparent: #00000000;
 
-    /* Button Normal */
+    /* Button */
+    --button-radius: 6px;
+
     --button-normal-border: var(--color-gray-200);
     --button-normal-border-hover: var(--color-gray-300);
     --button-normal-bg: var(--color-gray-50);
     --button-normal-bg-hover: var(--color-gray-200);
     --button-normal-bg-active: var(--color-gray-300);
 
-    --button-normal-radius: 6px;
-
-    /* Button Disabled */
     --button-disabled-border: var(--color-gray-200);
     --button-disabled-bg: var(--color-gray-50);
 
-    --button-disabled-radius: 6px;
+    /* Text */
+    --txt-size-tiny: 10px;
+    --txt-size-small: 12px;
+    --txt-size-medium: 14px;
+    --txt-size-large: 16px;
+    --txt-size-xlarge: 18px;
 }
 
 *

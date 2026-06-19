@@ -1,101 +1,12 @@
 {
-    "0": "0",
-    "1": "1",
-    "2": "2",
-    "3": "3",
-    "4": "4",
-    "5": "5",
-    "6": "6",
-    "7": "7",
-    "8": "8",
-    "9": "9",
-    "10": "10",
-    "11": "11",
-    "12": "12",
-
     "App":
     {
-        "Name": "GApp",
+        "Name": "GWallet",
 
         "Tray":
         {
-            "Open": "Open GApp",
-            "Quit": "Quit GApp"
+            "Open": "Open GWallet",
+            "Quit": "Quit GWallet"
         }
-    },
-
-    "Splash":
-    {
-        "Language": "Language",
-
-        "Slide1Header": "Connected to the World",
-        "Slide1Text": "Borderless payments powered by a global blockchain network, anytime, anywhere",
-
-        "Slide2Header": "Fully Decentralized",
-        "Slide2Text": "You own and control your digital assets, that puts the power back in your hands",
-
-        "Slide3Header": "Strong Security",
-        "Slide3Text": "Your assets stay safe with modern cutting-edge encryption, your wallet stays locked tight",
-
-        "Create": "Create New Wallet",
-        "Import": "Import Existing Wallet",
-        "Version": "Version %s",
-
-        "LanguageModal":
-        {
-            "Header": "Choose Language",
-
-            "en": "English",
-            "fa": "Persian",
-            "tr": "Turkey",
-            "ar": "Arabic",
-            "zh": "Chinese",
-            "ru": "Russian",
-            "hi": "Hindi"
-        },
-
-        "PasscodeModal":
-        {
-            "Password": "Set a passcode",
-            "Repeat": "Repeat passcode"
-        },
-
-        "MenuModal":
-        {
-            "Header": "Add Wallet",
-            "Description": "Add an existing wallet, or use other options",
-
-            "Wallet": "Existing Wallet",
-            "WalletDescription": "Import wallet with 12 or 24 secret recovery words",
-
-            "Ledger": "Pair with Ledger",
-            "LedgerDescription": "A higher level of control and security with hardware module and bluetooth",
-
-            "Option": "Other options",
-
-            "Watch": "Watch Account",
-            "WatchDescription": "For monitor wallet activity without recovery phrase",
-
-            "Wip": "Coming Soon"
-        },
-
-        "WalletModal":
-        {
-            "Header": "Enter recovery phrase",
-            "Description": "To restore access to your wallet, enter the 24 or 12 secret recovery words given to you when you created your wallet",
-
-            "Continue": "Continue"
-        }
-    },
-
-    "Home":
-    {
-        "Wallet":
-        {
-            "Wallet": "Wallet"
-        },
-
-        "Home": "Home",
-        "Browser": "Browser"
     }
 }
