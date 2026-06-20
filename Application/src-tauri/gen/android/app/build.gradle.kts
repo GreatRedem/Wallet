@@ -17,8 +17,9 @@ val tauriProperties = Properties().apply {
 android {
     compileSdk = 36
     ndkVersion = "29.0.13113456 rc1"
-    namespace = "io.gwallet.android"
+    namespace = "io.gwallet"
 
+    namespace = "io.gwallet.android"
     defaultConfig {
         manifestPlaceholders["usesCleartextTraffic"] = "false"
 
@@ -47,7 +48,10 @@ android {
 
         getByName("release") {
             isMinifyEnabled = true
-            proguardFiles(*fileTree(".") { include("**/*.pro") }.plus(getDefaultProguardFile("proguard-android-optimize.txt")).toList().toTypedArray())
+            proguardFiles(
+                *fileTree(".") { include("**/*.pro") }.plus(getDefaultProguardFile("proguard-android-optimize.txt"))
+                    .toList().toTypedArray()
+            )
         }
     }
 

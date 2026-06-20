@@ -24,8 +24,8 @@ export default defineConfig(() => ({
 
     server:
     {
-        host: host,
         port: 1420,
+        host: '0.0.0.0',
         strictPort: true,
         watch:
         {

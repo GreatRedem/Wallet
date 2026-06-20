@@ -1,4 +1,4 @@
-package io.gwallet
+package io.gwallet.android
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
