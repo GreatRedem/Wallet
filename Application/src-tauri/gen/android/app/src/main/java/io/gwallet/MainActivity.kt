@@ -1,4 +1,4 @@
-package client.global_application
+package io.gwallet
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

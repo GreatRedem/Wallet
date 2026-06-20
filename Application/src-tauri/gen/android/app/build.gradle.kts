@@ -16,35 +16,17 @@ val tauriProperties = Properties().apply {
 
 android {
     compileSdk = 36
-    namespace = "client.global_application"
     ndkVersion = "29.0.13113456 rc1"
+    namespace = "io.gwallet.android"
 
     defaultConfig {
-        minSdk = 25
-        targetSdk = 36
-
-        applicationId = "client.global_application"
-
         manifestPlaceholders["usesCleartextTraffic"] = "false"
 
+        applicationId = "io.gwallet.android"
+        minSdk = 24
+        targetSdk = 36
         versionCode = tauriProperties.getProperty("tauri.android.versionCode", "1").toInt()
-        versionName = tauriProperties.getProperty("tauri.android.versionName", "1.0.0")
-    }
-
-    signingConfigs {
-        create("release") {
-            val keystorePropertiesFile = rootProject.file("local.properties")
-            val keystoreProperties = Properties()
-
-            if (keystorePropertiesFile.exists()) {
-                keystoreProperties.load(keystorePropertiesFile.inputStream())
-            }
-
-            storeFile = file(keystoreProperties["storeFile"] as? String)
-            storePassword = keystoreProperties["storePassword"] as? String
-            keyAlias = keystoreProperties["keyAlias"] as? String
-            keyPassword = keystoreProperties["keyPassword"] as? String
-        }
+        versionName = tauriProperties.getProperty("tauri.android.versionName", "1.0")
     }
 
     buildTypes {
@@ -52,8 +34,6 @@ android {
             isDebuggable = true
             isJniDebuggable = true
             isMinifyEnabled = false
-
-            signingConfig = signingConfigs.getByName("release")
 
             manifestPlaceholders["usesCleartextTraffic"] = "true"
 
@@ -67,7 +47,6 @@ android {
 
         getByName("release") {
             isMinifyEnabled = true
-            signingConfig = signingConfigs.getByName("release")
             proguardFiles(*fileTree(".") { include("**/*.pro") }.plus(getDefaultProguardFile("proguard-android-optimize.txt")).toList().toTypedArray())
         }
     }
@@ -90,9 +69,11 @@ rust {
 }
 
 dependencies {
-    implementation("androidx.webkit:webkit:1.15.0")
+    implementation("androidx.webkit:webkit:1.14.0")
     implementation("androidx.appcompat:appcompat:1.7.1")
-    implementation("androidx.activity:activity-ktx:1.12.2")
+    implementation("androidx.activity:activity-ktx:1.10.1")
+    implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-process:2.10.0")
 }
 
 apply(from = "tauri.build.gradle.kts")
