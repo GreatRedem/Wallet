@@ -1,4 +1,3 @@
-// General
 declare module 'swiper/css'
 {
     const value: string;
