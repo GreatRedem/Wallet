@@ -1,11 +1,9 @@
 {
     "$schema": "https://schema.tauri.app/config/2",
     "identifier": "io.gwallet.windows",
-    "app":
-    {
+    "app": {
         "withGlobalTauri": false,
-        "windows":
-        [
+        "windows": [
             {
                 "title": "GWallet",
                 "decorations": true,
@@ -18,21 +16,16 @@
                 "width": 360
             }
         ],
-        "security":
-        {
+        "security": {
             "csp": null,
-            "capabilities":
-            [
+            "capabilities": [
                 {
                     "identifier": "main-capability",
-                    "windows":
-                    [
+                    "windows": [
                         "main"
                     ],
-                    "permissions":
-                    [
+                    "permissions": [
                         "core:app:allow-default-window-icon",
-
                         "core:window:allow-start-dragging",
                         "core:window:allow-set-size",
                         "core:window:allow-maximize",
@@ -41,16 +34,12 @@
                         "core:window:allow-close",
                         "core:window:allow-hide",
                         "core:window:allow-show",
-
                         "core:menu:allow-new",
-
                         "core:tray:allow-new",
-
                         "store:allow-load",
                         "store:allow-save",
                         "store:allow-get",
                         "store:allow-set",
-
                         "os:allow-hostname",
                         "os:allow-platform",
                         "os:allow-os-type",
@@ -63,12 +52,10 @@
             ]
         }
     },
-    "bundle":
-    {
+    "bundle": {
         "active": true,
         "targets": "all",
-        "icon":
-        [
+        "icon": [
             "icons/icon.png",
             "icons/icon.ico"
         ]

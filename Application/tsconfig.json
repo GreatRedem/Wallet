@@ -1,13 +1,10 @@
 {
-    "compilerOptions":
-    {
-        "lib":
-        [
+    "compilerOptions": {
+        "lib": [
             "DOM",
             "DOM.Iterable",
             "ESNext"
         ],
-
         "noEmit": true,
         "strict": true,
         "target": "esnext",
@@ -25,14 +22,12 @@
         "noFallthroughCasesInSwitch": true,
         "allowSyntheticDefaultImports": true
     },
-    "include":
-    [
+    "include": [
         "src",
         "vite.config.ts",
         "eslint.config.ts"
     ],
-    "exclude":
-    [
+    "exclude": [
         "dist",
         "src-tauri",
         "node_modules"

@@ -2,7 +2,7 @@ import { FiArrowDown } from 'react-icons/fi';
 
 import { Text } from '../components/text';
 import { Background } from '../components/background';
-import { ButtonIcon, Button } from '../components/button';
+import { Button } from '../components/button';
 
 import { T } from '../utility/language';
 
