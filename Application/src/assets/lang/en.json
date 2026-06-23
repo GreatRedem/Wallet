@@ -8,5 +8,11 @@
             "Open": "Open GWallet",
             "Quit": "Quit GWallet"
         }
+    },
+
+    "Language":
+    {
+        "English": "English",
+        "Persian": "Persian"
     }
 }

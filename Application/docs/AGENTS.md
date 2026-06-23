@@ -72,7 +72,7 @@ From `Application/` directory:
 - **Generate mnemonic:** `WalletManager.Generate()` returns 12-word phrase.
 - **Derive wallet:** `new WalletManager(mnemonic, index)` derives key at `m/44'/60'/0'/0/{index}`.
 - **Sign transactions:** Use `wallet.signMessage()` or `wallet.signTransaction()` from ethers.js.
-- **Passcode:** 4-digit PIN hashed with SHA-256 before storage; never store plaintext.
+- **Passcode:** 5-digit PIN hashed with SHA-256 before storage; never store plaintext.
 
 ### TypeScript
 

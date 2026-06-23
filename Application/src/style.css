@@ -2,28 +2,26 @@
 
 @theme
 {
-    /* Background */
-    --background-normal: #FFFFFF;
-    --background-transparent: #00000000;
+    --bg-normal: #07111F;
+    --bg-hover: #1A202C;
+    --bg-active: #2D3748;
 
-    /* Button */
-    --button-radius: 6px;
+    --primary-normal: #00D1FF;
+    --primary-hover: #22D9FF;
+    --primary-active: #009DFF;
 
-    --button-normal-border: var(--color-gray-200);
-    --button-normal-border-hover: var(--color-gray-300);
-    --button-normal-bg: var(--color-gray-50);
-    --button-normal-bg-hover: var(--color-gray-200);
-    --button-normal-bg-active: var(--color-gray-300);
+    --b-normal: #1A202C;
+    --b-hover: #1A202C;
+    --b-active: #2D3748;
 
-    --button-disabled-border: var(--color-gray-200);
-    --button-disabled-bg: var(--color-gray-50);
+    --o-normal: #2D3748;
+    --o-primary: #00D1FF;
 
-    /* Text */
-    --txt-size-tiny: 10px;
-    --txt-size-small: 12px;
-    --txt-size-medium: 14px;
-    --txt-size-large: 16px;
-    --txt-size-xlarge: 18px;
+    --text-normal: #FFFFFF;
+    --text-muted: #9F9F9F;
+
+    --text-tiny: 12px;
+    --text-small: 14px;
 }
 
 *
