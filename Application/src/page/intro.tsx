@@ -3,6 +3,7 @@ import { LuImport } from 'react-icons/lu';
 import { useEffect, useState } from 'react';
 import { MdOutlineCreateNewFolder } from 'react-icons/md';
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
+import { FaPlusCircle } from 'react-icons/fa';
 
 import { T } from '../utility/language';
 
@@ -47,9 +48,9 @@ export default function IntroPage()
     }, [ ]);
 
     return (
-        <div className='flex size-full flex-col bg-(--bg-normal) p-4 text-(--text-normal)'>
+        <div className='flex size-full flex-col bg-base-300 p-4 text-(--text-normal)'>
 
-            <button className='flex h-10 w-fit cursor-pointer items-center gap-2 rounded-lg border border-(--b-normal) p-2 text-(--text-normal) outline-offset-2 outline-(--o-normal) hover:border-(--b-hover) hover:bg-(--bg-hover) focus:outline-2 active:border-(--b-active) active:bg-(--bg-active)'>
+            <button className='btn-glass flex h-10 w-fit cursor-pointer items-center gap-2 rounded-lg p-2'>
 
                 <FiGlobe size={ 16 } />
 
@@ -65,14 +66,14 @@ export default function IntroPage()
 
             </button>
 
-            <div className='flex flex-1 flex-col items-center justify-center py-4'>
+            <div className='flex flex-1 flex-col items-center py-4'>
 
                 <img
                     src={ currentSlide.image }
                     alt={ currentSlide.headline }
                     className='size-60' />
 
-                <div className='flex gap-2 py-4'>
+                <div className='flex gap-2.5 py-4'>
 
                     {
                         slideMap.map((slide, index) => (
@@ -80,7 +81,7 @@ export default function IntroPage()
                             <button
                                 key={ slide.headline }
                                 onClick={ () => { setActiveSlide(index); } }
-                                className={ `size-2.5 rounded-full bg-(--primary-normal)/25 outline-offset-2 transition-all duration-250 hover:bg-(--primary-normal) ${ activeSlide === index ? 'bg-(--primary-normal)! outline-(--o-primary)' : 'cursor-pointer outline-(--o-normal)' } focus:outline-2` } />
+                                className={ `size-2.5 rounded-sm bg-secondary/50 outline-offset-2 duration-200 hover:bg-primary focus:outline-2 ${ activeSlide === index ? 'bg-primary! outline-primary' : 'cursor-pointer outline-base-100/50' }` } />
 
                         ))
                     }
@@ -105,11 +106,11 @@ export default function IntroPage()
 
             </div>
 
-            <div className='flex flex-col gap-2 text-(--text-normal)'>
+            <div className='flex flex-col gap-2'>
 
-                <button className='flex h-12 cursor-pointer items-center gap-2 rounded-lg border border-(--b-normal) bg-(--primary-normal) p-2 outline-offset-2 outline-(--o-primary) hover:border-(--b-hover) hover:bg-(--bg-hover) focus:outline-2 active:border-(--b-active) active:bg-(--bg-active)'>
+                <button className='btn-primary flex h-12 cursor-pointer items-center gap-2 rounded-lg p-2 outline-0 outline-transparent'>
 
-                    <MdOutlineCreateNewFolder size={ 32 } className='p-1' />
+                    <FaPlusCircle size={ 24 } className='p-1' />
 
                     <span className='flex-1 text-start'>Create New Wallet</span>
 
@@ -117,7 +118,7 @@ export default function IntroPage()
 
                 </button>
 
-                <button className='flex h-12 cursor-pointer items-center gap-2 rounded-lg border border-(--b-normal) p-2 outline-offset-2 outline-(--o-normal) hover:border-(--b-hover) hover:bg-(--bg-hover) focus:outline-2 active:border-(--b-active) active:bg-(--bg-active)'>
+                <button className='btn-secondary flex h-12 cursor-pointer items-center gap-2 rounded-lg p-2 outline-0 outline-transparent'>
 
                     <LuImport size={ 32 } className='p-1.5' />
 

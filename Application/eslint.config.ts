@@ -42,6 +42,7 @@ export default defineConfig([
         {
             'no-console': 'warn',
 
+            'better-tailwindcss/no-unknown-classes': 'off',
             'better-tailwindcss/enforce-consistent-line-wrapping': 'off',
 
             '@stylistic/arrow-parens': [ 'error', 'always' ],

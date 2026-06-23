@@ -2,23 +2,14 @@
 
 @theme
 {
-    --bg-normal: #07111F;
-    --bg-hover: #1A202C;
-    --bg-active: #2D3748;
+    --color-base-100: oklch(100% 0 0);
+    --color-base-200: oklch(97% 0 0);
+    --color-base-300: oklch(94% 0 0);
 
-    --primary-normal: #00D1FF;
-    --primary-hover: #22D9FF;
-    --primary-active: #009DFF;
+    --color-primary: #26a0da;
+    --color-secondary: #314755;
 
-    --b-normal: #1A202C;
-    --b-hover: #1A202C;
-    --b-active: #2D3748;
-
-    --o-normal: #2D3748;
-    --o-primary: #00D1FF;
-
-    --text-normal: #FFFFFF;
-    --text-muted: #9F9F9F;
+    --text-normal: oklch(6% 0 0);
 
     --text-tiny: 12px;
     --text-small: 14px;
@@ -36,7 +27,6 @@
 html, body
 {
     font-family: monospace, sans-serif;
-    background: transparent !important;
 }
 
 #root
@@ -45,5 +35,56 @@ html, body
     height: 100vh;
     overflow: hidden;
     position: relative;
-    background: var(--color-background);
+}
+
+.btn-glass
+{
+    backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.10);
+}
+
+.btn-primary
+{
+    outline-width: 2px;
+    outline-offset: 2px;
+    transition-duration: 200ms;
+    background: color-mix(in srgb, var(--color-primary) 70%, transparent);
+}
+
+.btn-primary:hover
+{
+    background: color-mix(in srgb, var(--color-primary) 85%, transparent);
+}
+
+.btn-primary:active
+{
+    background: color-mix(in srgb, var(--color-primary) 100%, transparent);
+}
+
+.btn-primary:focus
+{
+    outline-color: color-mix(in srgb, var(--color-primary) 100%, transparent);
+}
+
+.btn-secondary
+{
+    outline-width: 2px;
+    outline-offset: 2px;
+    transition-duration: 200ms;
+    background: color-mix(in srgb, var(--color-secondary) 70%, transparent);
+}
+
+.btn-secondary:hover
+{
+    background: color-mix(in srgb, var(--color-secondary) 85%, transparent);
+}
+
+.btn-secondary:active
+{
+    background: color-mix(in srgb, var(--color-secondary) 100%, transparent);
+}
+
+.btn-secondary:focus
+{
+    outline-color: color-mix(in srgb, var(--color-secondary) 100%, transparent);
 }
