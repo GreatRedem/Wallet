@@ -1,6 +1,6 @@
 import { FiGlobe } from 'react-icons/fi';
 import { LuImport } from 'react-icons/lu';
-import { CiSquarePlus } from 'react-icons/ci';
+import { useEffect, useState } from 'react';
 import { MdOutlineCreateNewFolder } from 'react-icons/md';
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 
@@ -8,10 +8,46 @@ import { T } from '../utility/language';
 
 import Logo from '../assets/image/logo.png';
 
+const slideMap =
+[
+    {
+        image: Logo,
+        headline: 'Connect to the World',
+        text: 'Connect to the world of decentralized applications and finance.'
+    },
+    {
+        image: Logo,
+        headline: 'Decentralized',
+        text: 'Gives you full control over your digital assets and allows you to interact with dApps.'
+    },
+    {
+        image: Logo,
+        headline: 'Secure & Private',
+        text: 'Using advanced security protocols to protect your digital assets and personal information.'
+    }
+];
+
 export default function IntroPage()
 {
+    const [ activeSlide, setActiveSlide ] = useState(0);
+
+    const currentSlide = slideMap[activeSlide];
+
+    useEffect(() =>
+    {
+        const timer = setInterval(() =>
+        {
+            setActiveSlide((prev) => (prev + 1) % slideMap.length);
+        }, 5000);
+
+        return () =>
+        {
+            clearInterval(timer);
+        };
+    }, [ ]);
+
     return (
-        <div className='flex size-full flex-col bg-(--bg-normal) p-4'>
+        <div className='flex size-full flex-col bg-(--bg-normal) p-4 text-(--text-normal)'>
 
             <button className='flex h-10 w-fit cursor-pointer items-center gap-2 rounded-lg border border-(--b-normal) p-2 text-(--text-normal) outline-offset-2 outline-(--o-normal) hover:border-(--b-hover) hover:bg-(--bg-hover) focus:outline-2 active:border-(--b-active) active:bg-(--bg-active)'>
 
@@ -29,8 +65,44 @@ export default function IntroPage()
 
             </button>
 
-            <div className='flex-1'>
-                Slider Show Goes Here
+            <div className='flex flex-1 flex-col items-center justify-center py-4'>
+
+                <img
+                    src={ currentSlide.image }
+                    alt={ currentSlide.headline }
+                    className='size-60' />
+
+                <div className='flex gap-2 py-4'>
+
+                    {
+                        slideMap.map((slide, index) => (
+
+                            <button
+                                key={ slide.headline }
+                                onClick={ () => { setActiveSlide(index); } }
+                                className={ `size-2.5 rounded-full bg-(--primary-normal)/25 outline-offset-2 transition-all duration-250 hover:bg-(--primary-normal) ${ activeSlide === index ? 'bg-(--primary-normal)! outline-(--o-primary)' : 'cursor-pointer outline-(--o-normal)' } focus:outline-2` } />
+
+                        ))
+                    }
+
+                </div>
+
+                <h1 className='text-center text-large font-semibold'>
+
+                    {
+                        currentSlide.headline
+                    }
+
+                </h1>
+
+                <p className='text-center text-small'>
+
+                    {
+                        currentSlide.text
+                    }
+
+                </p>
+
             </div>
 
             <div className='flex flex-col gap-2 text-(--text-normal)'>

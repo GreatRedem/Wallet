@@ -22,6 +22,8 @@
 
     --text-tiny: 12px;
     --text-small: 14px;
+    --text-medium: 16px;
+    --text-large: 18px;
 }
 
 *
@@ -33,6 +35,7 @@
 
 html, body
 {
+    font-family: monospace, sans-serif;
     background: transparent !important;
 }
 
