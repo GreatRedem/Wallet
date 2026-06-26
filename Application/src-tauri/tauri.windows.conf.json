@@ -8,7 +8,7 @@
                 "title": "GWallet",
                 "decorations": true,
                 "maximizable": true,
-                "alwaysOnTop": false,
+                "alwaysOnTop": true,
                 "fullscreen": false,
                 "resizable": true,
                 "center": true,
