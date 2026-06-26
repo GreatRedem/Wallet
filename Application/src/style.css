@@ -2,16 +2,28 @@
 
 @theme
 {
-    --color-base-1: oklch(100% 0 0);
-    --color-base-2: oklch(97% 0 0);
-    --color-base-3: oklch(94% 0 0);
+    --color-base-1: oklch(96% 0 0 / 0);
+    --color-base-2: oklch(88% 0 0 / 0);
+    --color-base-3: oklch(80% 0 0 / 0);
 
-    --color-btn-normal: oklch(90% 0 0);
-    --color-btn-primary: #26a0da;
-    --color-btn-secondary: #314755;
+    --color-btn-normal: oklch(96% 0.01 255 / 0.75);
+    --color-btn-normal-hover: oklch(94% 0.01 255 / 0.75);
+    --color-btn-normal-active: oklch(88% 0.01 255 / 0.75);
+    --color-btn-normal-outline: oklch(88% 0.01 255 / 0.75);
 
-    --color-txt-normal: oklch(6% 0 0);
+    --color-btn-primary: oklch(70% 0.16 228 / 0.92);
+    --color-btn-primary-hover: oklch(74% 0.16 228 / 0.96);
+    --color-btn-primary-active: oklch(66% 0.17 228 / 0.98);
+    --color-btn-primary-outline: oklch(66% 0.17 228 / 0.98);
+
+    --color-btn-secondary: oklch(50% 0.01 255 / 0.75);
+    --color-btn-secondary-hover: oklch(55% 0.01 255 / 0.75);
+    --color-btn-secondary-active: oklch(45% 0.01 255 / 0.75);
+    --color-btn-secondary-outline: oklch(45% 0.01 255 / 0.75);
+
     --color-txt-muted: oklch(50% 0 0);
+    --color-txt-normal: oklch(5% 0 0);
+    --color-txt-reverse: oklch(95% 0 0);
 
     --text-tiny: 12px;
     --text-small: 14px;
@@ -39,77 +51,83 @@ html, body
     position: relative;
 }
 
-.btn-primary
-{
-    cursor: pointer;
-    outline-width: 2px;
-    outline-offset: 2px;
-    outline-color: transparent;
-    transition-duration: 200ms;
-    background: color-mix(in srgb, var(--color-btn-primary) 70%, transparent);
-}
-
-.btn-primary:hover
-{
-    background: color-mix(in srgb, var(--color-btn-primary) 85%, transparent);
-}
-
-.btn-primary:active
-{
-    background: color-mix(in srgb, var(--color-btn-primary) 100%, transparent);
-}
-
-.btn-primary:focus
-{
-    outline-color: color-mix(in srgb, var(--color-btn-primary) 100%, transparent);
-}
-
-.btn-secondary
-{
-    cursor: pointer;
-    outline-width: 2px;
-    outline-offset: 2px;
-    outline-color: transparent;
-    transition-duration: 200ms;
-    background: color-mix(in srgb, var(--color-btn-secondary) 70%, transparent);
-}
-
-.btn-secondary:hover
-{
-    background: color-mix(in srgb, var(--color-btn-secondary) 85%, transparent);
-}
-
-.btn-secondary:active
-{
-    background: color-mix(in srgb, var(--color-btn-secondary) 100%, transparent);
-}
-
-.btn-secondary:focus
-{
-    outline-color: color-mix(in srgb, var(--color-btn-secondary) 100%, transparent);
-}
-
+.btn-primary,
+.btn-secondary,
 .btn-normal
 {
     cursor: pointer;
     outline-width: 2px;
     outline-offset: 2px;
-    transition-duration: 200ms;
     outline-color: transparent;
-    background: color-mix(in srgb, var(--color-btn-normal) 70%, transparent);
+    transition-duration: 200ms;
+    box-shadow: 0 8px 16px rgb(125 125 125 / 0.10);
+}
+
+.btn-primary
+{
+    color: var(--color-txt-reverse);
+    background: var(--color-btn-primary);
+}
+
+.btn-primary:hover
+{
+    transform: translateY(-1px);
+    background: var(--color-btn-primary-hover);
+}
+
+.btn-primary:active
+{
+    transform: translateY(0) scale(0.99);
+    background: var(--color-btn-primary-active);
+}
+
+.btn-primary:focus
+{
+    outline-color: var(--color-btn-primary-outline);
+}
+
+.btn-secondary
+{
+    color: var(--color-txt-reverse);
+    background: var(--color-btn-secondary);
+}
+
+.btn-secondary:hover
+{
+    transform: translateY(-1px);
+    background: var(--color-btn-secondary-hover);
+}
+
+.btn-secondary:active
+{
+    transform: translateY(0) scale(0.99);
+    background: var(--color-btn-secondary-active);
+}
+
+.btn-secondary:focus
+{
+    outline-color: var(--color-btn-secondary-outline);
+}
+
+.btn-normal
+{
+    color: var(--color-txt-normal);
+    background: var(--color-btn-normal);
 }
 
 .btn-normal:hover
 {
-    background: color-mix(in srgb, var(--color-btn-normal) 85%, transparent);
+    transform: translateY(-1px);
+    background: var(--color-btn-normal-hover);
 }
 
 .btn-normal:active
 {
-    background: color-mix(in srgb, var(--color-btn-normal) 100%, transparent);
+    transform: translateY(0) scale(0.99);
+    background: var(--color-btn-normal-active);
 }
 
 .btn-normal:focus
 {
-    outline-color: color-mix(in srgb, var(--color-btn-normal) 100%, transparent);
+    outline-color: var(--color-btn-normal-outline);
 }
