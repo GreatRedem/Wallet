@@ -14,5 +14,34 @@
     {
         "English": "English",
         "Persian": "Persian"
+    },
+
+    "Intro":
+    {
+        "Language": "English",
+        "Version": "Version 1.0.0",
+        "Slides":
+        {
+            "Connect":
+            {
+                "Header": "Connect to the World",
+                "Message": "Connect to the world of decentralized applications and finance."
+            },
+            "Decentralized":
+            {
+                "Header": "Decentralized",
+                "Message": "Gives you full control over your digital assets and allows you to interact with dApps."
+            },
+            "Secure":
+            {
+                "Header": "Secure & Private",
+                "Message": "Using advanced security protocols to protect your digital assets and personal information."
+            }
+        },
+        "Actions":
+        {
+            "Create": "Create New Wallet",
+            "Import": "Import Existing Wallet"
+        }
     }
 }

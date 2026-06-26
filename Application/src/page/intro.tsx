@@ -12,18 +12,18 @@ const slideMap =
 [
     {
         image: Logo,
-        header: 'Connect to the World',
-        message: 'Connect to the world of decentralized applications and finance.'
+        header: 'Intro.Slides.Connect.Header',
+        message: 'Intro.Slides.Connect.Message'
     },
     {
         image: Logo,
-        header: 'Decentralized',
-        message: 'Gives you full control over your digital assets and allows you to interact with dApps.'
+        header: 'Intro.Slides.Decentralized.Header',
+        message: 'Intro.Slides.Decentralized.Message'
     },
     {
         image: Logo,
-        header: 'Secure & Private',
-        message: 'Using advanced security protocols to protect your digital assets and personal information.'
+        header: 'Intro.Slides.Secure.Header',
+        message: 'Intro.Slides.Secure.Message'
     }
 ];
 
@@ -56,7 +56,7 @@ export default function IntroPage()
                 <span className='text-small'>
 
                     {
-                        T('Language.English')
+                        T('Intro.Language')
                     }
 
                 </span>
@@ -89,7 +89,7 @@ export default function IntroPage()
                 <h1 className='text-center text-large font-bold text-txt-normal'>
 
                     {
-                        slide.header
+                        T(slide.header)
                     }
 
                 </h1>
@@ -97,7 +97,7 @@ export default function IntroPage()
                 <p className='text-center text-small text-txt-normal/75'>
 
                     {
-                        slide.message
+                        T(slide.message)
                     }
 
                 </p>
@@ -110,7 +110,7 @@ export default function IntroPage()
 
                     <FaPlusCircle size={ 32 } className='p-1.5' />
 
-                    <span className='flex-1 text-start'>Create New Wallet</span>
+                    <span className='flex-1 text-start'>{ T('Intro.Actions.Create') }</span>
 
                     <IoIosArrowForward size={ 16 } />
 
@@ -120,7 +120,7 @@ export default function IntroPage()
 
                     <LuImport size={ 32 } className='p-1.5' />
 
-                    <span className='flex-1 text-start'>Import Existing Wallet</span>
+                    <span className='flex-1 text-start'>{ T('Intro.Actions.Import') }</span>
 
                     <IoIosArrowForward size={ 16 } />
 
@@ -128,7 +128,9 @@ export default function IntroPage()
 
                 <span className='text-center text-tiny text-txt-muted'>
 
-                    Version 1.0.0
+                    {
+                        T('Intro.Version')
+                    }
 
                 </span>
 
