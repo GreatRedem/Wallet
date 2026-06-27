@@ -16,9 +16,10 @@ import { emit } from './event';
 export const openPage = <T extends { id?: string }>(Component: ComponentType<T>, props?: T) =>
 {
     const id = props && props.id !== undefined ? props.id : Date.now();
-
     // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
-    emit('Page.Open', <Component { ...(props ?? { } as T) } key={ id } />);
+    const props2 = { ...(props ?? { } as T), id } as T;
+
+    emit('Page.Open', <Component { ...props2 } key={ id } />);
 };
 
 /**

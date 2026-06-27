@@ -6,22 +6,23 @@ import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 
 import { T } from '../utility/language';
 
-import Logo from '../assets/image/logo.png';
+import IntroConnect from '../assets/image/intro_connect.png';
+import IntroDecentralized from '../assets/image/intro_decentralized.png';
 
 const slideMap =
 [
     {
-        image: Logo,
+        image: IntroConnect,
         header: 'Intro.Slides.Connect.Header',
         message: 'Intro.Slides.Connect.Message'
     },
     {
-        image: Logo,
+        image: IntroDecentralized,
         header: 'Intro.Slides.Decentralized.Header',
         message: 'Intro.Slides.Decentralized.Message'
     },
     {
-        image: Logo,
+        image: IntroConnect,
         header: 'Intro.Slides.Secure.Header',
         message: 'Intro.Slides.Secure.Message'
     }

@@ -15,45 +15,39 @@ import { T, initLanguage } from './utility/language';
 
 import './style.css';
 
-// Initialize platform-specific integrations
-if (platform() === 'windows')
+const applyWindowsTray = async() =>
 {
-    const applyWindowsTray = async() =>
+    const appIcon = await defaultWindowIcon();
+
+    if (appIcon)
     {
-        const appIcon = await defaultWindowIcon();
-
-        if (appIcon)
+        const trayMenuOption: MenuOptions =
         {
-            const trayMenuOption: MenuOptions =
-            {
-                items: [
+            items: [
+                {
+                    id: 'open',
+                    text: T('App.Tray.Open'),
+                    action: () =>
                     {
-                        id: 'open',
-                        text: T('App.Tray.Open'),
-                        action: () =>
-                        {
-                            void getCurrentWindow().show();
-                        }
-                    },
-                    {
-                        id: 'quit',
-                        text: T('App.Tray.Quit'),
-                        action: () =>
-                        {
-                            void getCurrentWindow().close();
-                        }
+                        void getCurrentWindow().show();
                     }
-                ]
-            };
+                },
+                {
+                    id: 'quit',
+                    text: T('App.Tray.Quit'),
+                    action: () =>
+                    {
+                        void getCurrentWindow().close();
+                    }
+                }
+            ]
+        };
 
-            const trayMenu = await Menu.new(trayMenuOption);
+        const trayMenu = await Menu.new(trayMenuOption);
 
-            await TrayIcon.new({ tooltip: T('App.Tray.Title'), menu: trayMenu, icon: appIcon, showMenuOnLeftClick: false });
-        }
-    };
-
-    void applyWindowsTray();
-}
+        await TrayIcon.new({ tooltip: T('App.Name'), menu: trayMenu, icon: appIcon, showMenuOnLeftClick: false });
+    }
+};
 
 /**
  * Root application.
@@ -100,6 +94,11 @@ const rootElement = document.querySelector('#root');
 if (rootElement)
 {
     await initLanguage();
+
+    if (platform() === 'windows')
+    {
+        await applyWindowsTray();
+    }
 
     createRoot(rootElement).render(<Application />);
 }

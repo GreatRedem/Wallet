@@ -43,5 +43,36 @@
             "Create": "Create New Wallet",
             "Import": "Import Existing Wallet"
         }
+    },
+
+    "CreateWallet":
+    {
+        "Title": "Create Wallet",
+        "Subtitle": "Set up your new wallet",
+        "DefaultName": "My Main Wallet",
+        "Fields":
+        {
+            "WalletName": "Wallet Name",
+            "Password": "Password",
+            "ConfirmPassword": "Confirm Password"
+        },
+        "Acknowledgement": "I understand that losing my recovery phrase means losing access to my funds.",
+        "Actions":
+        {
+            "Create": "Create Wallet"
+        }
+    },
+
+    "RecoveryPhrase":
+    {
+        "Title": "Your Recovery Phrase",
+        "Subtitle": "Write down these 12 words in order and keep them safe.",
+        "Actions":
+        {
+            "Copy": "Copy",
+            "ViewQr": "View QR",
+            "Continue": "Continue"
+        },
+        "Acknowledgement": "I saved my recovery phrase safely."
     }
 }
