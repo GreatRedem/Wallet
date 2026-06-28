@@ -1,13 +1,20 @@
+import type { Swiper as SwiperType } from 'swiper';
+
 import { FiGlobe } from 'react-icons/fi';
 import { LuImport } from 'react-icons/lu';
-import { useEffect, useState } from 'react';
+import { useRef, useCallback } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from 'swiper/modules';
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 
 import { T } from '../utility/language';
 
 import IntroConnect from '../assets/image/intro_connect.png';
 import IntroDecentralized from '../assets/image/intro_decentralized.png';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const slideMap =
 [
@@ -30,22 +37,12 @@ const slideMap =
 
 export default function IntroPage()
 {
-    const [ activeSlide, setActiveSlide ] = useState(0);
+    const swiperRef = useRef<SwiperType>(undefined);
 
-    const slide = slideMap[activeSlide];
-
-    useEffect(() =>
+    const onSwiper = useCallback((swiper: SwiperType) =>
     {
-        const timer = setInterval(() =>
-        {
-            setActiveSlide((prev) => (prev + 1) % slideMap.length);
-        }, 5000);
-
-        return () =>
-        {
-            clearInterval(timer);
-        };
-    }, [ ]);
+        swiperRef.current = swiper;
+    }, []);
 
     return (
         <div className='flex size-full flex-col bg-base-1 px-4'>
@@ -56,9 +53,7 @@ export default function IntroPage()
 
                 <span className='text-small'>
 
-                    {
-                        T('Intro.Language')
-                    }
+                    { T('Intro.Language') }
 
                 </span>
 
@@ -66,44 +61,44 @@ export default function IntroPage()
 
             </button>
 
-            <div className='flex flex-1 flex-col items-center py-4'>
+            <Swiper
+                modules={ [ Autoplay, Pagination ] }
+                onSwiper={ onSwiper }
+                loop={ true }
+                autoplay={ { disableOnInteraction: false, pauseOnMouseEnter: true } }
+                pagination={ { clickable: true, renderBullet: (i, className) => `<button class="${ className }"></button>` } }
+                className='size-full'>
 
-                <img
-                    src={ slide.image }
-                    className='size-60' />
+                {
+                    slideMap.map((slide) => (
+                        <SwiperSlide key={ slide.header }>
 
-                <div className='flex gap-2.5 py-4'>
+                            <div className='flex h-full flex-col items-center'>
 
-                    {
-                        slideMap.map((s, i) => (
+                                <img
+                                    src={ slide.image }
+                                    className='size-60'
+                                    draggable={ false } />
 
-                            <button
-                                key={ s.header }
-                                onClick={ () => { setActiveSlide(i); } }
-                                className={ `btn-normal size-2.5 rounded-sm outline-0 ${ activeSlide === i ? 'cursor-default! bg-btn-primary! focus:outline-btn-primary!' : 'bg-btn-primary/25! focus:outline-btn-primary/25!' }` } />
+                                <h1 className='text-large font-bold text-txt-normal'>
 
-                        ))
-                    }
+                                    { T(slide.header) }
 
-                </div>
+                                </h1>
 
-                <h1 className='text-center text-large font-bold text-txt-normal'>
+                                <p className='text-center text-small text-txt-normal/75'>
 
-                    {
-                        T(slide.header)
-                    }
+                                    { T(slide.message) }
 
-                </h1>
+                                </p>
 
-                <p className='text-center text-small text-txt-normal/75'>
+                            </div>
 
-                    {
-                        T(slide.message)
-                    }
+                        </SwiperSlide>
+                    ))
+                }
 
-                </p>
-
-            </div>
+            </Swiper>
 
             <div className='flex flex-col gap-2'>
 
@@ -111,7 +106,11 @@ export default function IntroPage()
 
                     <FaPlusCircle size={ 32 } className='p-1.5' />
 
-                    <span className='flex-1 text-start'>{ T('Intro.Actions.Create') }</span>
+                    <span className='flex-1 text-start'>
+
+                        { T('Intro.Actions.Create') }
+
+                    </span>
 
                     <IoIosArrowForward size={ 16 } />
 
@@ -121,7 +120,11 @@ export default function IntroPage()
 
                     <LuImport size={ 32 } className='p-1.5' />
 
-                    <span className='flex-1 text-start'>{ T('Intro.Actions.Import') }</span>
+                    <span className='flex-1 text-start'>
+
+                        { T('Intro.Actions.Import') }
+
+                    </span>
 
                     <IoIosArrowForward size={ 16 } />
 
@@ -129,9 +132,7 @@ export default function IntroPage()
 
                 <span className='text-center text-tiny text-txt-muted'>
 
-                    {
-                        T('Intro.Version')
-                    }
+                    { T('Intro.Version') }
 
                 </span>
 

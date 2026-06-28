@@ -131,3 +131,19 @@ html, body
 {
     outline-color: var(--color-btn-normal-outline);
 }
+
+.swiper-pagination
+{
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.swiper-pagination-bullet
+{
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    margin: 0px !important;
+    background: var(--color-btn-primary) !important;
+}
