@@ -45,6 +45,8 @@ export default defineConfig([
             'better-tailwindcss/no-unknown-classes': 'off',
             'better-tailwindcss/enforce-consistent-line-wrapping': 'off',
 
+            '@stylistic/max-statements-per-line': 'off',
+
             '@stylistic/arrow-parens': [ 'error', 'always' ],
             '@stylistic/padded-blocks': [ 'error', 'never' ],
             '@stylistic/linebreak-style': [ 'error', 'unix' ],

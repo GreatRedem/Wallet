@@ -2,9 +2,9 @@
 
 @theme
 {
-    --color-base-1: oklch(95% 0 0 / 0);
-    --color-base-2: oklch(90% 0 0 / 0);
-    --color-base-3: oklch(85% 0 0 / 0);
+    --color-base-1: oklch(100% 0 0 / 1);
+    --color-base-2: oklch(99% 0 0 / 1);
+    --color-base-3: oklch(98% 0 0 / 1);
 
     --color-btn-normal: oklch(95% 0.0 0 / 1);
     --color-btn-normal-hover: oklch(100% 0.0 0 / 1);

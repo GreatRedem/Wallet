@@ -3,12 +3,14 @@ import { motion } from 'motion/react';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
-import IntroPage from '../page/intro';
-
 import { T } from '../utility/language';
-import { openPage } from '../utility/context';
 
-export default function IntroWallet()
+interface IntroWalletProps
+{
+    onClose: () => void;
+}
+
+export default function IntroWallet({ onClose }: IntroWalletProps)
 {
     const [ name, setName ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -22,10 +24,11 @@ export default function IntroWallet()
             initial={ { scaleX: 0 } }
             animate={ { scaleX: 1 } }
             exit={ { scaleX: 0 } }
-            className='flex size-full flex-col bg-base-1 px-4'>
+            transition={ { duration: 1 } }
+            className='absolute z-10 flex size-full flex-col bg-base-2 px-4'>
 
             <button
-                onClick={ () => { openPage(IntroPage); } }
+                onClick={ onClose }
                 className='btn-normal mt-4 flex size-10 items-center justify-center rounded-lg outline-0'>
 
                 <IoIosArrowBack size={ 20 } />

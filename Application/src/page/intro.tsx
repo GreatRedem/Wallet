@@ -12,7 +12,6 @@ import { useRef, useCallback, useState, type ReactNode } from 'react';
 import IntroWallet from '../components/intro.wallet';
 
 import { T } from '../utility/language';
-import { openPage } from '../utility/context';
 
 import IntroConnect from '../assets/image/intro_connect.png';
 import IntroDecentralized from '../assets/image/intro_decentralized.png';
@@ -41,6 +40,8 @@ const slideMap =
 
 export default function IntroPage()
 {
+    const [ subPage, setSubPage ] = useState<ReactNode>();
+
     const swiperRef = useRef<SwiperType>(undefined);
 
     const onSwiper = useCallback((swiper: SwiperType) =>
@@ -52,97 +53,105 @@ export default function IntroPage()
         <motion.div
             initial={ { scale: 0 } }
             animate={ { scale: 1 } }
-            className='flex size-full flex-col bg-base-1 px-4'>
+            className='relative size-full'>
 
-            <button className='btn-normal mt-4 flex h-10 w-fit items-center gap-2 rounded-lg p-2 text-txt-normal outline-0'>
+            {
+                subPage
+            }
 
-                <FiGlobe size={ 16 } />
+            <div className='flex size-full flex-col bg-base-1 px-4'>
 
-                <span className='text-small'>
+                <button className='btn-normal mt-4 flex h-10 w-fit items-center gap-2 rounded-lg p-2 text-txt-normal outline-0'>
 
-                    { T('Intro.Language') }
+                    <FiGlobe size={ 16 } />
 
-                </span>
+                    <span className='text-small'>
 
-                <IoIosArrowDown size={ 16 } />
-
-            </button>
-
-            <Swiper
-                modules={ [ Autoplay, Pagination ] }
-                onSwiper={ onSwiper }
-                loop={ true }
-                autoplay={ { disableOnInteraction: false, pauseOnMouseEnter: true } }
-                pagination={ { clickable: true } }
-                className='size-full'>
-
-                {
-                    slideMap.map((slide) => (
-                        <SwiperSlide key={ slide.header }>
-
-                            <div className='flex h-full cursor-pointer flex-col items-center'>
-
-                                <img
-                                    src={ slide.image }
-                                    className='size-60' />
-
-                                <h1 className='text-large font-bold text-txt-normal'>
-
-                                    { T(slide.header) }
-
-                                </h1>
-
-                                <p className='text-center text-small text-txt-normal/75'>
-
-                                    { T(slide.message) }
-
-                                </p>
-
-                            </div>
-
-                        </SwiperSlide>
-                    ))
-                }
-
-            </Swiper>
-
-            <div className='flex flex-col gap-2'>
-
-                <button
-                    onClick={ () => { openPage(IntroWallet); } }
-                    className='btn-primary flex h-12 items-center gap-2 rounded-lg p-2 outline-0'>
-
-                    <FaPlusCircle size={ 32 } className='p-1.5' />
-
-                    <span className='flex-1 text-start'>
-
-                        { T('Intro.Create') }
+                        { T('Intro.Language') }
 
                     </span>
 
-                    <IoIosArrowForward size={ 16 } />
+                    <IoIosArrowDown size={ 16 } />
 
                 </button>
 
-                <button className='btn-normal flex h-12 items-center gap-2 rounded-lg p-2 outline-0'>
+                <Swiper
+                    modules={ [ Autoplay, Pagination ] }
+                    onSwiper={ onSwiper }
+                    loop={ true }
+                    autoplay={ { disableOnInteraction: false, pauseOnMouseEnter: true } }
+                    pagination={ { clickable: true } }
+                    className='size-full'>
 
-                    <LuImport size={ 32 } className='p-1.5' />
+                    {
+                        slideMap.map((slide) => (
+                            <SwiperSlide key={ slide.header }>
 
-                    <span className='flex-1 text-start'>
+                                <div className='flex h-full cursor-pointer flex-col items-center'>
 
-                        { T('Intro.Import') }
+                                    <img
+                                        src={ slide.image }
+                                        className='size-60' />
+
+                                    <h1 className='text-large font-bold text-txt-normal'>
+
+                                        { T(slide.header) }
+
+                                    </h1>
+
+                                    <p className='text-center text-small text-txt-normal/75'>
+
+                                        { T(slide.message) }
+
+                                    </p>
+
+                                </div>
+
+                            </SwiperSlide>
+                        ))
+                    }
+
+                </Swiper>
+
+                <div className='flex flex-col gap-2'>
+
+                    <button
+                        onClick={ () => { setSubPage(<IntroWallet onClose={ () => { setSubPage(undefined); } } />); } }
+                        className='btn-primary flex h-12 items-center gap-2 rounded-lg p-2 outline-0'>
+
+                        <FaPlusCircle size={ 32 } className='p-1.5' />
+
+                        <span className='flex-1 text-start'>
+
+                            { T('Intro.Create') }
+
+                        </span>
+
+                        <IoIosArrowForward size={ 16 } />
+
+                    </button>
+
+                    <button className='btn-normal flex h-12 items-center gap-2 rounded-lg p-2 outline-0'>
+
+                        <LuImport size={ 32 } className='p-1.5' />
+
+                        <span className='flex-1 text-start'>
+
+                            { T('Intro.Import') }
+
+                        </span>
+
+                        <IoIosArrowForward size={ 16 } />
+
+                    </button>
+
+                    <span className='mt-2 text-center text-tiny text-txt-muted'>
+
+                        { T('Intro.Version') }
 
                     </span>
 
-                    <IoIosArrowForward size={ 16 } />
-
-                </button>
-
-                <span className='mt-2 text-center text-tiny text-txt-muted'>
-
-                    { T('Intro.Version') }
-
-                </span>
+                </div>
 
             </div>
 
