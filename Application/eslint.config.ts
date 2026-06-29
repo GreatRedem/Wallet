@@ -62,7 +62,7 @@ export default defineConfig([
             '@stylistic/function-call-argument-newline': [ 'error', 'consistent' ],
             '@stylistic/jsx-one-expression-per-line': [ 'error', { allow: 'none' } ],
             '@stylistic/object-property-newline': [ 'error', { allowAllPropertiesOnSameLine: true } ],
-            '@stylistic/jsx-curly-newline': [ 'error', { multiline: 'require', singleline: 'forbid' } ],
+            '@stylistic/jsx-curly-newline': [ 'error', { multiline: 'require', singleline: 'consistent' } ],
             '@stylistic/indent': [ 'error', 4, { SwitchCase: 1, ObjectExpression: 1, assignmentOperator: 0 } ],
             '@stylistic/space-before-function-paren': [ 'error', { anonymous: 'never', named: 'never', asyncArrow: 'never', catch: 'always' } ],
 

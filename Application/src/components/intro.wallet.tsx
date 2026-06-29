@@ -17,8 +17,6 @@ export default function IntroWallet()
     const [ showConf, setShowConf ] = useState(false);
     const [ agreed, setAgreed ] = useState(false);
 
-    const valid = agreed && name.trim() && password && password === confirm;
-
     return (
         <motion.div
             initial={ { scaleX: 0 } }
@@ -127,7 +125,6 @@ export default function IntroWallet()
 
             <div className='mt-auto pt-6'>
                 <button
-                    disabled={ !valid }
                     className='btn-primary flex h-12 w-full items-center justify-center rounded-lg text-small font-semibold outline-0 disabled:opacity-30'>
                     { T('CreateWallet.Submit') }
                 </button>

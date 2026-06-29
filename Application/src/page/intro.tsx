@@ -3,11 +3,11 @@ import type { Swiper as SwiperType } from 'swiper';
 import { motion } from 'motion/react';
 import { FiGlobe } from 'react-icons/fi';
 import { LuImport } from 'react-icons/lu';
-import { useRef, useCallback } from 'react';
 import { FaPlusCircle } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
+import { useRef, useCallback, useState, type ReactNode } from 'react';
 
 import IntroWallet from '../components/intro.wallet';
 
@@ -52,7 +52,6 @@ export default function IntroPage()
         <motion.div
             initial={ { scale: 0 } }
             animate={ { scale: 1 } }
-            exit={ { scale: 0 } }
             className='flex size-full flex-col bg-base-1 px-4'>
 
             <button className='btn-normal mt-4 flex h-10 w-fit items-center gap-2 rounded-lg p-2 text-txt-normal outline-0'>
