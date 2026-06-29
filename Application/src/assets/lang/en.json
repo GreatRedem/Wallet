@@ -39,5 +39,16 @@
         "Create": "Create New Wallet",
         "Import": "Import Existing Wallet",
         "Version": "Version 1.0.0"
+    },
+
+    "CreateWallet":
+    {
+        "Title": "Create New Wallet",
+        "Subtitle": "Set up your secure wallet to get started",
+        "Name": "Wallet Name",
+        "Password": "Password",
+        "Confirm": "Confirm Password",
+        "Agreement": "I agree to the terms and conditions",
+        "Submit": "Create Wallet"
     }
 }

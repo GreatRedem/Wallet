@@ -1,6 +1,6 @@
 import type { Swiper as SwiperType } from 'swiper';
 
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { FiGlobe } from 'react-icons/fi';
 import { LuImport } from 'react-icons/lu';
 import { FaPlusCircle } from 'react-icons/fa';
@@ -55,9 +55,11 @@ export default function IntroPage()
             animate={ { scale: 1 } }
             className='relative size-full'>
 
-            {
-                subPage
-            }
+            <AnimatePresence>
+                {
+                    subPage
+                }
+            </AnimatePresence>
 
             <div className='flex size-full flex-col bg-base-1 px-4'>
 
