@@ -1,22 +1,21 @@
 @import "tailwindcss";
 
-@theme
-{
+@theme {
     --color-base-1: oklch(100% 0 0 / 1);
     --color-base-2: oklch(99% 0 0 / 1);
     --color-base-3: oklch(98% 0 0 / 1);
 
-    --color-btn-normal: oklch(95% 0.0 0 / 1);
-    --color-btn-normal-hover: oklch(100% 0.0 0 / 1);
-    --color-btn-normal-active: oklch(90% 0.0 0 / 1);
-    --color-btn-normal-border: oklch(90% 0.0 0 / 1);
-    --color-btn-normal-outline: oklch(90% 0.0 0 / 1);
+    --color-btn-normal: oklch(95% 0 0 / 1);
+    --color-btn-normal-hover: oklch(100% 0 0 / 1);
+    --color-btn-normal-active: oklch(90% 0 0 / 1);
+    --color-btn-normal-border: oklch(90% 0 0 / 1);
+    --color-btn-normal-outline: oklch(90% 0 0 / 1);
 
-    --color-btn-primary: oklch(55% 0.30 225 / 1);
-    --color-btn-primary-hover: oklch(60% 0.30 225 / 1);
-    --color-btn-primary-active: oklch(50% 0.30 225 / 1);
-    --color-btn-primary-border: oklch(50% 0.30 225 / 1);
-    --color-btn-primary-outline: oklch(50% 0.30 225 / 1);
+    --color-btn-primary: oklch(55% 0.3 225 / 1);
+    --color-btn-primary-hover: oklch(60% 0.3 225 / 1);
+    --color-btn-primary-active: oklch(50% 0.3 225 / 1);
+    --color-btn-primary-border: oklch(50% 0.3 225 / 1);
+    --color-btn-primary-outline: oklch(50% 0.3 225 / 1);
 
     --color-btn-secondary: oklch(55% 0 255 / 1);
     --color-btn-secondary-hover: oklch(60% 0 255 / 1);
@@ -34,20 +33,18 @@
     --text-large: 18px;
 }
 
-*
-{
+* {
     user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
 }
 
-html, body
-{
+html,
+body {
     font-family: monospace, sans-serif;
 }
 
-#root
-{
+#root {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -56,8 +53,7 @@ html, body
 
 .btn-primary,
 .btn-secondary,
-.btn-normal
-{
+.btn-normal {
     cursor: pointer;
     outline-width: 2px;
     outline-offset: 2px;
@@ -66,88 +62,74 @@ html, body
     box-shadow: 0 4px 8px rgb(125 125 125 / 0.05);
 }
 
-.btn-primary
-{
+.btn-primary {
     color: var(--color-txt-reverse);
     background: var(--color-btn-primary);
     border: 1px solid var(--color-btn-primary-border);
 }
 
-.btn-primary:hover
-{
+.btn-primary:hover {
     transform: translateY(-1px);
     background: var(--color-btn-primary-hover);
 }
 
-.btn-primary:active
-{
+.btn-primary:active {
     transform: translateY(0) scale(0.99);
     background: var(--color-btn-primary-active);
 }
 
-.btn-primary:focus
-{
+.btn-primary:focus {
     outline-color: var(--color-btn-primary-outline);
 }
 
-.btn-secondary
-{
+.btn-secondary {
     color: var(--color-txt-reverse);
     background: var(--color-btn-secondary);
     border: 1px solid var(--color-btn-secondary-border);
 }
 
-.btn-secondary:hover
-{
+.btn-secondary:hover {
     transform: translateY(-1px);
     background: var(--color-btn-secondary-hover);
 }
 
-.btn-secondary:active
-{
+.btn-secondary:active {
     transform: translateY(0) scale(0.99);
     background: var(--color-btn-secondary-active);
 }
 
-.btn-secondary:focus
-{
+.btn-secondary:focus {
     outline-color: var(--color-btn-secondary-outline);
 }
 
-.btn-normal
-{
+.btn-normal {
     color: var(--color-txt-normal);
     background: var(--color-btn-normal);
     border: 1px solid var(--color-btn-normal-border);
 }
 
-.btn-normal:hover
-{
+.btn-normal:hover {
     transform: translateY(-1px);
     background: var(--color-btn-normal-hover);
 }
 
-.btn-normal:active
-{
+.btn-normal:active {
     transform: translateY(0) scale(0.99);
     background: var(--color-btn-normal-active);
 }
 
-.btn-normal:focus
-{
+.btn-normal:focus {
     outline-color: var(--color-btn-normal-outline);
 }
 
-.swiper-pagination
-{
+.swiper-pagination {
     gap: 10px;
     display: flex;
     margin-bottom: 8px;
     justify-content: center;
 }
 
-.swiper-pagination-bullet
-{
+.swiper-pagination-bullet {
     width: 10px;
     height: 10px;
     border-radius: 2px;

@@ -1,4 +1,4 @@
-# GWallet AI Agent Instructions
+# Project Development Guide
 
 ## Project Overview
 
@@ -12,36 +12,47 @@
 - Storage: AES-GCM encryption + Tauri Store
 - Platforms: Desktop (Windows/Mac/Linux) + Android + iOS
 
-**Run commands from:** `Application/` directory
-
----
-
 ## Architecture
 
 **No React Router.** Navigation uses a custom event bus (`utility/event.ts`) and Context API helpers (`utility/context.tsx`). Pages are managed through events.
 
-### Directory structure
+## Code Formatting
 
-```
-Application/
-├── src/
-│   ├── app.tsx               # Root bootstrap
-│   ├── index.html
-│   ├── type.d.ts             # Global types
-│   ├── page/                 # Page screens
-│   ├── layout/               # Layout renderers
-│   ├── components/           # React components
-│   ├── core/                 # Core logic
-│   ├── utility/              # Helpers
-│   └── assets/               # Assets files
-├── src-tauri/                # Rust backend
-├── vite.config.ts
-├── tsconfig.json
-├── package.json
-└── eslint.config.ts
-```
+This project uses **Prettier** for consistent code formatting across all files.
 
----
+### Formatting Commands
+
+- **Format all files**: `npm run format`
+- **Check formatting**: `npm run format:check`
+
+### Prettier Configuration
+
+The Prettier configuration is defined in `.prettierrc`:
+
+### Ignored Files
+
+Prettier ignores the following files/directories (defined in `.prettierignore`):
+
+### Editor Integration
+
+For the best development experience, install the Prettier extension in your editor:
+
+- **VS Code**: Install the "Prettier - Code formatter" extension
+- **Settings**: Set "Format on Save" to true for automatic formatting
+
+## Linting
+
+The project uses ESLint with TypeScript support:
+
+- **Lint**: `npm run lint`
+- **Lint and fix**: `npm run lint:fix`
+
+## Build Commands
+
+- **Development**: `npm run dev`
+- **Build**: `npm run build`
+- **Desktop dev**: `npm run desktop`
+- **Desktop build**: `npm run desktop-build`
 
 ## Development commands
 
@@ -58,32 +69,11 @@ From `Application/` directory:
 | `npm run android-aab` | Build Android release .aab (Google Play) |
 | `npm run android-apk` | Build Android release .apk (sideload) |
 
----
+## Notes
 
-## Key conventions
-
-### Navigation
-
-- **No React Router** — Use `openPage()` instead.
-- Pages emit events via `emit()` in `utility/event.ts`.
-
-### Wallet & Crypto
-
-- **Generate mnemonic:** `WalletManager.Generate()` returns 12-word phrase.
-- **Derive wallet:** `new WalletManager(mnemonic, index)` derives key at `m/44'/60'/0'/0/{index}`.
-- **Sign transactions:** Use `wallet.signMessage()` or `wallet.signTransaction()` from ethers.js.
-- **Passcode:** 5-digit PIN hashed with SHA-256 before storage; never store plaintext.
-
-### TypeScript
-
-- Strict mode enabled; all files must have proper types.
-- Global types in `type.d.ts`
-- Use interfaces and avoid `any`.
-
-### Styling
-
-- **Tailwind CSS** for utility-first styling.
-- **CSS custom properties** (in `style.css`) for theme variables (colors, spacing).
+- All source files are automatically formatted when you run `npm run format`
+- The project uses EditorConfig for consistent editor settings
+- Prettier is configured to work well with the existing ESLint setup
 
 ### ESLint
 
@@ -101,8 +91,6 @@ Follow [Conventional Commits](../contributing.md):
 - Scopes: `wallet`, `auth`, `storage`, `ui`, `core`, `tauri`, etc.
 
 **Example:** `feat(wallet): add seed phrase export`
-
----
 
 ## Useful links
 

@@ -3,6 +3,8 @@
     "scripts": {
         "dev": "vite",
         "tauri": "tauri",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
         "build": "tsc && vite build",
         "desktop": "npm run tauri dev",
         "desktop-build": "npm run tauri build",
