@@ -1,5 +1,6 @@
 import type { Swiper as SwiperType } from 'swiper';
 
+import { motion } from 'motion/react';
 import { FiGlobe } from 'react-icons/fi';
 import { LuImport } from 'react-icons/lu';
 import { useRef, useCallback } from 'react';
@@ -8,7 +9,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 
+import IntroWallet from '../components/intro.wallet';
+
 import { T } from '../utility/language';
+import { openPage } from '../utility/context';
 
 import IntroConnect from '../assets/image/intro_connect.png';
 import IntroDecentralized from '../assets/image/intro_decentralized.png';
@@ -20,18 +24,18 @@ const slideMap =
 [
     {
         image: IntroConnect,
-        header: 'Intro.Slides.Connect.Header',
-        message: 'Intro.Slides.Connect.Message'
+        header: 'Intro.Connect.Header',
+        message: 'Intro.Connect.Message'
     },
     {
         image: IntroDecentralized,
-        header: 'Intro.Slides.Decentralized.Header',
-        message: 'Intro.Slides.Decentralized.Message'
+        header: 'Intro.Decentralized.Header',
+        message: 'Intro.Decentralized.Message'
     },
     {
         image: IntroConnect,
-        header: 'Intro.Slides.Secure.Header',
-        message: 'Intro.Slides.Secure.Message'
+        header: 'Intro.Secure.Header',
+        message: 'Intro.Secure.Message'
     }
 ];
 
@@ -45,7 +49,11 @@ export default function IntroPage()
     }, []);
 
     return (
-        <div className='flex size-full flex-col bg-base-1 px-4'>
+        <motion.div
+            initial={ { scale: 0 } }
+            animate={ { scale: 1 } }
+            exit={ { scale: 0 } }
+            className='flex size-full flex-col bg-base-1 px-4'>
 
             <button className='btn-normal mt-4 flex h-10 w-fit items-center gap-2 rounded-lg p-2 text-txt-normal outline-0'>
 
@@ -66,19 +74,18 @@ export default function IntroPage()
                 onSwiper={ onSwiper }
                 loop={ true }
                 autoplay={ { disableOnInteraction: false, pauseOnMouseEnter: true } }
-                pagination={ { clickable: true, renderBullet: (i, className) => `<button class="${ className }"></button>` } }
+                pagination={ { clickable: true } }
                 className='size-full'>
 
                 {
                     slideMap.map((slide) => (
                         <SwiperSlide key={ slide.header }>
 
-                            <div className='flex h-full flex-col items-center'>
+                            <div className='flex h-full cursor-pointer flex-col items-center'>
 
                                 <img
                                     src={ slide.image }
-                                    className='size-60'
-                                    draggable={ false } />
+                                    className='size-60' />
 
                                 <h1 className='text-large font-bold text-txt-normal'>
 
@@ -102,13 +109,15 @@ export default function IntroPage()
 
             <div className='flex flex-col gap-2'>
 
-                <button className='btn-primary flex h-12 items-center gap-2 rounded-lg p-2 outline-0'>
+                <button
+                    onClick={ () => { openPage(IntroWallet); } }
+                    className='btn-primary flex h-12 items-center gap-2 rounded-lg p-2 outline-0'>
 
                     <FaPlusCircle size={ 32 } className='p-1.5' />
 
                     <span className='flex-1 text-start'>
 
-                        { T('Intro.Actions.Create') }
+                        { T('Intro.Create') }
 
                     </span>
 
@@ -116,13 +125,13 @@ export default function IntroPage()
 
                 </button>
 
-                <button className='btn-secondary flex h-12 items-center gap-2 rounded-lg p-2 outline-0'>
+                <button className='btn-normal flex h-12 items-center gap-2 rounded-lg p-2 outline-0'>
 
                     <LuImport size={ 32 } className='p-1.5' />
 
                     <span className='flex-1 text-start'>
 
-                        { T('Intro.Actions.Import') }
+                        { T('Intro.Import') }
 
                     </span>
 
@@ -130,7 +139,7 @@ export default function IntroPage()
 
                 </button>
 
-                <span className='text-center text-tiny text-txt-muted'>
+                <span className='mt-2 text-center text-tiny text-txt-muted'>
 
                     { T('Intro.Version') }
 
@@ -138,6 +147,6 @@ export default function IntroPage()
 
             </div>
 
-        </div>
+        </motion.div>
     );
 }

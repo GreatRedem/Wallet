@@ -1,6 +1,7 @@
 import type { JSX } from 'react';
 
 import { useEffect, useState } from 'react';
+import { AnimatePresence } from 'motion/react';
 
 import { on, off } from '../utility/event';
 
@@ -13,7 +14,7 @@ import { on, off } from '../utility/event';
  */
 export default function PageLayout()
 {
-    const [ layoutMap, setLayoutMap ] = useState<JSX.Element[]>([ ]);
+    const [ layoutMap, setLayoutMap ] = useState<JSX.Element>();
 
     useEffect(() =>
     {
@@ -23,32 +24,22 @@ export default function PageLayout()
          */
         const openHandler = (component: JSX.Element) =>
         {
-            setLayoutMap((prev) => [ ...prev, component ]);
-        };
-
-        /**
-         * CloseHandler - Removes a page component from the active stack.
-         * @param {number} id - The page identifier used as the React key.
-         */
-        const closeHandler = (id: number) =>
-        {
-            setLayoutMap((prev) => prev.filter((i) => i.key !== `${ id }`));
+            setLayoutMap(component);
         };
 
         on('Page.Open', openHandler);
-        on('Page.Close', closeHandler);
 
         return () =>
         {
             off('Page.Open', openHandler);
-            off('Page.Close', closeHandler);
         };
     }, [ ]);
 
-    if (layoutMap.length === 0)
-    {
-        return undefined;
-    }
+    return (
+        <AnimatePresence>
 
-    return <>{ layoutMap }</>;
+            { layoutMap }
+
+        </AnimatePresence>
+    );
 }

@@ -3,15 +3,12 @@ import type { JSX } from 'react';
 interface EventMap
 {
     'Page.Open': [component: JSX.Element];
-    'Page.Close': [id: number];
 
     'Toast.Open': [component: JSX.Element];
     'Toast.Close': [id: number];
-    'Toast.CloseAll': [id: number];
 
     'Modal.Open': [component: JSX.Element];
     'Modal.Close': [id: number];
-    'Modal.CloseAll': [id: number];
 }
 
 type EventCall<T extends keyof EventMap> = (...args: EventMap[T]) => void;

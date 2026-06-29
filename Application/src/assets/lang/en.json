@@ -18,61 +18,26 @@
 
     "Intro":
     {
-        "Language": "English",
-        "Version": "Version 1.0.0",
-        "Slides":
-        {
-            "Connect":
-            {
-                "Header": "Connect to the World",
-                "Message": "Connect to the world of decentralized applications and finance."
-            },
-            "Decentralized":
-            {
-                "Header": "Decentralized",
-                "Message": "Gives you full control over your digital assets and allows you to interact with dApps."
-            },
-            "Secure":
-            {
-                "Header": "Secure & Private",
-                "Message": "Using advanced security protocols to protect your digital assets and personal information."
-            }
-        },
-        "Actions":
-        {
-            "Create": "Create New Wallet",
-            "Import": "Import Existing Wallet"
-        }
-    },
+        "Language": "Language",
 
-    "CreateWallet":
-    {
-        "Title": "Create Wallet",
-        "Subtitle": "Set up your new wallet",
-        "DefaultName": "My Main Wallet",
-        "Fields":
+        "Connect":
         {
-            "WalletName": "Wallet Name",
-            "Password": "Password",
-            "ConfirmPassword": "Confirm Password"
+            "Header": "Connect to the World",
+            "Message": "Connect to the world of decentralized applications and finance."
         },
-        "Acknowledgement": "I understand that losing my recovery phrase means losing access to my funds.",
-        "Actions":
+        "Decentralized":
         {
-            "Create": "Create Wallet"
-        }
-    },
+            "Header": "Decentralized",
+            "Message": "Gives you full control over your digital assets and allows you to interact with dApps."
+        },
+        "Secure":
+        {
+            "Header": "Secure & Private",
+            "Message": "Using advanced security protocols to protect your digital assets and personal information."
+        },
 
-    "RecoveryPhrase":
-    {
-        "Title": "Your Recovery Phrase",
-        "Subtitle": "Write down these 12 words in order and keep them safe.",
-        "Actions":
-        {
-            "Copy": "Copy",
-            "ViewQr": "View QR",
-            "Continue": "Continue"
-        },
-        "Acknowledgement": "I saved my recovery phrase safely."
+        "Create": "Create New Wallet",
+        "Import": "Import Existing Wallet",
+        "Version": "Version 1.0.0"
     }
 }

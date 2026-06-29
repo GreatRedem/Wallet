@@ -2,28 +2,31 @@
 
 @theme
 {
-    --color-base-1: oklch(96% 0 0 / 0);
-    --color-base-2: oklch(88% 0 0 / 0);
-    --color-base-3: oklch(80% 0 0 / 0);
+    --color-base-1: oklch(95% 0 0 / 0);
+    --color-base-2: oklch(90% 0 0 / 0);
+    --color-base-3: oklch(85% 0 0 / 0);
 
-    --color-btn-normal: oklch(96% 0.01 255 / 0.75);
-    --color-btn-normal-hover: oklch(94% 0.01 255 / 0.75);
-    --color-btn-normal-active: oklch(88% 0.01 255 / 0.75);
-    --color-btn-normal-outline: oklch(88% 0.01 255 / 0.75);
+    --color-btn-normal: oklch(95% 0.0 0 / 1);
+    --color-btn-normal-hover: oklch(100% 0.0 0 / 1);
+    --color-btn-normal-active: oklch(90% 0.0 0 / 1);
+    --color-btn-normal-border: oklch(90% 0.0 0 / 1);
+    --color-btn-normal-outline: oklch(90% 0.0 0 / 1);
 
-    --color-btn-primary: oklch(70% 0.16 228 / 0.92);
-    --color-btn-primary-hover: oklch(74% 0.16 228 / 0.96);
-    --color-btn-primary-active: oklch(66% 0.17 228 / 0.98);
-    --color-btn-primary-outline: oklch(66% 0.17 228 / 0.98);
+    --color-btn-primary: oklch(55% 0.30 225 / 1);
+    --color-btn-primary-hover: oklch(60% 0.30 225 / 1);
+    --color-btn-primary-active: oklch(50% 0.30 225 / 1);
+    --color-btn-primary-border: oklch(50% 0.30 225 / 1);
+    --color-btn-primary-outline: oklch(50% 0.30 225 / 1);
 
-    --color-btn-secondary: oklch(50% 0.01 255 / 0.75);
-    --color-btn-secondary-hover: oklch(55% 0.01 255 / 0.75);
-    --color-btn-secondary-active: oklch(45% 0.01 255 / 0.75);
-    --color-btn-secondary-outline: oklch(45% 0.01 255 / 0.75);
+    --color-btn-secondary: oklch(55% 0 255 / 1);
+    --color-btn-secondary-hover: oklch(60% 0 255 / 1);
+    --color-btn-secondary-active: oklch(50% 0 255 / 1);
+    --color-btn-secondary-border: oklch(50% 0 255 / 1);
+    --color-btn-secondary-outline: oklch(50% 0 255 / 1);
 
-    --color-txt-muted: oklch(50% 0 0);
-    --color-txt-normal: oklch(5% 0 0);
-    --color-txt-reverse: oklch(95% 0 0);
+    --color-txt-muted: oklch(50% 0 0 / 1);
+    --color-txt-normal: oklch(5% 0 0 / 1);
+    --color-txt-reverse: oklch(95% 0 0 / 1);
 
     --text-tiny: 12px;
     --text-small: 14px;
@@ -60,13 +63,14 @@ html, body
     outline-offset: 2px;
     outline-color: transparent;
     transition-duration: 200ms;
-    box-shadow: 0 8px 16px rgb(125 125 125 / 0.10);
+    box-shadow: 0 4px 8px rgb(125 125 125 / 0.05);
 }
 
 .btn-primary
 {
     color: var(--color-txt-reverse);
     background: var(--color-btn-primary);
+    border: 1px solid var(--color-btn-primary-border);
 }
 
 .btn-primary:hover
@@ -90,6 +94,7 @@ html, body
 {
     color: var(--color-txt-reverse);
     background: var(--color-btn-secondary);
+    border: 1px solid var(--color-btn-secondary-border);
 }
 
 .btn-secondary:hover
@@ -113,6 +118,7 @@ html, body
 {
     color: var(--color-txt-normal);
     background: var(--color-btn-normal);
+    border: 1px solid var(--color-btn-normal-border);
 }
 
 .btn-normal:hover
@@ -136,6 +142,7 @@ html, body
 {
     gap: 10px;
     display: flex;
+    margin-bottom: 8px;
     justify-content: center;
 }
 
