@@ -10,6 +10,7 @@ import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 import { useRef, useCallback, useState, type ReactNode } from 'react';
 
 import IntroWallet from '../components/intro.wallet';
+import IntroLanguage from '../components/intro.language';
 
 import { T } from '../utility/language';
 
@@ -65,7 +66,9 @@ export default function IntroPage()
 
             <div className='flex size-full flex-col bg-base-1 px-4'>
 
-                <button className='btn-normal mt-4 flex h-10 w-fit items-center gap-2 rounded-lg p-2 text-txt-normal outline-0'>
+                <button
+                    onClick={ () => { setSubPage(<IntroLanguage onClose={ () => { setSubPage(undefined); } } />); } }
+                    className='btn-normal mt-4 flex h-10 w-fit items-center gap-2 rounded-lg p-2 text-txt-normal outline-0'>
 
                     <FiGlobe size={ 16 } />
 
