@@ -29,6 +29,10 @@
             "Message": "Using advanced security protocols to protect your digital assets and personal information."
         },
 
+        "Wallet": {
+            "Create": "Create Wallet"
+        },
+
         "Create": "Create New Wallet",
         "Import": "Import Existing Wallet",
         "Version": "Version 1.0.0"

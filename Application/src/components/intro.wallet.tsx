@@ -1,18 +1,12 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { IoClose } from 'react-icons/io5';
-import { HiEye, HiEyeOff, HiOutlineLockClosed } from 'react-icons/hi';
-import { IoIosArrowForward } from 'react-icons/io';
 import { FaAngleDown } from 'react-icons/fa6';
+import { HiEye, HiEyeOff, HiOutlineLockClosed } from 'react-icons/hi';
 
 import { T } from '../utility/language';
-import { FaPlusCircle } from 'react-icons/fa';
 
-interface IntroWalletProps {
-    onClose: () => void;
-}
-
-export default function IntroWallet({ onClose }: IntroWalletProps)
+export default function IntroWallet({ onClose }: { onClose: () => void })
 {
     const [ agree, setAgree ] = useState(false);
     const [ password, setPassword ] = useState('');
@@ -158,19 +152,11 @@ export default function IntroWallet({ onClose }: IntroWalletProps)
                 </label>
 
                 <button
-                    className='btn-primary mb-4 flex h-12 items-center gap-2 rounded-lg p-2 outline-0'>
+                    className='btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2 outline-0'>
 
-                    <FaPlusCircle size={ 32 } className='p-1.5' />
-
-                    <span className='flex-1 text-start'>
-
-                        {
-                            T('Intro.Create')
-                        }
-
-                    </span>
-
-                    <IoIosArrowForward size={ 16 } />
+                    {
+                        T('Intro.Wallet.Create')
+                    }
 
                 </button>
 
