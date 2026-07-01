@@ -23,6 +23,9 @@
     --color-btn-secondary-border: oklch(50% 0 255 / 1);
     --color-btn-secondary-outline: oklch(50% 0 255 / 1);
 
+    --color-input-normal: oklch(90% 0 0 / 1);
+    --color-input-primary: oklch(55% 0.3 225 / 1);
+
     --color-txt-muted: oklch(50% 0 0 / 1);
     --color-txt-normal: oklch(5% 0 0 / 1);
     --color-txt-reverse: oklch(95% 0 0 / 1);

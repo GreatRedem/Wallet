@@ -56,9 +56,11 @@ export default function IntroPage()
             className='relative size-full'>
 
             <AnimatePresence>
+
                 {
                     subPage
                 }
+
             </AnimatePresence>
 
             <div className='flex size-full flex-col bg-base-1 px-4'>
@@ -69,7 +71,9 @@ export default function IntroPage()
 
                     <span className='text-small'>
 
-                        { T('Intro.Language') }
+                        {
+                            T('Intro.Language')
+                        }
 
                     </span>
 
@@ -125,7 +129,9 @@ export default function IntroPage()
 
                         <span className='flex-1 text-start'>
 
-                            { T('Intro.Create') }
+                            {
+                                T('Intro.Create')
+                            }
 
                         </span>
 
@@ -139,7 +145,9 @@ export default function IntroPage()
 
                         <span className='flex-1 text-start'>
 
-                            { T('Intro.Import') }
+                            {
+                                T('Intro.Import')
+                            }
 
                         </span>
 
@@ -149,7 +157,9 @@ export default function IntroPage()
 
                     <span className='mt-2 text-center text-tiny text-txt-muted'>
 
-                        { T('Intro.Version') }
+                        {
+                            T('Intro.Version')
+                        }
 
                     </span>
 

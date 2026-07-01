@@ -1,103 +1,75 @@
-# Project Development Guide
+# GWallet — Agent Guide
 
-## Project Overview
+## Project structure
 
-**GWallet** is a cross-platform Ethereum wallet application built with React, TypeScript, Tauri, and ethers.js. The frontend is a React SPA embedded in Tauri, with wallet cryptography managed via TypeScript. Sensitive data is encrypted and stored using the Tauri Store plugin. The Rust backend handles platform integration (system tray, OS detection).
+```
+Wallet/
+  Application/          <-- working directory for all commands
+    src/                <-- Vite root (config: root: 'src')
+      app.tsx           entrypoint (mounts at #root)
+      layout/page.tsx   page stack container
+      page/             pages
+      components/       reusable UI
+      core/wallet.ts    Ethereum HD wallet (ethers.js, BIP39, m/44'/60'/0'/0/{index})
+      utility/
+        event.ts        typed event bus (Page.Open, Toast.Open/Close, Modal.Open/Close)
+        context.tsx      openPage(Component, props?) wrapper
+        language.ts     i18n (en, fa, tr, ar, zh, ru, hi); RTL for fa/ar
+        storage.ts      Tauri Store wrapper (key: 'App.Language', file: application.bin)
+      assets/lang/      translation JSONs
+    src-tauri/
+      src/
+        main.rs         entry, calls app_lib::run()
+        lib.rs          Tauri builder (plugins: OS, Store; tray icon on desktop)
+        commands/       empty -- no Tauri commands registered yet
+```
 
-**Key technologies:**
-
-- Frontend: React 19, TypeScript, Vite, Tailwind CSS
-- Backend: Rust, Tauri 2
-- Blockchain: ethers.js 6 (Ethereum HD wallet, BIP39)
-- Storage: AES-GCM encryption + Tauri Store
-- Platforms: Desktop (Windows/Mac/Linux) + Android + iOS
-
-## Architecture
-
-**No React Router.** Navigation uses a custom event bus (`utility/event.ts`) and Context API helpers (`utility/context.tsx`). Pages are managed through events.
-
-## Code Formatting
-
-This project uses **Prettier** for consistent code formatting across all files.
-
-### Formatting Commands
-
-- **Format all files**: `npm run format`
-- **Check formatting**: `npm run format:check`
-
-### Prettier Configuration
-
-The Prettier configuration is defined in `.prettierrc`:
-
-### Ignored Files
-
-Prettier ignores the following files/directories (defined in `.prettierignore`):
-
-### Editor Integration
-
-For the best development experience, install the Prettier extension in your editor:
-
-- **VS Code**: Install the "Prettier - Code formatter" extension
-- **Settings**: Set "Format on Save" to true for automatic formatting
-
-## Linting
-
-The project uses ESLint with TypeScript support:
-
-- **Lint**: `npm run lint`
-- **Lint and fix**: `npm run lint:fix`
-
-## Build Commands
-
-- **Development**: `npm run dev`
-- **Build**: `npm run build`
-- **Desktop dev**: `npm run desktop`
-- **Desktop build**: `npm run desktop-build`
-
-## Development commands
-
-From `Application/` directory:
+## Commands (run from `Application/`)
 
 | Command | Purpose |
 |---------|---------|
+| `npm run dev` | Vite dev server on `http://localhost:1420` |
+| `npm run build` | `tsc && vite build` -- typecheck **before** bundle |
+| `npm run desktop` | `npm run tauri dev` -- Tauri + Vite HMR |
+| `npm run desktop-build` | `npm run tauri build` |
+| `npm run android` | `npm run tauri android dev` |
+| `npm run android-aab` | Android release .aab |
+| `npm run android-apk` | Android release .apk |
+| `npm run lint` | ESLint check |
+| `npm run lint:fix` | ESLint with --fix |
 
-| `npm run dev` | Start Vite dev server (HMR) |
-| `npm run build` | TypeScript check + Vite bundle |
-| `npm run desktop` | Launch Tauri desktop dev (auto-reload on source changes) |
-| `npm run desktop-build` | Build desktop release binaries |
-| `npm run android` | Launch Android emulator/device debug build |
-| `npm run android-aab` | Build Android release .aab (Google Play) |
-| `npm run android-apk` | Build Android release .apk (sideload) |
+## Code conventions (enforced by ESLint)
 
-## Notes
+- **Indent**: 4 spaces
+- **Braces**: Allman style
+- **Quotes**: single in JSX, double elsewhere unless interpolated
+- **Semicolons**: required
+- **Line endings**: LF (unix)
+- **Naming**: `PascalCase` for functions & types, `camelCase` for variables
+- `no-console` is `warn`
+- Base config: `@typescript-eslint/all` (with several relaxations), `@stylistic`, `better-tailwindcss`
+- Config file: `eslint.config.ts` (overrides apply on top of strict rulesets)
 
-- All source files are automatically formatted when you run `npm run format`
-- The project uses EditorConfig for consistent editor settings
-- Prettier is configured to work well with the existing ESLint setup
+## Architecture notes
 
-### ESLint
+- **No React Router** -- navigation is event-driven via `utility/event.ts`. Call `openPage(Component)` from `utility/context.tsx` to switch pages.
+- All navigation events (`Page.Open`) are typed via `EventMap` in `event.ts`.
+- Storage uses `@tauri-apps/plugin-store` (encrypted under the hood). Only works inside Tauri; will fail in plain browser dev.
+- Vite `root` is `src/`, so `src/index.html` is the HTML entry.
+- Tauri `beforeDevCommand` runs `npm run dev` pointing at `http://localhost:1420`.
 
-- Configuration in `eslint.config.ts`.
-- Plugins: `@typescript-eslint`, `eslint-plugin-better-tailwindcss`, `@stylistic`.
-- Run `npm run lint` to check.
+## What's missing / not yet wired
 
-### Commit conventions
+- No test framework (none in `package.json`).
+- No Prettier (no dependency, no config -- ignore any Prettier references).
+- No Tauri commands (Rust `commands/` dir is empty; frontend uses only Tauri plugins directly).
+- No CI workflows.
 
-Follow [Conventional Commits](../contributing.md):
+## Commit style
 
-- Format: `<type>(<scope>): <subject>`
-- Types: `feat`, `fix`, `refactor`, `perf`, `style`, `test`, `docs`, `build`, `ci`, `chore`, `revert`
-- Subject: 50 chars max, lowercase, imperative mood, no period.
-- Scopes: `wallet`, `auth`, `storage`, `ui`, `core`, `tauri`, etc.
+Follow Conventional Commits (`contributing.md` at repo root): `<type>(<scope>): <subject>` (50 chars max, imperative, lowercase, no period).
 
-**Example:** `feat(wallet): add seed phrase export`
+## Reference docs
 
-## Useful links
-
-- [Tauri docs](https://tauri.app/start/)
-- [ethers.js documentation](https://docs.ethers.org/v6/)
-- [Vite guide](https://vitejs.dev/guide/)
-- [Tailwind CSS](https://tailwindcss.com/docs)
-- [React docs](https://react.dev/)
-- [Contributing guidelines](../contributing.md)
-- [Architecture & AI reference](./Application/docs/readme.md)
+- `ARCHITECTURE.md` -- component flow diagrams and detailed architecture
+- `contributing.md` at repo root -- commit conventions
