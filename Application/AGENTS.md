@@ -1,36 +1,12 @@
 # GWallet — Agent Guide
 
-## Project structure
-
-```
-Wallet/
-  Application/          <-- working directory for all commands
-    src/                <-- Vite root (config: root: 'src')
-      app.tsx           entrypoint (mounts at #root)
-      layout/page.tsx   page stack container
-      page/             pages
-      components/       reusable UI
-      core/wallet.ts    Ethereum HD wallet (ethers.js, BIP39, m/44'/60'/0'/0/{index})
-      utility/
-        event.ts        typed event bus (Page.Open, Toast.Open/Close, Modal.Open/Close)
-        context.tsx      openPage(Component, props?) wrapper
-        language.ts     i18n (en, fa, tr, ar, zh, ru, hi); RTL for fa/ar
-        storage.ts      Tauri Store wrapper (key: 'App.Language', file: application.bin)
-      assets/lang/      translation JSONs
-    src-tauri/
-      src/
-        main.rs         entry, calls app_lib::run()
-        lib.rs          Tauri builder (plugins: OS, Store; tray icon on desktop)
-        commands/       empty -- no Tauri commands registered yet
-```
-
 ## Commands (run from `Application/`)
 
 | Command | Purpose |
 |---------|---------|
 | `npm run dev` | Vite dev server on `http://localhost:1420` |
-| `npm run build` | `tsc && vite build` -- typecheck **before** bundle |
-| `npm run desktop` | `npm run tauri dev` -- Tauri + Vite HMR |
+| `npm run build` | `tsc && vite build` — typecheck **before** bundle |
+| `npm run desktop` | `npm run tauri dev` — Tauri + Vite HMR |
 | `npm run desktop-build` | `npm run tauri build` |
 | `npm run android` | `npm run tauri android dev` |
 | `npm run android-aab` | Android release .aab |
@@ -38,38 +14,42 @@ Wallet/
 | `npm run lint` | ESLint check |
 | `npm run lint:fix` | ESLint with --fix |
 
+No test framework exists — no test runner, no test files.
+
+## Architecture
+
+- **No React Router** — event-driven navigation. Call `openPage(Component)` from `utility/context.tsx` to switch pages. `layout/page.tsx` renders the active page via `AnimatePresence` (`motion`, framer-motion successor).
+- Vite `root` is `src/`, so `src/index.html` is the HTML entry; build output goes to `../dist`.
+- Storage uses `@tauri-apps/plugin-store` (encrypted file `application.bin`). Only works inside Tauri — `npm run dev` in a browser will error on storage calls.
+- Ethereum HD wallet at `core/wallet.ts` using ethers.js 6 + BIP39 (`m/44'/60'/0'/0/{index}`).
+- Context menu is disabled globally (`app.tsx` calls `preventDefault()` on `contextmenu` event).
+- `Swiper` 14 drives the intro carousel (`page/intro.tsx`).
+- Tauri window is `alwaysOnTop` on desktop (see `tauri.windows.conf.json`).
+
 ## Code conventions (enforced by ESLint)
 
-- **Indent**: 4 spaces
 - **Braces**: Allman style
-- **Quotes**: single in JSX, double elsewhere unless interpolated
+- **Indent**: 4 spaces
+- **Quotes**: single in JSX, double elsewhere
 - **Semicolons**: required
 - **Line endings**: LF (unix)
-- **Naming**: `PascalCase` for functions & types, `camelCase` for variables
-- `no-console` is `warn`
-- Base config: `@typescript-eslint/all` (with several relaxations), `@stylistic`, `better-tailwindcss`
-- Config file: `eslint.config.ts` (overrides apply on top of strict rulesets)
+- **Naming**: `PascalCase` for **all** functions (not just components), `camelCase` for variables
+- Base config: `@typescript-eslint/all` (strictest preset, relaxed via overrides), `@stylistic`, `better-tailwindcss`
+- No Prettier — formatting is entirely ESLint-driven via `@stylistic`
 
-## Architecture notes
+## Quirks / not yet wired
 
-- **No React Router** -- navigation is event-driven via `utility/event.ts`. Call `openPage(Component)` from `utility/context.tsx` to switch pages.
-- All navigation events (`Page.Open`) are typed via `EventMap` in `event.ts`.
-- Storage uses `@tauri-apps/plugin-store` (encrypted under the hood). Only works inside Tauri; will fail in plain browser dev.
-- Vite `root` is `src/`, so `src/index.html` is the HTML entry.
-- Tauri `beforeDevCommand` runs `npm run dev` pointing at `http://localhost:1420`.
-
-## What's missing / not yet wired
-
-- No test framework (none in `package.json`).
-- No Prettier (no dependency, no config -- ignore any Prettier references).
-- No Tauri commands (Rust `commands/` dir is empty; frontend uses only Tauri plugins directly).
-- No CI workflows.
+- Only 2 of 7 declared languages have translation JSONs: `en.json` and `fa.json` in `assets/lang/`.
+- `zustand` 5 and `flag-icons` 7 are dependencies but not used anywhere.
+- `src/core/providers/` and `src-tauri/src/commands/` exist but are empty (no Tauri IPC commands registered).
+- `package-lock.json` is intentionally gitignored.
+- `Zustand` for state management and `flag-icons` for flag CSS are available if needed.
 
 ## Commit style
 
-Follow Conventional Commits (`contributing.md` at repo root): `<type>(<scope>): <subject>` (50 chars max, imperative, lowercase, no period).
+Conventional Commits (`contributing.md` at repo root): `<type>(<scope>): <subject>` (50 chars max, imperative, lowercase, no period).
 
 ## Reference docs
 
-- `ARCHITECTURE.md` -- component flow diagrams and detailed architecture
-- `contributing.md` at repo root -- commit conventions
+- `ARCHITECTURE.md` — component flow diagrams and detailed architecture
+- `eslint.config.ts` — authoritative source for all code style rules
