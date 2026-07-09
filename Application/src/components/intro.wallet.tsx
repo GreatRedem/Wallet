@@ -152,6 +152,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                 </label>
 
                 <button
+                    disabled={ !agree }
                     className='btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2 outline-0'>
 
                     {

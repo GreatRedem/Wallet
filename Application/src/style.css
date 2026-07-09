@@ -85,6 +85,13 @@ body {
     outline-color: var(--color-btn-primary-outline);
 }
 
+.btn-primary:disabled {
+    cursor: default;
+    color: var(--color-txt-reverse);
+    background: var(--color-btn-secondary);
+    border: 1px solid var(--color-btn-secondary-border);
+}
+
 .btn-secondary {
     color: var(--color-txt-reverse);
     background: var(--color-btn-secondary);

@@ -1,5 +1,39 @@
 import { ethers } from 'ethers';
 
+/**
+ * PrivateKeyWalletManager - Wrapper for wallets imported via raw private key.
+ * Exposes the same public API surface as WalletManager.
+ */
+class PrivateKeyWalletManager
+{
+    private readonly WalletSigner: ethers.Wallet;
+
+    public constructor(privateKey: string)
+    {
+        this.WalletSigner = new ethers.Wallet(privateKey);
+    }
+
+    public retrieve()
+    {
+        return { Public: this.WalletSigner.address, Private: this.WalletSigner.privateKey };
+    }
+
+    public async sign(message: string | Uint8Array)
+    {
+        return this.WalletSigner.signMessage(message);
+    }
+
+    public verify(message: string, signature: string)
+    {
+        return ethers.verifyMessage(message, signature) === this.WalletSigner.address;
+    }
+
+    public toString()
+    {
+        return this.WalletSigner.address;
+    }
+}
+
 class WalletManager
 {
     private readonly WalletAddress: string;
@@ -89,6 +123,18 @@ class WalletManager
     public static Verify(message: string, signature: string)
     {
         return ethers.verifyMessage(message, signature);
+    }
+
+    /**
+     * FromPrivateKey - Creates a wallet wrapper from a raw hex private key.
+     * @param {string} privateKey - The raw 64-char hex private key (with or without 0x prefix)
+     * @returns {PrivateKeyWalletManager} A wallet wrapper that exposes the same public API as WalletManager
+     */
+    public static FromPrivateKey(privateKey: string)
+    {
+        const hex = privateKey.startsWith('0x') ? privateKey : `0x${ privateKey }`;
+
+        return new PrivateKeyWalletManager(hex);
     }
 }
 

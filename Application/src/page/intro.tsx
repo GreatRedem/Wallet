@@ -11,6 +11,7 @@ import { useRef, useCallback, useState, type ReactNode } from 'react';
 
 import IntroWallet from '../components/intro.wallet';
 import IntroLanguage from '../components/intro.language';
+import IntroImport from '../components/intro.import';
 
 import { T } from '../utility/language';
 
@@ -142,7 +143,9 @@ export default function IntroPage()
 
                     </button>
 
-                    <button className='btn-normal flex h-12 items-center gap-2 rounded-lg p-2 outline-0'>
+                    <button
+                        onClick={ () => { setSubPage(<IntroImport onClose={ () => { setSubPage(undefined); } } />); } }
+                        className='btn-normal flex h-12 items-center gap-2 rounded-lg p-2 outline-0'>
 
                         <LuImport size={ 32 } className='p-1.5' />
 

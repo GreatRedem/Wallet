@@ -39,6 +39,18 @@
         "Version": "Version 1.0.0"
     },
 
+    "ImportWallet": {
+        "Title": "Import Existing Wallet",
+        "Subtitle": "Restore your wallet from a seed phrase or private key",
+        "PhraseTab": "Seed Phrase",
+        "KeyTab": "Private Key",
+        "Phrase": "Seed Phrase",
+        "PhrasePlaceholder": "Paste your 12 or 24 word seed phrase here...",
+        "PrivateKey": "Private Key",
+        "PrivateKeyPlaceholder": "Paste your private key (64 hex chars)...",
+        "Import": "Import Wallet"
+    },
+
     "CreateWallet": {
         "Title": "Create New Wallet",
         "Subtitle": "Set up your secure wallet to get started",
