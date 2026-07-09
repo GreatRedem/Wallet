@@ -1,6 +1,6 @@
 import { load } from '@tauri-apps/plugin-store';
 
-type StorageKey = 'App.Language';
+type StorageKey = 'App.Language' | 'App.Theme';
 
 const storage = await load('application.bin');
 

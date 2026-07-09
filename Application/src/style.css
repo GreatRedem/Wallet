@@ -1,39 +1,134 @@
 @import "tailwindcss";
 
+/*
+ * Color tokens are declared `inline` so generated utilities reference the
+ * runtime variables below, letting `[data-theme]` swap the entire palette.
+ */
+@theme inline {
+    --color-base-1: var(--base-1);
+    --color-base-2: var(--base-2);
+    --color-base-3: var(--base-3);
+
+    --color-btn-normal: var(--btn-normal);
+    --color-btn-normal-hover: var(--btn-normal-hover);
+    --color-btn-normal-active: var(--btn-normal-active);
+    --color-btn-normal-border: var(--btn-normal-border);
+    --color-btn-normal-outline: var(--btn-normal-outline);
+
+    --color-btn-primary: var(--btn-primary);
+    --color-btn-primary-hover: var(--btn-primary-hover);
+    --color-btn-primary-active: var(--btn-primary-active);
+    --color-btn-primary-border: var(--btn-primary-border);
+    --color-btn-primary-outline: var(--btn-primary-outline);
+
+    --color-btn-secondary: var(--btn-secondary);
+    --color-btn-secondary-hover: var(--btn-secondary-hover);
+    --color-btn-secondary-active: var(--btn-secondary-active);
+    --color-btn-secondary-border: var(--btn-secondary-border);
+    --color-btn-secondary-outline: var(--btn-secondary-outline);
+
+    --color-input-normal: var(--input-normal);
+    --color-input-primary: var(--input-primary);
+
+    --color-txt-muted: var(--txt-muted);
+    --color-txt-normal: var(--txt-normal);
+    --color-txt-reverse: var(--txt-reverse);
+}
+
 @theme {
-    --color-base-1: oklch(100% 0 0 / 1);
-    --color-base-2: oklch(99% 0 0 / 1);
-    --color-base-3: oklch(98% 0 0 / 1);
-
-    --color-btn-normal: oklch(95% 0 0 / 1);
-    --color-btn-normal-hover: oklch(100% 0 0 / 1);
-    --color-btn-normal-active: oklch(90% 0 0 / 1);
-    --color-btn-normal-border: oklch(90% 0 0 / 1);
-    --color-btn-normal-outline: oklch(90% 0 0 / 1);
-
-    --color-btn-primary: oklch(55% 0.3 225 / 1);
-    --color-btn-primary-hover: oklch(60% 0.3 225 / 1);
-    --color-btn-primary-active: oklch(50% 0.3 225 / 1);
-    --color-btn-primary-border: oklch(50% 0.3 225 / 1);
-    --color-btn-primary-outline: oklch(50% 0.3 225 / 1);
-
-    --color-btn-secondary: oklch(55% 0 255 / 1);
-    --color-btn-secondary-hover: oklch(60% 0 255 / 1);
-    --color-btn-secondary-active: oklch(50% 0 255 / 1);
-    --color-btn-secondary-border: oklch(50% 0 255 / 1);
-    --color-btn-secondary-outline: oklch(50% 0 255 / 1);
-
-    --color-input-normal: oklch(90% 0 0 / 1);
-    --color-input-primary: oklch(55% 0.3 225 / 1);
-
-    --color-txt-muted: oklch(50% 0 0 / 1);
-    --color-txt-normal: oklch(5% 0 0 / 1);
-    --color-txt-reverse: oklch(95% 0 0 / 1);
-
     --text-tiny: 12px;
     --text-small: 14px;
     --text-medium: 16px;
     --text-large: 18px;
+}
+
+/* Light glass theme (default) */
+:root,
+[data-theme='light'] {
+    color-scheme: light;
+
+    --base-bg: oklch(96% 0.01 250);
+    --orb-1: oklch(85% 0.09 250 / 0.8);
+    --orb-2: oklch(87% 0.08 310 / 0.7);
+    --orb-3: oklch(88% 0.07 200 / 0.7);
+
+    --base-1: oklch(100% 0 0 / 0.25);
+    --base-2: oklch(100% 0 0 / 0.6);
+    --base-3: oklch(100% 0 0 / 0.4);
+
+    --glass-border: oklch(100% 0 0 / 0.6);
+    --glass-highlight: oklch(100% 0 0 / 0.5);
+    --glass-shadow: oklch(30% 0.03 260 / 0.12);
+
+    --btn-normal: oklch(100% 0 0 / 0.55);
+    --btn-normal-hover: oklch(100% 0 0 / 0.8);
+    --btn-normal-active: oklch(96% 0 0 / 0.7);
+    --btn-normal-border: oklch(100% 0 0 / 0.65);
+    --btn-normal-outline: oklch(70% 0.02 260 / 0.6);
+
+    --btn-primary: oklch(58% 0.21 255 / 0.9);
+    --btn-primary-hover: oklch(63% 0.21 255 / 0.9);
+    --btn-primary-active: oklch(53% 0.21 255 / 0.95);
+    --btn-primary-border: oklch(70% 0.16 255 / 0.5);
+    --btn-primary-outline: oklch(58% 0.21 255 / 0.6);
+
+    --btn-secondary: oklch(60% 0.02 260 / 0.6);
+    --btn-secondary-hover: oklch(65% 0.02 260 / 0.6);
+    --btn-secondary-active: oklch(55% 0.02 260 / 0.7);
+    --btn-secondary-border: oklch(75% 0.02 260 / 0.4);
+    --btn-secondary-outline: oklch(60% 0.02 260 / 0.6);
+
+    --input-bg: oklch(100% 0 0 / 0.5);
+    --input-normal: oklch(85% 0.01 260 / 0.9);
+    --input-primary: oklch(58% 0.21 255 / 0.9);
+
+    --txt-muted: oklch(50% 0.02 260);
+    --txt-normal: oklch(20% 0.02 260);
+    --txt-reverse: oklch(98% 0 0);
+}
+
+/* Dark glass theme */
+[data-theme='dark'] {
+    color-scheme: dark;
+
+    --base-bg: oklch(18% 0.02 260);
+    --orb-1: oklch(40% 0.12 260 / 0.55);
+    --orb-2: oklch(35% 0.11 310 / 0.5);
+    --orb-3: oklch(38% 0.09 210 / 0.45);
+
+    --base-1: oklch(25% 0.02 260 / 0.25);
+    --base-2: oklch(28% 0.02 260 / 0.55);
+    --base-3: oklch(30% 0.02 260 / 0.4);
+
+    --glass-border: oklch(100% 0 0 / 0.14);
+    --glass-highlight: oklch(100% 0 0 / 0.12);
+    --glass-shadow: oklch(0% 0 0 / 0.45);
+
+    --btn-normal: oklch(100% 0 0 / 0.08);
+    --btn-normal-hover: oklch(100% 0 0 / 0.16);
+    --btn-normal-active: oklch(100% 0 0 / 0.06);
+    --btn-normal-border: oklch(100% 0 0 / 0.14);
+    --btn-normal-outline: oklch(100% 0 0 / 0.3);
+
+    --btn-primary: oklch(62% 0.19 255 / 0.85);
+    --btn-primary-hover: oklch(67% 0.19 255 / 0.85);
+    --btn-primary-active: oklch(57% 0.19 255 / 0.9);
+    --btn-primary-border: oklch(75% 0.14 255 / 0.35);
+    --btn-primary-outline: oklch(62% 0.19 255 / 0.6);
+
+    --btn-secondary: oklch(45% 0.02 260 / 0.5);
+    --btn-secondary-hover: oklch(50% 0.02 260 / 0.5);
+    --btn-secondary-active: oklch(40% 0.02 260 / 0.6);
+    --btn-secondary-border: oklch(100% 0 0 / 0.12);
+    --btn-secondary-outline: oklch(60% 0.02 260 / 0.6);
+
+    --input-bg: oklch(100% 0 0 / 0.06);
+    --input-normal: oklch(100% 0 0 / 0.16);
+    --input-primary: oklch(62% 0.19 255 / 0.9);
+
+    --txt-muted: oklch(72% 0.02 260);
+    --txt-normal: oklch(96% 0.005 260);
+    --txt-reverse: oklch(98% 0 0);
 }
 
 * {
@@ -44,7 +139,7 @@
 
 html,
 body {
-    font-family: monospace, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
 }
 
 #root {
@@ -52,6 +147,38 @@ body {
     height: 100vh;
     overflow: hidden;
     position: relative;
+    transition: background-color 300ms;
+    background:
+        radial-gradient(520px circle at 15% 10%, var(--orb-1), transparent 65%),
+        radial-gradient(460px circle at 90% 30%, var(--orb-2), transparent 65%),
+        radial-gradient(620px circle at 45% 105%, var(--orb-3), transparent 65%)
+        var(--base-bg);
+}
+
+/* Frosted surface for dialogs and sheets */
+.glass-panel {
+    background: var(--base-2);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    box-shadow:
+        0 16px 48px var(--glass-shadow),
+        inset 0 1px 0 var(--glass-highlight);
+    transition: background-color 300ms, border-color 300ms;
+}
+
+/* Frosted text fields */
+.glass-input {
+    color: var(--txt-normal);
+    background: var(--input-bg);
+    border: 1px solid var(--input-normal);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    transition: background-color 300ms, border-color 300ms;
+}
+
+.glass-input::placeholder {
+    color: var(--txt-muted);
 }
 
 .btn-primary,
@@ -62,7 +189,11 @@ body {
     outline-offset: 2px;
     outline-color: transparent;
     transition-duration: 200ms;
-    box-shadow: 0 4px 8px rgb(125 125 125 / 0.05);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    box-shadow:
+        0 8px 24px var(--glass-shadow),
+        inset 0 1px 0 var(--glass-highlight);
 }
 
 .btn-primary {
@@ -140,9 +271,14 @@ body {
 }
 
 .swiper-pagination-bullet {
-    width: 10px;
-    height: 10px;
-    border-radius: 2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
     margin: 0px !important;
     background: var(--color-btn-primary) !important;
+    transition: width 200ms;
+}
+
+.swiper-pagination-bullet-active {
+    width: 20px;
 }

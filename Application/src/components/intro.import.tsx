@@ -103,7 +103,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                 animate={ { y: '0%' } }
                 exit={ { y: '-100%' } }
                 transition={ { duration: 0.4 } }
-                className='absolute inset-0 z-20 flex h-fit max-h-full flex-col gap-2 overflow-y-auto rounded-b-3xl bg-base-2 px-4'>
+                className='glass-panel absolute inset-0 z-20 flex h-fit max-h-full flex-col gap-2 overflow-y-auto rounded-b-3xl px-4'>
 
                 <button
                     type='button'
@@ -196,7 +196,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                                     placeholder={ T('ImportWallet.PhrasePlaceholder') }
                                     onChange={ (e) => { setPhrase(e.target.value); } }
                                     rows={ 4 }
-                                    className='h-24 w-full resize-none rounded-lg border border-input-normal p-3 text-small outline-input-primary focus:outline-2' />
+                                    className='glass-input h-24 w-full resize-none rounded-xl p-3 text-small outline-input-primary focus:outline-2' />
 
                             </label>
 
@@ -219,7 +219,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                                         value={ phrasePassword }
                                         placeholder={ T('CreateWallet.Password') }
                                         onChange={ (e) => { setPhrasePassword(e.target.value); } }
-                                        className='h-12 w-full rounded-lg border border-input-normal pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
+                                        className='glass-input h-12 w-full rounded-xl pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
 
                                     <button
                                         type='button'
@@ -255,7 +255,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                                         value={ phrasePassword2 }
                                         placeholder={ T('CreateWallet.Confirm') }
                                         onChange={ (e) => { setPhrasePassword2(e.target.value); } }
-                                        className='h-12 w-full rounded-lg border border-input-normal pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
+                                        className='glass-input h-12 w-full rounded-xl pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
 
                                     <button
                                         type='button'
@@ -277,7 +277,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                                 <button
                                     type='button'
                                     onClick={ () => { setPhraseAgree(!phraseAgree); } }
-                                    className='flex size-5 items-center justify-center rounded-sm border border-input-normal focus:outline-2'>
+                                    className='glass-input flex size-5 items-center justify-center rounded-md focus:outline-2'>
 
                                     {
                                         phraseAgree && <FiCheck size={ 10 } className='text-txt-muted' />
@@ -328,7 +328,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                                     value={ privateKey }
                                     placeholder={ T('ImportWallet.PrivateKeyPlaceholder') }
                                     onChange={ (e) => { setPrivateKey(e.target.value); } }
-                                    className='h-12 w-full rounded-lg border border-input-normal px-3 font-mono text-small outline-input-primary focus:outline-2' />
+                                    className='glass-input h-12 w-full rounded-xl px-3 font-mono text-small outline-input-primary focus:outline-2' />
 
                             </label>
 
@@ -351,7 +351,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                                         value={ keyPassword }
                                         placeholder={ T('CreateWallet.Password') }
                                         onChange={ (e) => { setKeyPassword(e.target.value); } }
-                                        className='h-12 w-full rounded-lg border border-input-normal pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
+                                        className='glass-input h-12 w-full rounded-xl pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
 
                                     <button
                                         type='button'
@@ -387,7 +387,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                                         value={ keyPassword2 }
                                         placeholder={ T('CreateWallet.Confirm') }
                                         onChange={ (e) => { setKeyPassword2(e.target.value); } }
-                                        className='h-12 w-full rounded-lg border border-input-normal pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
+                                        className='glass-input h-12 w-full rounded-xl pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
 
                                     <button
                                         type='button'
@@ -409,7 +409,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                                 <button
                                     type='button'
                                     onClick={ () => { setKeyAgree(!keyAgree); } }
-                                    className='flex size-5 items-center justify-center rounded-sm border border-input-normal focus:outline-2'>
+                                    className='glass-input flex size-5 items-center justify-center rounded-md focus:outline-2'>
 
                                     {
                                         keyAgree && <FiCheck size={ 10 } className='text-txt-muted' />

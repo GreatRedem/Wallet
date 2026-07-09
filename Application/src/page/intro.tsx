@@ -1,7 +1,7 @@
 import type { Swiper as SwiperType } from 'swiper';
 
 import { motion, AnimatePresence } from 'motion/react';
-import { FiGlobe } from 'react-icons/fi';
+import { FiGlobe, FiMoon, FiSun } from 'react-icons/fi';
 import { LuImport } from 'react-icons/lu';
 import { FaPlusCircle } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,6 +14,7 @@ import IntroLanguage from '../components/intro.language';
 import IntroImport from '../components/intro.import';
 
 import { T } from '../utility/language';
+import { getTheme, setTheme } from '../utility/theme';
 
 import IntroConnect from '../assets/image/intro_connect.png';
 import IntroDecentralized from '../assets/image/intro_decentralized.png';
@@ -43,6 +44,16 @@ const slideMap =
 export default function IntroPage()
 {
     const [ subPage, setSubPage ] = useState<ReactNode>();
+    const [ theme, setThemeState ] = useState(getTheme());
+
+    const toggleTheme = useCallback(() =>
+    {
+        const next = getTheme() === 'light' ? 'dark' : 'light';
+
+        setThemeState(next);
+
+        void setTheme(next);
+    }, []);
 
     const swiperRef = useRef<SwiperType>(undefined);
 
@@ -67,24 +78,39 @@ export default function IntroPage()
 
             <div className='flex size-full flex-col bg-base-1 px-4'>
 
-                <button
-                    onClick={ () => { setSubPage(<IntroLanguage onClose={ () => { setSubPage(undefined); } } />); } }
-                    type='button'
-                    className='btn-normal mt-4 flex h-10 w-fit items-center gap-2 rounded-lg p-2 text-txt-normal outline-0'>
+                <div className='mt-4 flex items-center justify-between'>
 
-                    <FiGlobe size={ 16 } />
+                    <button
+                        onClick={ () => { setSubPage(<IntroLanguage onClose={ () => { setSubPage(undefined); } } />); } }
+                        type='button'
+                        className='btn-normal flex h-10 w-fit items-center gap-2 rounded-lg p-2 text-txt-normal outline-0'>
 
-                    <span className='text-small'>
+                        <FiGlobe size={ 16 } />
+
+                        <span className='text-small'>
+
+                            {
+                                T('Intro.Language')
+                            }
+
+                        </span>
+
+                        <IoIosArrowDown size={ 16 } />
+
+                    </button>
+
+                    <button
+                        onClick={ toggleTheme }
+                        type='button'
+                        className='btn-normal flex size-10 items-center justify-center rounded-lg text-txt-normal outline-0'>
 
                         {
-                            T('Intro.Language')
+                            theme === 'light' ? <FiMoon size={ 16 } /> : <FiSun size={ 16 } />
                         }
 
-                    </span>
+                    </button>
 
-                    <IoIosArrowDown size={ 16 } />
-
-                </button>
+                </div>
 
                 <Swiper
                     modules={ [ Autoplay, Pagination ] }

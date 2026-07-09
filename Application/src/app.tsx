@@ -11,6 +11,7 @@ import PageLayout from './layout/page';
 import IntroPage from './page/intro';
 
 import { openPage } from './utility/context';
+import { initTheme } from './utility/theme';
 import { T, initLanguage } from './utility/language';
 
 import './style.css';
@@ -93,6 +94,7 @@ const rootElement = document.querySelector('#root');
 
 if (rootElement)
 {
+    await initTheme();
     await initLanguage();
 
     if (platform() === 'windows')

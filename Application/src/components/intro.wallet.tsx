@@ -28,7 +28,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                 animate={ { y: '0%' } }
                 exit={ { y: '-100%' } }
                 transition={ { duration: 0.4 } }
-                className='absolute inset-0 z-20 flex h-fit flex-col gap-2 rounded-b-3xl bg-base-2 px-4'>
+                className='glass-panel absolute inset-0 z-20 flex h-fit flex-col gap-2 rounded-b-3xl px-4'>
 
                 <button
                     type='button'
@@ -78,7 +78,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                             value={ password }
                             placeholder={ T('CreateWallet.Password') }
                             onChange={ (e) => { setPassword(e.target.value); } }
-                            className='h-12 w-full rounded-lg border border-input-normal pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
+                            className='glass-input h-12 w-full rounded-xl pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
 
                         <button
                             type='button'
@@ -114,7 +114,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                             value={ password2 }
                             placeholder={ T('CreateWallet.Confirm') }
                             onChange={ (e) => { setPassword2(e.target.value); } }
-                            className='h-12 w-full rounded-lg border border-input-normal pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
+                            className='glass-input h-12 w-full rounded-xl pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
 
                         <button
                             type='button'
@@ -137,7 +137,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                     <button
                         type='button'
                         onClick={ () => { setAgree(!agree); } }
-                        className='flex size-5 items-center justify-center rounded-sm border border-input-normal focus:outline-2'>
+                        className='glass-input flex size-5 items-center justify-center rounded-md focus:outline-2'>
 
                         {
                             agree && <FiCheck size={ 10 } className='text-txt-muted' />
