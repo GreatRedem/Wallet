@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { IoClose } from 'react-icons/io5';
-import { FaAngleDown } from 'react-icons/fa6';
+import { FiCheck } from 'react-icons/fi';
 import { HiEye, HiEyeOff, HiOutlineLockClosed } from 'react-icons/hi';
 import { LuFileText, LuKeyRound } from 'react-icons/lu';
 
@@ -106,6 +106,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                 className='absolute inset-0 z-20 flex h-fit max-h-full flex-col gap-2 overflow-y-auto rounded-b-3xl bg-base-2 px-4'>
 
                 <button
+                    type='button'
                     onClick={ onClose }
                     className='btn-normal mt-4 flex size-10 items-center justify-center rounded-lg outline-0'>
 
@@ -137,6 +138,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                 <div className='mt-4 flex gap-2'>
 
                     <button
+                        type='button'
                         onClick={ () => { setActiveTab('phrase'); } }
                         className={
                             `flex h-10 flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg text-small font-bold outline-0 transition-colors duration-200 ${
@@ -155,6 +157,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                     </button>
 
                     <button
+                        type='button'
                         onClick={ () => { setActiveTab('key'); } }
                         className={
                             `flex h-10 flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg text-small font-bold outline-0 transition-colors duration-200 ${
@@ -219,6 +222,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                                         className='h-12 w-full rounded-lg border border-input-normal pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
 
                                     <button
+                                        type='button'
                                         onClick={ () => { setShowPhrasePassword(!showPhrasePassword); } }
                                         className='absolute right-3 text-txt-muted hover:text-txt-normal'>
 
@@ -254,6 +258,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                                         className='h-12 w-full rounded-lg border border-input-normal pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
 
                                     <button
+                                        type='button'
                                         onClick={ () => { setShowPhrasePassword2(!showPhrasePassword2); } }
                                         className='absolute right-3 text-txt-muted hover:text-txt-normal'>
 
@@ -270,11 +275,12 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                             <label className='flex h-10 items-center gap-2'>
 
                                 <button
+                                    type='button'
                                     onClick={ () => { setPhraseAgree(!phraseAgree); } }
                                     className='flex size-5 items-center justify-center rounded-sm border border-input-normal focus:outline-2'>
 
                                     {
-                                        phraseAgree && <FaAngleDown size={ 10 } className='text-txt-muted' />
+                                        phraseAgree && <FiCheck size={ 10 } className='text-txt-muted' />
                                     }
 
                                 </button>
@@ -290,6 +296,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                             </label>
 
                             <button
+                                type='button'
                                 disabled={ !phraseValid }
                                 onClick={ handleImportPhrase }
                                 className='btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2 outline-0'>
@@ -347,6 +354,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                                         className='h-12 w-full rounded-lg border border-input-normal pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
 
                                     <button
+                                        type='button'
                                         onClick={ () => { setShowKeyPassword(!showKeyPassword); } }
                                         className='absolute right-3 text-txt-muted hover:text-txt-normal'>
 
@@ -382,6 +390,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                                         className='h-12 w-full rounded-lg border border-input-normal pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
 
                                     <button
+                                        type='button'
                                         onClick={ () => { setShowKeyPassword2(!showKeyPassword2); } }
                                         className='absolute right-3 text-txt-muted hover:text-txt-normal'>
 
@@ -398,11 +407,12 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                             <label className='flex h-10 items-center gap-2'>
 
                                 <button
+                                    type='button'
                                     onClick={ () => { setKeyAgree(!keyAgree); } }
                                     className='flex size-5 items-center justify-center rounded-sm border border-input-normal focus:outline-2'>
 
                                     {
-                                        keyAgree && <FaAngleDown size={ 10 } className='text-txt-muted' />
+                                        keyAgree && <FiCheck size={ 10 } className='text-txt-muted' />
                                     }
 
                                 </button>
@@ -418,6 +428,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                             </label>
 
                             <button
+                                type='button'
                                 disabled={ !keyValid }
                                 onClick={ handleImportKey }
                                 className='btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2 outline-0'>

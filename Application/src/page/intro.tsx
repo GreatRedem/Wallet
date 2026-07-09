@@ -69,6 +69,7 @@ export default function IntroPage()
 
                 <button
                     onClick={ () => { setSubPage(<IntroLanguage onClose={ () => { setSubPage(undefined); } } />); } }
+                    type='button'
                     className='btn-normal mt-4 flex h-10 w-fit items-center gap-2 rounded-lg p-2 text-txt-normal outline-0'>
 
                     <FiGlobe size={ 16 } />
@@ -127,6 +128,7 @@ export default function IntroPage()
 
                     <button
                         onClick={ () => { setSubPage(<IntroWallet onClose={ () => { setSubPage(undefined); } } />); } }
+                        type='button'
                         className='btn-primary flex h-12 items-center gap-2 rounded-lg p-2 outline-0'>
 
                         <FaPlusCircle size={ 32 } className='p-1.5' />
@@ -145,6 +147,7 @@ export default function IntroPage()
 
                     <button
                         onClick={ () => { setSubPage(<IntroImport onClose={ () => { setSubPage(undefined); } } />); } }
+                        type='button'
                         className='btn-normal flex h-12 items-center gap-2 rounded-lg p-2 outline-0'>
 
                         <LuImport size={ 32 } className='p-1.5' />

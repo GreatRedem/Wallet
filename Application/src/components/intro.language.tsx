@@ -58,6 +58,7 @@ export default function IntroLanguage({ onClose }: { onClose: () => void })
                         </h2>
 
                         <button
+                            type='button'
                             onClick={ onClose }
                             className='btn-normal flex size-8 items-center justify-center rounded-lg outline-0'>
 
@@ -77,6 +78,7 @@ export default function IntroLanguage({ onClose }: { onClose: () => void })
                                 return (
                                     <button
                                         key={ lang.code }
+                                        type='button'
                                         onClick={ () => { void handleSelect(lang.code); } }
                                         className='flex h-12 cursor-pointer items-center gap-3 rounded-xl px-3 text-start outline-0 transition-colors duration-200 hover:bg-btn-normal active:bg-btn-normal-active'>
 
