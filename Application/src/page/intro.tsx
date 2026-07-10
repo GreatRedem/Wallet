@@ -1,19 +1,19 @@
 import type { Swiper as SwiperType } from 'swiper';
 
-import { motion, AnimatePresence } from 'motion/react';
-import { FiGlobe, FiMoon, FiSun } from 'react-icons/fi';
 import { LuImport } from 'react-icons/lu';
 import { FaPlusCircle } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
+import { motion, AnimatePresence } from 'motion/react';
+import { FiGlobe, FiMoon, FiSun } from 'react-icons/fi';
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 import { useRef, useCallback, useState, type ReactNode } from 'react';
 
+import IntroImport from '../components/intro.import';
 import IntroWallet from '../components/intro.wallet';
 import IntroLanguage from '../components/intro.language';
-import IntroImport from '../components/intro.import';
 
-import { T } from '../utility/language';
+import { getDirection, T } from '../utility/language';
 import { getTheme, setTheme } from '../utility/theme';
 
 import IntroConnect from '../assets/image/intro_connect.png';
@@ -66,6 +66,7 @@ export default function IntroPage()
         <motion.div
             initial={ { scale: 0 } }
             animate={ { scale: 1 } }
+            transition={ { type: 'tween' } }
             className='relative size-full'>
 
             <AnimatePresence>
@@ -83,7 +84,7 @@ export default function IntroPage()
                     <button
                         onClick={ () => { setSubPage(<IntroLanguage onClose={ () => { setSubPage(undefined); } } />); } }
                         type='button'
-                        className='btn-normal flex h-10 w-fit items-center gap-2 rounded-lg p-2 text-txt-normal outline-0'>
+                        className='btn-normal flex h-10 w-fit items-center gap-2 rounded-lg p-2'>
 
                         <FiGlobe size={ 16 } />
 
@@ -116,9 +117,9 @@ export default function IntroPage()
                     modules={ [ Autoplay, Pagination ] }
                     onSwiper={ onSwiper }
                     loop={ true }
-                    autoplay={ { disableOnInteraction: false, pauseOnMouseEnter: true } }
+                    autoplay={ { disableOnInteraction: false, pauseOnMouseEnter: true, delay: 8000 } }
                     pagination={ { clickable: true } }
-                    className='size-full'>
+                    className='mt-8 size-full'>
 
                     {
                         slideMap.map((slide) => (
@@ -167,7 +168,7 @@ export default function IntroPage()
 
                         </span>
 
-                        <IoIosArrowForward size={ 16 } />
+                        <IoIosArrowForward size={ 16 } className={ getDirection() === 'rtl' ? 'rotate-180' : '' } />
 
                     </button>
 
@@ -186,7 +187,7 @@ export default function IntroPage()
 
                         </span>
 
-                        <IoIosArrowForward size={ 16 } />
+                        <IoIosArrowForward size={ 16 } className={ getDirection() === 'rtl' ? 'rotate-180' : '' } />
 
                     </button>
 
