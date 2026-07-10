@@ -32,7 +32,6 @@ export default function IntroLanguage({ onClose }: { onClose: () => void })
                     initial={ { opacity: 0, scale: 0.9 } }
                     animate={ { opacity: 1, scale: 1 } }
                     exit={ { opacity: 0, scale: 0.9 } }
-                    transition={ { duration: 0.3 } }
                     className='glass-panel flex w-72 flex-col gap-2 rounded-lg p-4'>
 
                     <div className='flex items-center justify-between'>

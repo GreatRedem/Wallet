@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { IoClose } from 'react-icons/io5';
 import { FiCheck } from 'react-icons/fi';
+import { IoClose } from 'react-icons/io5';
 import { HiEye, HiEyeOff, HiOutlineLockClosed } from 'react-icons/hi';
 
 import { T } from '../utility/language';
@@ -20,20 +20,20 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                 initial={ { opacity: 0 } }
                 animate={ { opacity: 1 } }
                 exit={ { opacity: 0 } }
-                className='absolute inset-0 z-10 size-full bg-black/25 backdrop-blur-xs'
+                className='absolute z-10 size-full cursor-pointer bg-black/25 backdrop-blur-xs'
                 onClick={ onClose } />
 
             <motion.div
                 initial={ { y: '-100%' } }
                 animate={ { y: '0%' } }
                 exit={ { y: '-100%' } }
-                transition={ { duration: 0.4 } }
-                className='glass-panel absolute inset-0 z-20 flex h-fit flex-col gap-2 rounded-b-3xl px-4'>
+                transition={ { type: 'tween' } }
+                className='glass-panel absolute inset-0 z-20 mx-2 flex h-fit flex-col gap-2 rounded-b-3xl px-4'>
 
                 <button
                     type='button'
                     onClick={ onClose }
-                    className='btn-normal mt-4 flex size-10 items-center justify-center rounded-lg outline-0'>
+                    className='btn-normal mt-4 flex size-10 items-center justify-center rounded-lg'>
 
                     <IoClose size={ 24 } />
 
@@ -61,29 +61,29 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
 
                 <label className='mt-4 flex flex-col gap-2'>
 
-                    <span className='text-tiny text-txt-muted'>
+                    <div className='text-tiny text-txt-muted'>
 
                         {
                             T('CreateWallet.Password')
                         }
 
-                    </span>
+                    </div>
 
                     <div className='relative flex items-center'>
 
-                        <HiOutlineLockClosed className='absolute left-3 text-txt-muted' size={ 20 } />
+                        <HiOutlineLockClosed className='absolute left-4 text-txt-muted' size={ 20 } />
 
                         <input
                             type={ showPassword ? 'text' : 'password' }
                             value={ password }
                             placeholder={ T('CreateWallet.Password') }
                             onChange={ (e) => { setPassword(e.target.value); } }
-                            className='glass-input h-12 w-full rounded-xl pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
+                            className='glass-input h-12 w-full rounded-lg px-12 text-small' />
 
                         <button
                             type='button'
                             onClick={ () => { setShowPassword(!showPassword); } }
-                            className='absolute right-3 text-txt-muted hover:text-txt-normal'>
+                            className='btn-muted absolute right-4 cursor-pointer rounded-lg text-txt-muted hover:text-txt-normal'>
 
                             {
                                 showPassword ? <HiEyeOff size={ 18 } /> : <HiEye size={ 18 } />
@@ -97,29 +97,29 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
 
                 <label className='flex flex-col gap-2'>
 
-                    <span className='text-tiny text-txt-muted'>
+                    <div className='text-tiny text-txt-muted'>
 
                         {
                             T('CreateWallet.Confirm')
                         }
 
-                    </span>
+                    </div>
 
                     <div className='relative flex items-center'>
 
-                        <HiOutlineLockClosed className='absolute left-3 text-txt-muted' size={ 20 } />
+                        <HiOutlineLockClosed className='absolute left-4 text-txt-muted' size={ 20 } />
 
                         <input
                             type={ showPassword2 ? 'text' : 'password' }
                             value={ password2 }
                             placeholder={ T('CreateWallet.Confirm') }
                             onChange={ (e) => { setPassword2(e.target.value); } }
-                            className='glass-input h-12 w-full rounded-xl pr-10 pl-12 text-small outline-input-primary focus:outline-2' />
+                            className='glass-input h-12 w-full rounded-lg px-12 text-small' />
 
                         <button
                             type='button'
                             onClick={ () => { setShowPassword2(!showPassword2); } }
-                            className='absolute right-3 text-txt-muted hover:text-txt-normal'>
+                            className='btn-muted absolute right-4 cursor-pointer rounded-lg text-txt-muted hover:text-txt-normal'>
 
                             {
                                 showPassword2 ? <HiEyeOff size={ 18 } /> : <HiEye size={ 18 } />
@@ -131,40 +131,33 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
 
                 </label>
 
-                <label
-                    className='flex h-10 items-center gap-2'>
+                <label className='flex h-10 cursor-pointer items-center gap-2'>
 
                     <button
                         type='button'
                         onClick={ () => { setAgree(!agree); } }
-                        className='glass-input flex size-5 items-center justify-center rounded-md focus:outline-2'>
+                        className='glass-input flex size-5 items-center justify-center rounded-sm'>
 
                         {
-                            agree && <FiCheck size={ 10 } className='text-txt-muted' />
+                            agree && <FiCheck size={ 16 } className='text-txt-muted' />
                         }
 
                     </button>
 
-                    <span className='text-tiny text-txt-muted'>
+                    <div className='text-tiny text-txt-muted'>
 
                         {
                             T('CreateWallet.Agreement')
                         }
 
-                    </span>
+                    </div>
 
                 </label>
 
                 <button
                     type='button'
                     disabled={ !agree }
-                    onClick={
-                        () =>
-                        {
-                        // TODO: persist wallet + password, navigate to next page
-                        }
-                    }
-                    className='btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2 outline-0'>
+                    className='btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2'>
 
                     {
                         T('Intro.Wallet.Create')

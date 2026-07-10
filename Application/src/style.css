@@ -184,11 +184,18 @@ body {
 }
 
 .glass-input {
-    color: var(--txt-normal);
+    outline-width: 2px;
+    outline-offset: 2px;
+    outline-style: double;
+    outline-color: transparent;
     background: var(--input-bg);
     border: 1px solid var(--input-normal);
     backdrop-filter: blur(12px) saturate(150%);
     transition: background-color 300ms, border-color 300ms;
+}
+
+.glass-input:focus {
+    outline-color: var(--color-btn-muted-outline);
 }
 
 .btn-muted,

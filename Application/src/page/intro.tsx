@@ -88,13 +88,13 @@ export default function IntroPage()
 
                         <FiGlobe size={ 16 } />
 
-                        <span className='text-small'>
+                        <div className='text-small'>
 
                             {
                                 T('Intro.Language')
                             }
 
-                        </span>
+                        </div>
 
                         <IoIosArrowDown size={ 16 } />
 
@@ -160,13 +160,13 @@ export default function IntroPage()
 
                         <FaPlusCircle size={ 32 } className='p-1.5' />
 
-                        <span className='flex-1 text-start'>
+                        <div className='flex-1 text-start'>
 
                             {
                                 T('Intro.Create')
                             }
 
-                        </span>
+                        </div>
 
                         <IoIosArrowForward size={ 16 } className={ getDirection() === 'rtl' ? 'rotate-180' : '' } />
 
@@ -179,25 +179,25 @@ export default function IntroPage()
 
                         <LuImport size={ 32 } className='p-1.5' />
 
-                        <span className='flex-1 text-start'>
+                        <div className='flex-1 text-start'>
 
                             {
                                 T('Intro.Import')
                             }
 
-                        </span>
+                        </div>
 
                         <IoIosArrowForward size={ 16 } className={ getDirection() === 'rtl' ? 'rotate-180' : '' } />
 
                     </button>
 
-                    <span className='mt-2 text-center text-tiny text-txt-muted'>
+                    <div className='mt-2 text-center text-tiny text-txt-muted'>
 
                         {
                             T('Intro.Version')
                         }
 
-                    </span>
+                    </div>
 
                 </div>
 
