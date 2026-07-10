@@ -9,8 +9,8 @@
     },
 
     "Language": {
-        "English": "English",
-        "Persian": "Persian"
+        "en": "English",
+        "fa": "Persian"
     },
 
     "Intro": {
@@ -28,10 +28,6 @@
         "Secure": {
             "Header": "Secure & Private",
             "Message": "Using advanced security protocols to protect your digital assets and personal information."
-        },
-
-        "Wallet": {
-            "Create": "Create Wallet"
         },
 
         "Create": "Create New Wallet",

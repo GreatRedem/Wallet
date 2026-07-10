@@ -8,15 +8,10 @@ let languageMap: Record<string, Record<string, never>> = {};
 /**
  * Language metadata used by the UI for display and locale selection.
  */
-const languageRecord: { code: LanguageType; country: string } [] =
+export const languageRecord: { code: LanguageType; country: string; emoji: string } [] =
 [
-    { code: 'en', country: 'us' },
-    { code: 'fa', country: 'ir' },
-    { code: 'tr', country: 'tr' },
-    { code: 'ar', country: 'sa' },
-    { code: 'zh', country: 'cn' },
-    { code: 'ru', country: 'ru' },
-    { code: 'hi', country: 'in' }
+    { code: 'en', country: 'us', emoji: '🇺🇸' },
+    { code: 'fa', country: 'ir', emoji: '🇮🇷' }
 ];
 
 /**

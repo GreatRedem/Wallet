@@ -2,13 +2,7 @@ import { motion } from 'motion/react';
 import { FiCheck } from 'react-icons/fi';
 import { IoClose } from 'react-icons/io5';
 
-import { T, getLanguage, setLanguage, type LanguageType } from '../utility/language';
-
-const languageOptions: { code: LanguageType; flag: string; nativeName: string }[] =
-[
-    { code: 'en', flag: '\u{1F1FA}\u{1F1F8}', nativeName: 'English' },
-    { code: 'fa', flag: '\u{1F1EE}\u{1F1F7}', nativeName: '\u0641\u0627\u0631\u0633\u06CC' }
-];
+import { T, getLanguage, setLanguage, languageRecord, type LanguageType } from '../utility/language';
 
 export default function IntroLanguage({ onClose }: { onClose: () => void })
 {
@@ -65,7 +59,7 @@ export default function IntroLanguage({ onClose }: { onClose: () => void })
                     <div />
 
                     {
-                        languageOptions.map((lang) =>
+                        languageRecord.map((lang) =>
                         {
                             const isActive = lang.code === current.code;
 
@@ -73,24 +67,22 @@ export default function IntroLanguage({ onClose }: { onClose: () => void })
                                 <button
                                     key={ lang.code }
                                     type='button'
+                                    disabled={ isActive }
                                     onClick={ () => { void handleSelect(lang.code); } }
-                                    className='flex h-12 cursor-pointer items-center gap-3 rounded-xl px-3 text-start outline-0 transition-colors duration-200 hover:bg-btn-normal active:bg-btn-normal-active'>
+                                    className={ `flex h-12 items-center gap-2 rounded-xl px-4 text-start duration-300 ${ isActive ? 'bg-base-3' : 'cursor-pointer hover:bg-black/25' }` }>
 
-                                    <span className='text-xl'>
+                                    <div className={ `fi fi-${ lang.country } size-4!` } />
 
-                                        { lang.flag }
+                                    <div className='flex-1'>
 
-                                    </span>
+                                        {
+                                            T('Language.' + lang.code)
+                                        }
 
-                                    <span className='flex-1 text-small text-txt-normal'>
-
-                                        { lang.nativeName }
-
-                                    </span>
+                                    </div>
 
                                     {
-                                        isActive &&
-                                        <FiCheck size={ 18 } className='text-btn-primary' />
+                                        isActive && <FiCheck size={ 18 } />
                                     }
 
                                 </button>
