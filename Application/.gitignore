@@ -1,5 +1,7 @@
 package-lock.json
 
+.kilo/
+
 node_modules/
 target/
 Build/
