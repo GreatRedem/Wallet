@@ -33,7 +33,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                 <button
                     type='button'
                     onClick={ onClose }
-                    className='btn-normal mt-4 flex size-10 items-center justify-center rounded-lg'>
+                    className='btn-muted mt-4 flex size-10 items-center justify-center rounded-lg'>
 
                     <IoClose size={ 24 } />
 
@@ -157,7 +157,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                 <button
                     type='button'
                     disabled={ !agree }
-                    className='btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2'>
+                    className={ `btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2 ${ !agree ? 'cursor-not-allowed! opacity-50' : '' }` }>
 
                     {
                         T('Intro.Wallet.Create')

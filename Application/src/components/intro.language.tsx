@@ -18,8 +18,7 @@ export default function IntroLanguage({ onClose }: { onClose: () => void })
     return (
         <>
 
-            <motion.button
-                type='button'
+            <motion.div
                 initial={ { opacity: 0 } }
                 animate={ { opacity: 1 } }
                 exit={ { opacity: 0 } }
@@ -68,7 +67,7 @@ export default function IntroLanguage({ onClose }: { onClose: () => void })
                                     type='button'
                                     disabled={ isActive }
                                     onClick={ () => { void handleSelect(lang.code); } }
-                                    className={ `flex h-12 items-center gap-2 rounded-xl px-4 text-start duration-300 ${ isActive ? 'bg-base-3' : 'cursor-pointer hover:bg-black/25' }` }>
+                                    className={ `btn-muted flex h-12 items-center gap-2 rounded-xl px-4 text-start duration-300 ${ isActive ? 'cursor-default! bg-base-3!' : 'hover:bg-black/25' }` }>
 
                                     <div className={ `fi fi-${ lang.country } size-4!` } />
 

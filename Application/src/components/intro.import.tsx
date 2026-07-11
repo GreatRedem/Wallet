@@ -95,20 +95,20 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                 initial={ { opacity: 0 } }
                 animate={ { opacity: 1 } }
                 exit={ { opacity: 0 } }
-                className='absolute inset-0 z-10 size-full bg-black/25 backdrop-blur-xs'
+                className='absolute inset-0 z-10 size-full cursor-pointer bg-black/25 backdrop-blur-xs'
                 onClick={ onClose } />
 
             <motion.div
                 initial={ { y: '-100%' } }
                 animate={ { y: '0%' } }
                 exit={ { y: '-100%' } }
-                transition={ { duration: 0.4 } }
-                className='glass-panel absolute inset-0 z-20 flex h-fit max-h-full flex-col gap-2 overflow-y-auto rounded-b-3xl px-4'>
+                transition={ { type: 'tween' } }
+                className='glass-panel absolute inset-0 z-20 mx-2 flex h-fit flex-col gap-2 rounded-b-3xl px-4'>
 
                 <button
                     type='button'
                     onClick={ onClose }
-                    className='btn-normal mt-4 flex size-10 items-center justify-center rounded-lg outline-0'>
+                    className='btn-muted mt-4 flex size-10 items-center justify-center rounded-lg'>
 
                     <IoClose size={ 24 } />
 
@@ -134,19 +134,12 @@ export default function IntroImport({ onClose }: { onClose: () => void })
 
                 </div>
 
-                {/* Tabs */}
                 <div className='mt-4 flex gap-2'>
 
                     <button
                         type='button'
                         onClick={ () => { setActiveTab('phrase'); } }
-                        className={
-                            `flex h-10 flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg text-small font-bold outline-0 transition-colors duration-200 ${
-                                activeTab === 'phrase' ?
-                                    'bg-btn-primary text-txt-reverse' :
-                                    'bg-btn-normal text-txt-normal hover:bg-btn-normal-hover'
-                            }`
-                        }>
+                        className={ `flex h-10 flex-1 items-center justify-center gap-2 rounded-lg ${ activeTab === 'phrase' ? 'btn-primary' : 'btn-secondary' }` }>
 
                         <LuFileText size={ 18 } />
 
@@ -159,13 +152,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                     <button
                         type='button'
                         onClick={ () => { setActiveTab('key'); } }
-                        className={
-                            `flex h-10 flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg text-small font-bold outline-0 transition-colors duration-200 ${
-                                activeTab === 'key' ?
-                                    'bg-btn-primary text-txt-reverse' :
-                                    'bg-btn-normal text-txt-normal hover:bg-btn-normal-hover'
-                            }`
-                        }>
+                        className={ `flex h-10 flex-1 items-center justify-center gap-2 rounded-lg ${ activeTab === 'key' ? 'btn-primary' : 'btn-secondary' }` }>
 
                         <LuKeyRound size={ 18 } />
 
@@ -177,7 +164,6 @@ export default function IntroImport({ onClose }: { onClose: () => void })
 
                 </div>
 
-                {/* Phrase tab */}
                 {
                     activeTab === 'phrase' && (
                         <>
