@@ -49,10 +49,19 @@
 
     "CreateWallet": {
         "Title": "Create New Wallet",
-        "Subtitle": "Set up your secure wallet to get started",
+        "PhraseTitle": "Your Recovery Phrase",
+        "PhraseHint": "Write these words down in order and keep them somewhere safe. Anyone with this phrase can access your wallet.",
+        "Reveal": "Tap to reveal",
+        "Copy": "Copy",
+        "Copied": "Copied",
+        "Saved": "I have written down my recovery phrase",
+        "Continue": "Continue",
+        "Back": "Back",
+        "PasswordTitle": "Set a Password",
         "Name": "Wallet Name",
         "Password": "Password",
         "Confirm": "Confirm Password",
+        "Mismatch": "Passwords do not match",
         "Agreement": "I agree to the terms and conditions",
         "Submit": "Create Wallet"
     }
