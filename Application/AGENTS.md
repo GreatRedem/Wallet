@@ -40,7 +40,7 @@ No test framework exists — no test runner, no test files.
 ## Quirks / not yet wired
 
 - Only 2 of 7 declared languages have translation JSONs: `en.json` and `fa.json` in `assets/lang/`.
-- `zustand` 5 and `flag-icons` 7 are dependencies but not used anywhere.
+- `zustand` 5 is a dependency but not used anywhere yet. `flag-icons` 7 **is** used (`fi fi-<country>` classes in `components/intro.language.tsx`).
 - `src/core/providers/` and `src-tauri/src/commands/` exist but are empty (no Tauri IPC commands registered).
 - `package-lock.json` is intentionally gitignored.
 - `Zustand` for state management and `flag-icons` for flag CSS are available if needed.
@@ -51,5 +51,7 @@ Conventional Commits (`contributing.md` at repo root): `<type>(<scope>): <subjec
 
 ## Reference docs
 
+- `docs/CODE_STYLE.md` — **read before writing code** — formatting, naming, JSDoc, JSX, and styling conventions with real examples
+- `docs/PATTERNS.md` — copy-paste recipes for adding pages, overlays, events, storage keys, translations, and wallet ops consistently
 - `ARCHITECTURE.md` — component flow diagrams and detailed architecture
 - `eslint.config.ts` — authoritative source for all code style rules
