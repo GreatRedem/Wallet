@@ -79,7 +79,15 @@ function Application()
  */
 document.addEventListener('keydown', (event) =>
 {
-    if (event.key === 'F3' || event.key === 'F5' || event.key === 'F7' || (event.ctrlKey && event.key === 'r'))
+    if (event.key === 'F3' ||
+        event.key === 'F5' ||
+        event.key === 'F7' ||
+        (event.ctrlKey && (event.key === 'p' || event.key === 'P')) ||
+        (event.ctrlKey && (event.key === 'j' || event.key === 'J')) ||
+        (event.ctrlKey && (event.key === 'r' || event.key === 'R')) ||
+        (event.ctrlKey && (event.key === 'f' || event.key === 'F')) ||
+        (event.ctrlKey && event.shiftKey && (event.key === 'p' || event.key === 'P')) ||
+        (event.ctrlKey && event.shiftKey && (event.key === 'i' || event.key === 'I')))
     {
         // event.preventDefault();
     }
