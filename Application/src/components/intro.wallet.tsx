@@ -44,7 +44,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                     <div className='text-center text-large font-bold text-txt-normal'>
 
                         {
-                            T('CreateWallet.Title')
+                            T('Intro.CreateWallet.Title')
                         }
 
                     </div>
@@ -52,7 +52,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                     <div className='text-center text-small text-txt-muted'>
 
                         {
-                            T('CreateWallet.Subtitle')
+                            T('Intro.CreateWallet.Subtitle')
                         }
 
                     </div>
@@ -64,7 +64,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                     <div className='text-tiny text-txt-muted'>
 
                         {
-                            T('CreateWallet.Password')
+                            T('Intro.CreateWallet.Password')
                         }
 
                     </div>
@@ -76,7 +76,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                         <input
                             type={ showPassword ? 'text' : 'password' }
                             value={ password }
-                            placeholder={ T('CreateWallet.Password') }
+                            placeholder={ T('Intro.CreateWallet.Password') }
                             onChange={ (e) => { setPassword(e.target.value); } }
                             className='glass-input h-12 w-full rounded-lg px-12 text-small' />
 
@@ -100,7 +100,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                     <div className='text-tiny text-txt-muted'>
 
                         {
-                            T('CreateWallet.Confirm')
+                            T('Intro.CreateWallet.Confirm')
                         }
 
                     </div>
@@ -112,7 +112,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                         <input
                             type={ showPassword2 ? 'text' : 'password' }
                             value={ password2 }
-                            placeholder={ T('CreateWallet.Confirm') }
+                            placeholder={ T('Intro.CreateWallet.Confirm') }
                             onChange={ (e) => { setPassword2(e.target.value); } }
                             className='glass-input h-12 w-full rounded-lg px-12 text-small' />
 
@@ -147,7 +147,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                     <div className='text-tiny text-txt-muted'>
 
                         {
-                            T('CreateWallet.Agreement')
+                            T('Intro.CreateWallet.Agreement')
                         }
 
                     </div>
@@ -160,7 +160,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                     className={ `btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2 ${ !agree ? 'cursor-not-allowed! opacity-50' : '' }` }>
 
                     {
-                        T('Intro.Wallet.Create')
+                        T('Intro.CreateWallet.Submit')
                     }
 
                 </button>
