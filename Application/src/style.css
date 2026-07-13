@@ -40,6 +40,7 @@
     --color-txt-muted: var(--txt-muted);
     --color-txt-normal: var(--txt-normal);
     --color-txt-reverse: var(--txt-reverse);
+    --color-txt-error: var(--txt-error);
 }
 
 @theme {
@@ -102,6 +103,7 @@
     --txt-muted: oklch(50% 0.02 260);
     --txt-normal: oklch(20% 0.02 260);
     --txt-reverse: oklch(98% 0 0);
+    --txt-error: oklch(55% 0.22 25);
 }
 
 [data-theme='dark'] {
@@ -151,6 +153,7 @@
     --txt-muted: oklch(72% 0.02 260);
     --txt-normal: oklch(96% 0.005 260);
     --txt-reverse: oklch(98% 0 0);
+    --txt-error: oklch(72% 0.19 25);
 }
 
 * {
@@ -159,8 +162,12 @@
     -webkit-user-select: none;
 }
 
-body {
-    font-family: monospace, "Estedad", sans-serif;
+html:lang(en) body {
+    font-family: monospace, sans-serif;
+}
+
+html:lang(fa) body {
+    font-family: "Estedad", sans-serif;
 }
 
 #root {

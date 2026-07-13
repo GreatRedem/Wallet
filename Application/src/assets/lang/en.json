@@ -54,6 +54,10 @@
         "Password": "Password",
         "Confirm": "Confirm Password",
         "Agreement": "I agree to the terms and conditions",
-        "Submit": "Create Wallet"
+        "Submit": "Create Wallet",
+        "ErrorMismatch": "Passwords do not match",
+        "ErrorLength": "Password must be between 6 and 32 characters",
+        "ErrorGenerate": "Failed to generate wallet. Please try again",
+        "ErrorSave": "Failed to save wallet. Please try again"
     }
 }

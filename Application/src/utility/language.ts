@@ -59,6 +59,8 @@ export const setLanguage = async(lang: LanguageType) =>
 
     await setValue('App.Language', lang);
 
+    document.documentElement.lang = lang;
+
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     languageMap = (await import(`../assets/lang/${ lang }.json`)).default;
 

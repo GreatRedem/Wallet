@@ -1,18 +1,27 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { FiCheck } from 'react-icons/fi';
 import { IoClose } from 'react-icons/io5';
+import { FiCheck, FiLoader } from 'react-icons/fi';
 import { HiEye, HiEyeOff, HiOutlineLockClosed } from 'react-icons/hi';
 
+import WalletManager from '../core/wallet';
+
 import { T } from '../utility/language';
+import { setValue } from '../utility/storage';
 
 export default function IntroWallet({ onClose }: { onClose: () => void })
 {
+    const [ error, setError ] = useState('');
     const [ agree, setAgree ] = useState(false);
     const [ password, setPassword ] = useState('');
     const [ password2, setPassword2 ] = useState('');
     const [ showPassword, setShowPassword ] = useState(false);
     const [ showPassword2, setShowPassword2 ] = useState(false);
+
+    const onCreateWallet = async() =>
+    {
+        onClose();
+    };
 
     return (
         <>
@@ -59,7 +68,18 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
 
                 </div>
 
-                <label className='mt-4 flex flex-col gap-2'>
+                {
+                    error.length > 0 &&
+                    (
+                        <div className='text-center text-small text-txt-error bg-txt-error/15 w-fit mx-auto rounded-lg px-4 py-2'>
+
+                            { error }
+
+                        </div>
+                    )
+                }
+
+                <label className='flex flex-col gap-2'>
 
                     <div className='text-tiny text-txt-muted'>
 
@@ -83,7 +103,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                         <button
                             type='button'
                             onClick={ () => { setShowPassword(!showPassword); } }
-                            className='btn-muted absolute right-4 cursor-pointer rounded-lg text-txt-muted hover:text-txt-normal'>
+                            className='absolute right-4 cursor-pointer rounded-lg text-txt-muted hover:text-txt-normal'>
 
                             {
                                 showPassword ? <HiEyeOff size={ 18 } /> : <HiEye size={ 18 } />
@@ -119,7 +139,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                         <button
                             type='button'
                             onClick={ () => { setShowPassword2(!showPassword2); } }
-                            className='btn-muted absolute right-4 cursor-pointer rounded-lg text-txt-muted hover:text-txt-normal'>
+                            className='absolute right-4 cursor-pointer rounded-lg text-txt-muted hover:text-txt-normal'>
 
                             {
                                 showPassword2 ? <HiEyeOff size={ 18 } /> : <HiEye size={ 18 } />
@@ -136,7 +156,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                     <button
                         type='button'
                         onClick={ () => { setAgree(!agree); } }
-                        className='glass-input flex size-5 items-center justify-center rounded-sm'>
+                        className='glass-input flex size-5 items-center justify-center rounded-sm cursor-pointer'>
 
                         {
                             agree && <FiCheck size={ 16 } className='text-txt-muted' />
@@ -158,6 +178,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                     type='button'
                     disabled={ !agree }
                     className={ `btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2 ${ !agree ? 'cursor-not-allowed! opacity-50' : '' }` }>
+                    onClick={ () => { void onCreateWallet(); } }
 
                     {
                         T('Intro.CreateWallet.Submit')
