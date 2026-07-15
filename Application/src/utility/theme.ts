@@ -33,10 +33,7 @@ export const setTheme = async(theme: ThemeType) =>
  * Return the active theme name.
  * @returns {ThemeType} Current theme.
  */
-export const getTheme = () =>
-{
-    return themeCurrent;
-};
+export const getTheme = () => themeCurrent;
 
 /**
  * Load the persisted theme selection and apply it.

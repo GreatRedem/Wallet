@@ -106,7 +106,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                 {
                     error.length > 0 &&
                     (
-                        <div className='text-center text-small text-txt-error bg-txt-error/15 w-fit mx-auto rounded-lg px-4 py-2'>
+                        <div className='mx-auto w-fit rounded-lg bg-txt-error/15 px-4 py-2 text-center text-small text-txt-error'>
 
                             { error }
 
@@ -191,7 +191,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                     <button
                         type='button'
                         onClick={ () => { setAgree(!agree); } }
-                        className='glass-input flex size-5 items-center justify-center rounded-sm cursor-pointer'>
+                        className='glass-input flex size-5 cursor-pointer items-center justify-center rounded-sm'>
 
                         {
                             agree && <FiCheck size={ 16 } className='text-txt-muted' />

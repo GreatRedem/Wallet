@@ -10,9 +10,9 @@ export default defineConfig([
 
     globalIgnores([ 'dist/', 'src-tauri/', 'node_modules/' ]),
 
+    js.configs.all,
+    stylistic.configs.all,
     typescript.configs.all,
-    js.configs.recommended,
-    stylistic.configs.recommended,
     tailwind.configs['recommended-error'],
 
     stylistic.configs.customize({ indent: 4, semi: true, jsx: true, braceStyle: 'allman', commaDangle: 'never', quoteProps: 'as-needed' }),
@@ -40,11 +40,29 @@ export default defineConfig([
         },
         rules:
         {
+            'new-cap': 'off',
+            'no-void': 'off',
+            'one-var': 'off',
+            complexity: 'off',
+            'sort-keys': 'off',
+            'id-length': 'off',
+            'no-ternary': 'off',
+            'func-style': 'off',
+            'no-continue': 'off',
             'no-console': 'warn',
+            'no-undefined': 'off',
+            'sort-imports': 'off',
+            'max-statements': 'off',
+            'max-classes-per-file': 'off',
+            'capitalized-comments': 'off',
+            'no-negated-condition': 'off',
+            'require-unicode-regexp': 'off',
+            'max-lines-per-function': 'off',
 
             'better-tailwindcss/no-unknown-classes': 'off',
             'better-tailwindcss/enforce-consistent-line-wrapping': 'off',
 
+            '@stylistic/lines-around-comment': 'off',
             '@stylistic/max-statements-per-line': 'off',
 
             '@stylistic/arrow-parens': [ 'error', 'always' ],
@@ -68,6 +86,7 @@ export default defineConfig([
             '@stylistic/indent': [ 'error', 4, { SwitchCase: 1, ObjectExpression: 1, assignmentOperator: 0 } ],
             '@stylistic/space-before-function-paren': [ 'error', { anonymous: 'never', named: 'never', asyncArrow: 'never', catch: 'always' } ],
 
+            '@typescript-eslint/no-unused-vars': 'warn',
             '@typescript-eslint/member-ordering': 'off',
             '@typescript-eslint/no-magic-numbers': 'off',
             '@typescript-eslint/no-floating-promises': 'warn',

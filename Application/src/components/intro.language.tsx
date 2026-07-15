@@ -74,7 +74,7 @@ export default function IntroLanguage({ onClose }: { onClose: () => void })
                                     <div className='flex-1'>
 
                                         {
-                                            T('Language.' + lang.code)
+                                            T(`Language.${ lang.code }`)
                                         }
 
                                     </div>

@@ -37,10 +37,7 @@ export const setValue = async(key: StorageKey, value: string) =>
  * @param {StorageKey} key - The storage key name
  * @returns {Promise<string | undefined>} Stored string or undefined if not set
  */
-export const getValue = async(key: StorageKey) =>
-{
-    return storage.get<string>(key);
-};
+export const getValue = async(key: StorageKey) => storage.get<string>(key);
 
 /**
  * setValueEncrypted - Encrypts a value with a fresh salt/IV and a passphrase-derived AES-GCM key, then stores it.
@@ -94,30 +91,23 @@ export const getValueEncrypted = async(key: StorageKey, passphrase: string) =>
 
         if (stored === undefined)
         {
-            return;
+            return undefined;
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
         const parsed = JSON.parse(stored) as EncryptedPayload;
 
-        if (typeof parsed !== 'object' || parsed === null)
+        if (typeof parsed !== 'object' || !('salt' in parsed) || !('iv' in parsed) || !('cipher' in parsed))
         {
-            return;
-        }
-
-        if (!('salt' in parsed) || !('iv' in parsed) || !('cipher' in parsed))
-        {
-            return;
+            return undefined;
         }
 
         if (typeof parsed.salt !== 'string' || typeof parsed.iv !== 'string' || typeof parsed.cipher !== 'string')
         {
-            return;
+            return undefined;
         }
 
-        const fromBase64 = (value: string) =>
-        {
-            return Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
-        };
+        const fromBase64 = (value: string) => Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
 
         const cryptoKey = await deriveKey(passphrase, fromBase64(parsed.salt));
         const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: fromBase64(parsed.iv) }, cryptoKey, fromBase64(parsed.cipher));

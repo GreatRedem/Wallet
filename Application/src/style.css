@@ -2,8 +2,7 @@
 @import "flag-icons/css/flag-icons.min.css";
 
 /*
- * Color tokens are declared `inline` so generated utilities reference the
- * runtime variables below, letting `[data-theme]` swap the entire palette.
+ * Color tokens are declared `inline` so generated utilities reference the runtime variables below, letting `[data-theme]` swap the entire palette.
  */
 @theme inline {
     --color-base-1: var(--base-1);
@@ -41,9 +40,7 @@
     --color-txt-normal: var(--txt-normal);
     --color-txt-reverse: var(--txt-reverse);
     --color-txt-error: var(--txt-error);
-}
 
-@theme {
     --text-tiny: 12px;
     --text-small: 14px;
     --text-medium: 16px;
@@ -172,6 +169,10 @@ html:lang(en) body {
 html:lang(fa) body {
     font-family: "Vazirmatn", sans-serif;
 }
+
+/*
+ * Application specific below.
+ */
 
 #root {
     width: 100vw;

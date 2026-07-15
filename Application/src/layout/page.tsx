@@ -1,7 +1,5 @@
-import type { JSX } from 'react';
-
-import { useEffect, useState } from 'react';
 import { AnimatePresence } from 'motion/react';
+import { useEffect, useState, type JSX } from 'react';
 
 import { on, off } from '../utility/event';
 

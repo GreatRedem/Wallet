@@ -133,7 +133,4 @@ export const initLanguage = async() =>
     await setLanguage('en');
 };
 
-export const getDirection = () =>
-{
-    return [ 'fa', 'ar' ].includes(languageCurrent) ? 'rtl' : 'ltr';
-};
+export const getDirection = () => ([ 'fa', 'ar' ].includes(languageCurrent) ? 'rtl' : 'ltr');
