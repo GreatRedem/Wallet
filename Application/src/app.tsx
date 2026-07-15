@@ -9,9 +9,11 @@ import { Menu, type MenuOptions } from '@tauri-apps/api/menu';
 import PageLayout from './layout/page';
 
 import IntroPage from './page/intro';
+import UnlockPage from './page/unlock';
 
-import { openPage } from './utility/context';
 import { initTheme } from './utility/theme';
+import { getValue } from './utility/storage';
+import { openPage } from './utility/context';
 import { T, initLanguage } from './utility/language';
 
 import './style.css';
@@ -62,7 +64,22 @@ function Application()
 {
     useEffect(() =>
     {
-        openPage(IntroPage);
+        const init = async() =>
+        {
+            const mnemonic = await getValue('Wallet.Mnemonic');
+            const password = await getValue('Wallet.Password');
+
+            if (mnemonic !== undefined && password !== undefined)
+            {
+                openPage(UnlockPage);
+
+                return;
+            }
+
+            openPage(IntroPage);
+        };
+
+        void init();
     }, [ ]);
 
     return (
@@ -107,7 +124,7 @@ if (rootElement)
 
     if (platform() === 'windows')
     {
-        await applyWindowsTray();
+        // await applyWindowsTray();
     }
 
     createRoot(rootElement).render(<Application />);

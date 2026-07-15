@@ -7,7 +7,10 @@ import { HiEye, HiEyeOff, HiOutlineLockClosed } from 'react-icons/hi';
 
 import WalletManager from '../core/wallet';
 
+import DashboardPage from '../page/dashboard';
+
 import { T } from '../utility/language';
+import { openPage } from '../utility/context';
 import { setValue, setValueEncrypted } from '../utility/storage';
 
 export default function IntroWallet({ onClose }: { onClose: () => void })
@@ -48,14 +51,16 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
 
         const passwordHash = await invoke('password_hash', { password });
 
+        onClose();
+
         if (typeof passwordHash === 'string')
         {
             await setValue('Wallet.Password', passwordHash);
 
             await setValueEncrypted('Wallet.Mnemonic', mnemonic, password);
-        }
 
-        onClose();
+            openPage(DashboardPage, { mnemonic });
+        }
     };
 
     return (

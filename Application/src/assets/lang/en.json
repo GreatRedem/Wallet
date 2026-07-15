@@ -1,22 +1,18 @@
 {
     "App": {
         "Name": "GWallet",
-
         "Tray": {
             "Open": "Open GWallet",
             "Quit": "Quit GWallet"
         }
     },
-
     "Language": {
         "en": "English",
         "fa": "Persian"
     },
-
     "Intro": {
         "Language": "Language",
         "Select": "Select Language",
-
         "Connect": {
             "Header": "Connect to the World",
             "Message": "Connect to the world of decentralized applications and finance."
@@ -29,12 +25,10 @@
             "Header": "Secure & Private",
             "Message": "Using advanced security protocols to protect your digital assets and personal information."
         },
-
         "Create": "Create New Wallet",
         "Import": "Import Existing Wallet",
         "Version": "Version 1.0.0"
     },
-
     "ImportWallet": {
         "Title": "Import Existing Wallet",
         "Subtitle": "Restore your wallet from a seed phrase or private key",
@@ -46,7 +40,6 @@
         "PrivateKeyPlaceholder": "Paste your private key (64 hex chars)...",
         "Import": "Import Wallet"
     },
-
     "CreateWallet": {
         "Title": "Create New Wallet",
         "Subtitle": "Set up your secure wallet to get started",
@@ -59,5 +52,34 @@
         "ErrorLength": "Password must be between 6 and 32 characters",
         "ErrorGenerate": "Failed to generate wallet. Please try again",
         "ErrorSave": "Failed to save wallet. Please try again"
+    },
+    "Unlock": {
+        "Title": "Unlock Wallet",
+        "Subtitle": "Enter your password to open your wallet",
+        "Password": "Password",
+        "Submit": "Unlock Wallet",
+        "Loading": "Unlocking...",
+        "Hint": "Your wallet data stays on this device and is decrypted locally.",
+        "ErrorRequired": "Please enter your password",
+        "ErrorInvalid": "Password is incorrect",
+        "ErrorMissing": "Wallet data could not be loaded",
+        "ErrorGeneric": "Unable to unlock wallet right now"
+    },
+    "Dashboard": {
+        "Title": "Wallet Ready",
+        "Subtitle": "Your wallet is unlocked and ready to use",
+        "Address": "Address",
+        "Copy": "Copy Address",
+        "Copied": "Address copied to clipboard",
+        "CopyFailed": "Unable to copy address",
+        "Lock": "Lock",
+        "Message": "Sign a Message",
+        "SignPlaceholder": "Type a message you want to sign",
+        "Sign": "Sign Message",
+        "Signature": "Signature",
+        "EmptySignature": "Your signature will appear here after you sign a message",
+        "Signed": "Message signed successfully",
+        "SignHint": "Please enter a message before signing",
+        "SignFailed": "Unable to sign message"
     }
 }
