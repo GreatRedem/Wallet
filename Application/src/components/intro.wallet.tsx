@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
+import { FiCheck } from 'react-icons/fi';
 import { IoClose } from 'react-icons/io5';
-import { FiCheck, FiLoader } from 'react-icons/fi';
+import { invoke } from '@tauri-apps/api/core';
 import { HiEye, HiEyeOff, HiOutlineLockClosed } from 'react-icons/hi';
 
 import WalletManager from '../core/wallet';
 
 import { T } from '../utility/language';
-import { setValue } from '../utility/storage';
+import { setValue, setValueEncrypted } from '../utility/storage';
 
 export default function IntroWallet({ onClose }: { onClose: () => void })
 {
@@ -20,6 +21,40 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
 
     const onCreateWallet = async() =>
     {
+        setError('');
+
+        if (password !== password2)
+        {
+            setError(T('Intro.CreateWallet.ErrorMismatch'));
+
+            return;
+        }
+
+        if (password.length <= 5 || password.length >= 33)
+        {
+            setError(T('Intro.CreateWallet.ErrorLength'));
+
+            return;
+        }
+
+        const mnemonic = WalletManager.Generate();
+
+        if (mnemonic === undefined)
+        {
+            setError(T('Intro.CreateWallet.ErrorGenerate'));
+
+            return;
+        }
+
+        const passwordHash = await invoke('password_hash', { password });
+
+        if (typeof passwordHash === 'string')
+        {
+            await setValue('Wallet.Password', passwordHash);
+
+            await setValueEncrypted('Wallet.Mnemonic', mnemonic, password);
+        }
+
         onClose();
     };
 
@@ -177,8 +212,8 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                 <button
                     type='button'
                     disabled={ !agree }
-                    className={ `btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2 ${ !agree ? 'cursor-not-allowed! opacity-50' : '' }` }>
                     onClick={ () => { void onCreateWallet(); } }
+                    className={ `btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2 ${ !agree ? 'cursor-not-allowed! opacity-50' : '' }` }>
 
                     {
                         T('Intro.CreateWallet.Submit')

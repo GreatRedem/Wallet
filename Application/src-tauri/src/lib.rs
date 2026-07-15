@@ -1,3 +1,5 @@
+mod command;
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let mut builder = tauri::Builder::default();
@@ -24,7 +26,7 @@ pub fn run() {
 
     builder = builder.plugin(tauri_plugin_store::Builder::new().build());
 
-    builder
-        .run(tauri::generate_context!())
-        .expect("Application Failed");
+    builder = builder.invoke_handler(tauri::generate_handler![ command::password_hash, command::password_verify ]);
+
+    builder.run(tauri::generate_context!()).expect("Application Failed");
 }
