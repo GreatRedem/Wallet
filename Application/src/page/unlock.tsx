@@ -11,7 +11,7 @@ import { T } from '../utility/language';
 import { openPage } from '../utility/context';
 import { getValue, getValueEncrypted } from '../utility/storage';
 
-export default function UnlockComponent()
+export default function UnlockPage()
 {
     const [ error, setError ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -31,36 +31,41 @@ export default function UnlockComponent()
 
         setIsLoading(true);
 
-        const storedHash = await getValue('Wallet.Password');
-
-        if (storedHash === undefined)
+        try
         {
-            openPage(IntroPage);
+            const storedHash = await getValue('Wallet.Password');
 
-            return;
+            if (storedHash === undefined)
+            {
+                openPage(IntroPage);
+
+                return;
+            }
+
+            const isValid = await invoke<boolean>('password_verify', { password, expectedHash: storedHash });
+
+            if (!isValid)
+            {
+                setError(T('Unlock.ErrorInvalid'));
+
+                return;
+            }
+
+            const mnemonic = await getValueEncrypted('Wallet.Mnemonic', password);
+
+            if (mnemonic === undefined)
+            {
+                setError(T('Unlock.ErrorMissing'));
+
+                return;
+            }
+
+            openPage(DashboardPage, { mnemonic });
         }
-
-        const isValid = await invoke<boolean>('password_verify', { password, expectedHash: storedHash });
-
-        if (!isValid)
+        finally
         {
-            setError(T('Unlock.ErrorInvalid'));
-
-            return;
+            setIsLoading(false);
         }
-
-        const mnemonic = await getValueEncrypted('Wallet.Mnemonic', password);
-
-        if (mnemonic === undefined)
-        {
-            setError(T('Unlock.ErrorMissing'));
-
-            return;
-        }
-
-        openPage(DashboardPage, { mnemonic });
-
-        setIsLoading(false);
     };
 
     return (
@@ -124,12 +129,12 @@ export default function UnlockComponent()
                         <HiOutlineLockClosed className='absolute left-4 text-txt-muted' size={ 18 } />
 
                         <input
-                            type={ showPassword ? 'text' : 'password' }
                             value={ password }
+                            placeholder={ T('Unlock.Password') }
+                            type={ showPassword ? 'text' : 'password' }
                             onChange={ (event) => { setPassword(event.target.value); } }
                             // eslint-disable-next-line @typescript-eslint/strict-void-return
                             onKeyDown={ (event) => event.key === 'Enter' && void onUnlock() }
-                            placeholder={ T('Unlock.Password') }
                             className='glass-input h-12 w-full rounded-xl px-12 text-small' />
 
                         <button
@@ -149,8 +154,8 @@ export default function UnlockComponent()
 
                 <button
                     type='button'
-                    onClick={ () => { void onUnlock(); } }
                     disabled={ isLoading }
+                    onClick={ () => { void onUnlock(); } }
                     className='btn-primary mx-auto flex h-12 w-fit items-center justify-center rounded-xl px-8 py-2 disabled:cursor-not-allowed! disabled:opacity-60'>
 
                     {
