@@ -43,6 +43,8 @@ const slideMap =
 
 export default function IntroPage()
 {
+    const swiperRef = useRef<SwiperType>(undefined);
+
     const [ subPage, setSubPage ] = useState<ReactNode>();
     const [ theme, setThemeState ] = useState(getTheme());
 
@@ -55,12 +57,10 @@ export default function IntroPage()
         void setTheme(next);
     }, []);
 
-    const swiperRef = useRef<SwiperType>(undefined);
-
     const onSwiper = useCallback((swiper: SwiperType) =>
     {
         swiperRef.current = swiper;
-    }, []);
+    }, [ ]);
 
     return (
         <motion.div

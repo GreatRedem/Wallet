@@ -1,18 +1,109 @@
-import { useState } from 'react';
+import type { Swiper as SwiperType } from 'swiper';
+
 import { motion } from 'motion/react';
 import { FiCheck } from 'react-icons/fi';
 import { IoClose } from 'react-icons/io5';
+import { invoke } from '@tauri-apps/api/core';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { useCallback, useRef, useState } from 'react';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { HiEye, HiEyeOff, HiOutlineLockClosed } from 'react-icons/hi';
 
+import DashboardPage from '../page/dashboard';
+
 import { T } from '../utility/language';
+import { openPage } from '../utility/context';
+import { setValue, setValueEncrypted } from '../utility/storage';
 
 export default function IntroImport({ onClose }: { onClose: () => void })
 {
+    const swiperRef = useRef<SwiperType>(undefined);
+
+    const [ error, setError ] = useState('');
     const [ agree, setAgree ] = useState(false);
+    const [ mnemonic, setMnemonic ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ loading, setLoading ] = useState(false);
     const [ password2, setPassword2 ] = useState('');
     const [ showPassword, setShowPassword ] = useState(false);
     const [ showPassword2, setShowPassword2 ] = useState(false);
+
+    const onSwiper = useCallback((swiper: SwiperType) =>
+    {
+        swiperRef.current = swiper;
+    }, [ ]);
+
+    const onSubmit1 = async() =>
+    {
+        if (loading)
+        {
+            return;
+        }
+
+        setError('');
+        setLoading(true);
+
+        try
+        {
+            if (password !== password2)
+            {
+                setError(T('Intro.ImportWallet.ErrorMismatch'));
+
+                return;
+            }
+
+            if (password.length <= 5 || password.length >= 33)
+            {
+                setError(T('Intro.ImportWallet.ErrorLength'));
+
+                return;
+            }
+
+            const passwordHash = await invoke('password_hash', { password });
+
+            if (typeof passwordHash === 'string')
+            {
+                swiperRef.current?.slideTo(1);
+            }
+        }
+        finally
+        {
+            setLoading(false);
+        }
+    };
+
+    const onSubmit2 = async() =>
+    {
+        const mnemonic2 = mnemonic.split(' ');
+
+        if (mnemonic2.length !== 12 && mnemonic2.length !== 24)
+        {
+            setError(T('Intro.ImportWallet.ErrorInvalidLength'));
+
+            return;
+        }
+
+        setError('');
+        setLoading(true);
+
+        try
+        {
+            const passwordHash = await invoke<string>('password_hash', { password });
+
+            if (typeof passwordHash === 'string')
+            {
+                openPage(DashboardPage, { mnemonic });
+
+                await setValue('Wallet.Password', passwordHash);
+
+                await setValueEncrypted('Wallet.Mnemonic', mnemonic, password);
+            }
+        }
+        finally
+        {
+            setLoading(false);
+        }
+    };
 
     return (
         <>
@@ -59,111 +150,162 @@ export default function IntroImport({ onClose }: { onClose: () => void })
 
                 </div>
 
-                <label className='mt-4 flex flex-col gap-2'>
+                {
+                    error.length > 0 &&
+                    (
+                        <div className='mx-auto w-fit rounded-lg bg-txt-error/15 px-4 py-2 text-center text-small text-txt-error'>
 
-                    <div className='text-tiny text-txt-muted'>
+                            { error }
 
-                        {
-                            T('Intro.ImportWallet.Password')
-                        }
+                        </div>
+                    )
+                }
 
-                    </div>
+                <Swiper
+                    onSwiper={ onSwiper }
+                    className='h-fit w-full'>
 
-                    <div className='relative flex items-center'>
+                    <SwiperSlide>
 
-                        <HiOutlineLockClosed className='absolute left-4 text-txt-muted' size={ 20 } />
+                        <div className='flex flex-col gap-2 px-1'>
 
-                        <input
-                            type={ showPassword ? 'text' : 'password' }
-                            value={ password }
-                            placeholder={ T('Intro.ImportWallet.Password') }
-                            onChange={ (e) => { setPassword(e.target.value); } }
-                            className='glass-input h-12 w-full rounded-lg px-12 text-small' />
+                            <label className='flex flex-col gap-2'>
 
-                        <button
-                            type='button'
-                            onClick={ () => { setShowPassword(!showPassword); } }
-                            className='btn-muted absolute right-4 cursor-pointer rounded-lg text-txt-muted hover:text-txt-normal'>
+                                <div className='text-tiny text-txt-muted'>
 
-                            {
-                                showPassword ? <HiEyeOff size={ 18 } /> : <HiEye size={ 18 } />
-                            }
+                                    {
+                                        T('Intro.ImportWallet.Password')
+                                    }
 
-                        </button>
+                                </div>
 
-                    </div>
+                                <div className='relative flex items-center'>
 
-                </label>
+                                    <HiOutlineLockClosed className='absolute left-4 text-txt-muted' size={ 20 } />
 
-                <label className='flex flex-col gap-2'>
+                                    <input
+                                        type={ showPassword ? 'text' : 'password' }
+                                        value={ password }
+                                        placeholder={ T('Intro.ImportWallet.Password') }
+                                        onChange={ (e) => { setPassword(e.target.value); } }
+                                        className='glass-input h-12 w-full rounded-lg px-12 text-small' />
 
-                    <div className='text-tiny text-txt-muted'>
+                                    <button
+                                        type='button'
+                                        onClick={ () => { setShowPassword(!showPassword); } }
+                                        className='absolute right-4 cursor-pointer rounded-lg text-txt-muted hover:text-txt-normal'>
 
-                        {
-                            T('Intro.ImportWallet.Confirm')
-                        }
+                                        {
+                                            showPassword ? <HiEyeOff size={ 18 } /> : <HiEye size={ 18 } />
+                                        }
 
-                    </div>
+                                    </button>
 
-                    <div className='relative flex items-center'>
+                                </div>
 
-                        <HiOutlineLockClosed className='absolute left-4 text-txt-muted' size={ 20 } />
+                            </label>
 
-                        <input
-                            type={ showPassword2 ? 'text' : 'password' }
-                            value={ password2 }
-                            placeholder={ T('Intro.ImportWallet.Confirm') }
-                            onChange={ (e) => { setPassword2(e.target.value); } }
-                            className='glass-input h-12 w-full rounded-lg px-12 text-small' />
+                            <label className='flex flex-col gap-2'>
 
-                        <button
-                            type='button'
-                            onClick={ () => { setShowPassword2(!showPassword2); } }
-                            className='btn-muted absolute right-4 cursor-pointer rounded-lg text-txt-muted hover:text-txt-normal'>
+                                <div className='text-tiny text-txt-muted'>
 
-                            {
-                                showPassword2 ? <HiEyeOff size={ 18 } /> : <HiEye size={ 18 } />
-                            }
+                                    {
+                                        T('Intro.ImportWallet.Confirm')
+                                    }
 
-                        </button>
+                                </div>
 
-                    </div>
+                                <div className='relative flex items-center'>
 
-                </label>
+                                    <HiOutlineLockClosed className='absolute left-4 text-txt-muted' size={ 20 } />
 
-                <label className='flex h-10 cursor-pointer items-center gap-2'>
+                                    <input
+                                        type={ showPassword2 ? 'text' : 'password' }
+                                        value={ password2 }
+                                        placeholder={ T('Intro.ImportWallet.Confirm') }
+                                        onChange={ (e) => { setPassword2(e.target.value); } }
+                                        className='glass-input h-12 w-full rounded-lg px-12 text-small' />
 
-                    <button
-                        type='button'
-                        onClick={ () => { setAgree(!agree); } }
-                        className='glass-input flex size-5 items-center justify-center rounded-sm'>
+                                    <button
+                                        type='button'
+                                        onClick={ () => { setShowPassword2(!showPassword2); } }
+                                        className='absolute right-4 cursor-pointer rounded-lg text-txt-muted hover:text-txt-normal'>
 
-                        {
-                            agree && <FiCheck size={ 16 } className='text-txt-muted' />
-                        }
+                                        {
+                                            showPassword2 ? <HiEyeOff size={ 18 } /> : <HiEye size={ 18 } />
+                                        }
 
-                    </button>
+                                    </button>
 
-                    <div className='text-tiny text-txt-muted'>
+                                </div>
 
-                        {
-                            T('Intro.ImportWallet.Agreement')
-                        }
+                            </label>
 
-                    </div>
+                            <label className='flex h-10 cursor-pointer items-center gap-2'>
 
-                </label>
+                                <button
+                                    type='button'
+                                    onClick={ () => { setAgree(!agree); } }
+                                    className='glass-input flex size-5 cursor-pointer items-center justify-center rounded-sm'>
 
-                <button
-                    type='button'
-                    disabled={ !agree }
-                    className={ `btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2 ${ !agree ? 'cursor-not-allowed! opacity-50' : '' }` }>
+                                    {
+                                        agree && <FiCheck size={ 16 } className='text-txt-muted' />
+                                    }
 
-                    {
-                        T('Intro.ImportWallet.Submit1')
-                    }
+                                </button>
 
-                </button>
+                                <div className='text-tiny text-txt-muted'>
+
+                                    {
+                                        T('Intro.ImportWallet.Agreement')
+                                    }
+
+                                </div>
+
+                            </label>
+
+                            <button
+                                type='button'
+                                disabled={ !agree }
+                                onClick={ () => { void onSubmit1(); } }
+                                className={ `btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2 ${ !agree ? 'cursor-not-allowed! opacity-50' : '' }` }>
+
+                                {
+                                    !loading ? T('Intro.ImportWallet.Submit1') : <AiOutlineLoading3Quarters size={ 24 } className='animate-spin' />
+                                }
+
+                            </button>
+
+                        </div>
+
+                    </SwiperSlide>
+
+                    <SwiperSlide>
+
+                        <div className='flex flex-col gap-4 p-2'>
+
+                            <textarea
+                                value={ mnemonic }
+                                onChange={ (e) => { setMnemonic(e.target.value); } }
+                                className='rounded-xl bg-base-3 p-3 text-small outline-0'
+                                placeholder={ T('Intro.ImportWallet.Message') } />
+
+                            <button
+                                type='button'
+                                onClick={ () => void onSubmit2() }
+                                className='btn-primary m-auto h-12 w-fit rounded-lg px-4'>
+
+                                {
+                                    !loading ? T('Intro.ImportWallet.Submit2') : <AiOutlineLoading3Quarters className='animate-spin' size={ 24 } />
+                                }
+
+                            </button>
+
+                        </div>
+
+                    </SwiperSlide>
+
+                </Swiper>
 
             </motion.div>
         </>

@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { FiCheck } from 'react-icons/fi';
 import { IoClose } from 'react-icons/io5';
 import { invoke } from '@tauri-apps/api/core';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { HiEye, HiEyeOff, HiOutlineLockClosed } from 'react-icons/hi';
 
 import WalletManager from '../core/wallet';
@@ -18,48 +19,62 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
     const [ error, setError ] = useState('');
     const [ agree, setAgree ] = useState(false);
     const [ password, setPassword ] = useState('');
+    const [ loading, setLoading ] = useState(false);
     const [ password2, setPassword2 ] = useState('');
     const [ showPassword, setShowPassword ] = useState(false);
     const [ showPassword2, setShowPassword2 ] = useState(false);
 
     const onCreateWallet = async() =>
     {
+        if (loading)
+        {
+            return;
+        }
+
         setError('');
+        setLoading(true);
 
-        if (password !== password2)
+        try
         {
-            setError(T('Intro.CreateWallet.ErrorMismatch'));
+            if (password !== password2)
+            {
+                setError(T('Intro.CreateWallet.ErrorMismatch'));
 
-            return;
+                return;
+            }
+
+            if (password.length <= 5 || password.length >= 33)
+            {
+                setError(T('Intro.CreateWallet.ErrorLength'));
+
+                return;
+            }
+
+            const mnemonic = WalletManager.Generate();
+
+            if (mnemonic === undefined)
+            {
+                setError(T('Intro.CreateWallet.ErrorGenerate'));
+
+                return;
+            }
+
+            const passwordHash = await invoke('password_hash', { password });
+
+            onClose();
+
+            if (typeof passwordHash === 'string')
+            {
+                await setValue('Wallet.Password', passwordHash);
+
+                await setValueEncrypted('Wallet.Mnemonic', mnemonic, password);
+
+                openPage(DashboardPage, { mnemonic });
+            }
         }
-
-        if (password.length <= 5 || password.length >= 33)
+        finally
         {
-            setError(T('Intro.CreateWallet.ErrorLength'));
-
-            return;
-        }
-
-        const mnemonic = WalletManager.Generate();
-
-        if (mnemonic === undefined)
-        {
-            setError(T('Intro.CreateWallet.ErrorGenerate'));
-
-            return;
-        }
-
-        const passwordHash = await invoke('password_hash', { password });
-
-        onClose();
-
-        if (typeof passwordHash === 'string')
-        {
-            await setValue('Wallet.Password', passwordHash);
-
-            await setValueEncrypted('Wallet.Mnemonic', mnemonic, password);
-
-            openPage(DashboardPage, { mnemonic });
+            setLoading(false);
         }
     };
 
@@ -221,7 +236,7 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
                     className={ `btn-primary mx-auto mb-4 h-12 w-fit rounded-lg px-4 py-2 ${ !agree ? 'cursor-not-allowed! opacity-50' : '' }` }>
 
                     {
-                        T('Intro.CreateWallet.Submit')
+                        !loading ? T('Intro.CreateWallet.Submit') : <AiOutlineLoading3Quarters size={ 24 } className='animate-spin' />
                     }
 
                 </button>

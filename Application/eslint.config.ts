@@ -44,6 +44,7 @@ export default defineConfig([
             'no-void': 'off',
             'one-var': 'off',
             complexity: 'off',
+            'max-lines': 'off',
             'sort-keys': 'off',
             'id-length': 'off',
             'no-ternary': 'off',
@@ -64,6 +65,7 @@ export default defineConfig([
 
             '@stylistic/lines-around-comment': 'off',
             '@stylistic/max-statements-per-line': 'off',
+            '@stylistic/multiline-comment-style': 'off',
 
             '@stylistic/arrow-parens': [ 'error', 'always' ],
             '@stylistic/padded-blocks': [ 'error', 'never' ],

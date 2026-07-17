@@ -69,7 +69,7 @@ function Application()
             const mnemonic = await getValue('Wallet.Mnemonic');
             const password = await getValue('Wallet.Password');
 
-            if (mnemonic !== undefined && password !== undefined)
+            if (mnemonic !== undefined && mnemonic.length > 0 && password !== undefined && password.length > 0)
             {
                 openPage(UnlockPage);
 
