@@ -66,6 +66,7 @@ export default defineConfig([
             '@stylistic/lines-around-comment': 'off',
             '@stylistic/max-statements-per-line': 'off',
             '@stylistic/multiline-comment-style': 'off',
+            '@stylistic/newline-per-chained-call': 'off',
 
             '@stylistic/arrow-parens': [ 'error', 'always' ],
             '@stylistic/padded-blocks': [ 'error', 'never' ],

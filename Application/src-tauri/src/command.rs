@@ -4,7 +4,7 @@ const APP_SALT: &[u8] = b"ApplicationSaltAt2026";
 
 #[tauri::command]
 pub fn password_hash(password: &str) -> String {
-    let params = Params::new(65536, 3, 1, Some(32)).unwrap();
+    let params = Params::new(32768, 2, 1, Some(32)).unwrap();
 
     let argon2 = Argon2::new(Algorithm::Argon2id, Version::V0x13, params);
 

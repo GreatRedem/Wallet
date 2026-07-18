@@ -1,5 +1,6 @@
 import type { Swiper as SwiperType } from 'swiper';
 
+import { Mnemonic } from 'ethers';
 import { motion } from 'motion/react';
 import { FiCheck } from 'react-icons/fi';
 import { IoClose } from 'react-icons/io5';
@@ -23,6 +24,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
     const [ agree, setAgree ] = useState(false);
     const [ mnemonic, setMnemonic ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ proceed, setProceed ] = useState(false);
     const [ loading, setLoading ] = useState(false);
     const [ password2, setPassword2 ] = useState('');
     const [ showPassword, setShowPassword ] = useState(false);
@@ -64,6 +66,8 @@ export default function IntroImport({ onClose }: { onClose: () => void })
             if (typeof passwordHash === 'string')
             {
                 swiperRef.current?.slideTo(1);
+
+                setProceed(true);
             }
         }
         finally
@@ -74,9 +78,16 @@ export default function IntroImport({ onClose }: { onClose: () => void })
 
     const onSubmit2 = async() =>
     {
-        const mnemonic2 = mnemonic.split(' ');
+        const mnemonic2 = mnemonic.trim().replace(/\s+/g, ' ').split(' ');
 
         if (mnemonic2.length !== 12 && mnemonic2.length !== 24)
+        {
+            setError(T('Intro.ImportWallet.ErrorInvalidLength'));
+
+            return;
+        }
+
+        if (!Mnemonic.isValidMnemonic(mnemonic.trim().replace(/\s+/g, ' ').normalize('NFKD')))
         {
             setError(T('Intro.ImportWallet.ErrorInvalidLength'));
 
@@ -92,11 +103,11 @@ export default function IntroImport({ onClose }: { onClose: () => void })
 
             if (typeof passwordHash === 'string')
             {
-                openPage(DashboardPage, { mnemonic });
+                await setValueEncrypted('Wallet.Mnemonic', mnemonic, password);
 
                 await setValue('Wallet.Password', passwordHash);
 
-                await setValueEncrypted('Wallet.Mnemonic', mnemonic, password);
+                openPage(DashboardPage, { mnemonic });
             }
         }
         finally
@@ -165,7 +176,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                     onSwiper={ onSwiper }
                     className='h-fit w-full'>
 
-                    <SwiperSlide>
+                    <SwiperSlide style={ { display: proceed ? 'none' : '' } }>
 
                         <div className='flex flex-col gap-2 px-1'>
 
@@ -293,7 +304,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                             <button
                                 type='button'
                                 onClick={ () => void onSubmit2() }
-                                className='btn-primary m-auto h-12 w-fit rounded-lg px-4'>
+                                className='btn-primary m-auto mb-2 h-12 w-fit rounded-lg px-4'>
 
                                 {
                                     !loading ? T('Intro.ImportWallet.Submit2') : <AiOutlineLoading3Quarters className='animate-spin' size={ 24 } />
