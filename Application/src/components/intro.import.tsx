@@ -20,6 +20,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
 {
     const swiperRef = useRef<SwiperType>(undefined);
 
+    const [ hash, setHash ] = useState('');
     const [ error, setError ] = useState('');
     const [ agree, setAgree ] = useState(false);
     const [ mnemonic, setMnemonic ] = useState('');
@@ -42,38 +43,35 @@ export default function IntroImport({ onClose }: { onClose: () => void })
             return;
         }
 
+        if (password !== password2)
+        {
+            setError(T('Intro.ImportWallet.ErrorMismatch'));
+
+            return;
+        }
+
+        if (password.length <= 5 || password.length >= 33)
+        {
+            setError(T('Intro.ImportWallet.ErrorLength'));
+
+            return;
+        }
+
         setError('');
         setLoading(true);
 
-        try
+        const passwordHash = await invoke('password_hash', { password });
+
+        if (typeof passwordHash === 'string')
         {
-            if (password !== password2)
-            {
-                setError(T('Intro.ImportWallet.ErrorMismatch'));
+            swiperRef.current?.slideTo(1);
 
-                return;
-            }
+            setHash(passwordHash);
 
-            if (password.length <= 5 || password.length >= 33)
-            {
-                setError(T('Intro.ImportWallet.ErrorLength'));
-
-                return;
-            }
-
-            const passwordHash = await invoke('password_hash', { password });
-
-            if (typeof passwordHash === 'string')
-            {
-                swiperRef.current?.slideTo(1);
-
-                setProceed(true);
-            }
+            setProceed(true);
         }
-        finally
-        {
-            setLoading(false);
-        }
+
+        setLoading(false);
     };
 
     const onSubmit2 = async() =>
@@ -94,26 +92,11 @@ export default function IntroImport({ onClose }: { onClose: () => void })
             return;
         }
 
-        setError('');
-        setLoading(true);
+        await setValueEncrypted('Wallet.Mnemonic', mnemonic, password);
 
-        try
-        {
-            const passwordHash = await invoke<string>('password_hash', { password });
+        await setValue('Wallet.Password', hash);
 
-            if (typeof passwordHash === 'string')
-            {
-                await setValueEncrypted('Wallet.Mnemonic', mnemonic, password);
-
-                await setValue('Wallet.Password', passwordHash);
-
-                openPage(DashboardPage, { mnemonic });
-            }
-        }
-        finally
-        {
-            setLoading(false);
-        }
+        openPage(DashboardPage, { mnemonic });
     };
 
     return (
@@ -307,7 +290,7 @@ export default function IntroImport({ onClose }: { onClose: () => void })
                                 className='btn-primary m-auto mb-2 h-12 w-fit rounded-lg px-4'>
 
                                 {
-                                    !loading ? T('Intro.ImportWallet.Submit2') : <AiOutlineLoading3Quarters className='animate-spin' size={ 24 } />
+                                    T('Intro.ImportWallet.Submit2')
                                 }
 
                             </button>

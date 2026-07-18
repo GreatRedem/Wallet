@@ -1,6 +1,6 @@
 import { setValue, getValue } from './storage';
 
-export type LanguageType = 'en' | 'fa' | 'tr' | 'ar' | 'zh' | 'ru' | 'hi';
+export type LanguageType = 'en' | 'fa';
 
 let languageCurrent: LanguageType = 'en';
 let languageMap: Record<string, Record<string, never>> = {};

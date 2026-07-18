@@ -31,7 +31,6 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
             return;
         }
 
-        setError('');
         setLoading(true);
 
         try
@@ -61,13 +60,11 @@ export default function IntroWallet({ onClose }: { onClose: () => void })
 
             const passwordHash = await invoke('password_hash', { password });
 
-            onClose();
-
             if (typeof passwordHash === 'string')
             {
-                await setValue('Wallet.Password', passwordHash);
-
                 await setValueEncrypted('Wallet.Mnemonic', mnemonic, password);
+
+                await setValue('Wallet.Password', passwordHash);
 
                 openPage(DashboardPage, { mnemonic });
             }

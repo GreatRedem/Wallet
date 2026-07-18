@@ -85,37 +85,30 @@ export const setValueEncrypted = async(key: StorageKey, value: string, passphras
  */
 export const getValueEncrypted = async(key: StorageKey, passphrase: string) =>
 {
-    try
+    const stored = await getValue(key);
+
+    if (stored === undefined)
     {
-        const stored = await getValue(key);
-
-        if (stored === undefined)
-        {
-            return undefined;
-        }
-
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
-        const parsed = JSON.parse(stored) as EncryptedPayload;
-
-        if (typeof parsed !== 'object' || !('salt' in parsed) || !('iv' in parsed) || !('cipher' in parsed))
-        {
-            return undefined;
-        }
-
-        if (typeof parsed.salt !== 'string' || typeof parsed.iv !== 'string' || typeof parsed.cipher !== 'string')
-        {
-            return undefined;
-        }
-
-        const fromBase64 = (value: string) => Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
-
-        const cryptoKey = await deriveKey(passphrase, fromBase64(parsed.salt));
-        const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: fromBase64(parsed.iv) }, cryptoKey, fromBase64(parsed.cipher));
-
-        return new TextDecoder().decode(plain);
+        return undefined;
     }
-    finally
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+    const parsed = JSON.parse(stored) as EncryptedPayload;
+
+    if (typeof parsed !== 'object' || !('salt' in parsed) || !('iv' in parsed) || !('cipher' in parsed))
     {
-        //
+        return undefined;
     }
+
+    if (typeof parsed.salt !== 'string' || typeof parsed.iv !== 'string' || typeof parsed.cipher !== 'string')
+    {
+        return undefined;
+    }
+
+    const fromBase64 = (value: string) => Uint8Array.from(atob(value), (char) => char.charCodeAt(0));
+
+    const cryptoKey = await deriveKey(passphrase, fromBase64(parsed.salt));
+    const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: fromBase64(parsed.iv) }, cryptoKey, fromBase64(parsed.cipher));
+
+    return new TextDecoder().decode(plain);
 };
