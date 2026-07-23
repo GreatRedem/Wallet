@@ -4,6 +4,11 @@
         "Tray": {
             "Open": "Open GWallet",
             "Quit": "Quit GWallet"
+        },
+        "Window": {
+            "Minimize": "Minimize",
+            "Maximize": "Maximize",
+            "Close": "Close"
         }
     },
     "Language": {

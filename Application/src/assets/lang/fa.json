@@ -2,8 +2,13 @@
     "App": {
         "Name": "GWallet",
         "Tray": {
-            "Open": "باز کردن GWallet",
-            "Quit": "خروج از GWallet"
+            "Open": "GWallet باز کردن",
+            "Quit": "GWallet خروج از"
+        },
+        "Window": {
+            "Minimize": "کوچک کردن",
+            "Maximize": "بزرگ کردن",
+            "Close": "بستن"
         }
     },
     "Language": {

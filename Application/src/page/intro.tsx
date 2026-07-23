@@ -13,7 +13,7 @@ import IntroImport from '../components/intro.import';
 import IntroWallet from '../components/intro.wallet';
 import IntroLanguage from '../components/intro.language';
 
-import { getDirection, T } from '../utility/language';
+import { getDirection, getLanguage, T } from '../utility/language';
 import { getTheme, setTheme } from '../utility/theme';
 
 import IntroConnect from '../assets/image/intro_connect.png';
@@ -114,6 +114,8 @@ export default function IntroPage()
                 </div>
 
                 <Swiper
+                    key={ getLanguage().code }
+                    dir={ getDirection() }
                     modules={ [ Autoplay, Pagination ] }
                     onSwiper={ onSwiper }
                     loop={ true }

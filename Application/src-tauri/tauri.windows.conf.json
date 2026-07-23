@@ -6,7 +6,7 @@
         "windows": [
             {
                 "title": "GWallet",
-                "decorations": true,
+                "decorations": false,
                 "maximizable": true,
                 "alwaysOnTop": true,
                 "fullscreen": false,
@@ -26,20 +26,31 @@
                     ],
                     "permissions": [
                         "core:app:allow-default-window-icon",
+
                         "core:window:allow-start-dragging",
                         "core:window:allow-set-size",
                         "core:window:allow-maximize",
+                        "core:window:allow-unmaximize",
+                        "core:window:allow-toggle-maximize",
+                        "core:window:allow-is-maximized",
                         "core:window:allow-minimize",
                         "core:window:allow-center",
                         "core:window:allow-close",
                         "core:window:allow-hide",
                         "core:window:allow-show",
+
+                        "core:event:allow-listen",
+                        "core:event:allow-unlisten",
+
                         "core:menu:allow-new",
+
                         "core:tray:allow-new",
+
                         "store:allow-load",
                         "store:allow-save",
                         "store:allow-get",
                         "store:allow-set",
+
                         "os:allow-hostname",
                         "os:allow-platform",
                         "os:allow-os-type",

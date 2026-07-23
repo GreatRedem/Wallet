@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { TrayIcon } from '@tauri-apps/api/tray';
-import { platform } from '@tauri-apps/plugin-os';
 import { defaultWindowIcon } from '@tauri-apps/api/app';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { Menu, type MenuOptions } from '@tauri-apps/api/menu';
 
 import PageLayout from './layout/page';
+import TitleBar from './layout/titlebar';
 
 import IntroPage from './page/intro';
 import UnlockPage from './page/unlock';
@@ -14,43 +14,10 @@ import UnlockPage from './page/unlock';
 import { initTheme } from './utility/theme';
 import { getValue } from './utility/storage';
 import { openPage } from './utility/context';
+import { useIsWindows } from './hook/platform';
 import { T, initLanguage } from './utility/language';
 
 import './style.css';
-
-const applyWindowsTray = async() =>
-{
-    const appIcon = await defaultWindowIcon();
-
-    if (appIcon)
-    {
-        const trayMenuOption: MenuOptions =
-        {
-            items: [
-                {
-                    id: 'open',
-                    text: T('App.Tray.Open'),
-                    action: () =>
-                    {
-                        void getCurrentWindow().show();
-                    }
-                },
-                {
-                    id: 'quit',
-                    text: T('App.Tray.Quit'),
-                    action: () =>
-                    {
-                        void getCurrentWindow().close();
-                    }
-                }
-            ]
-        };
-
-        const trayMenu = await Menu.new(trayMenuOption);
-
-        await TrayIcon.new({ tooltip: T('App.Name'), menu: trayMenu, icon: appIcon, showMenuOnLeftClick: false });
-    }
-};
 
 /**
  * Root application.
@@ -62,6 +29,8 @@ const applyWindowsTray = async() =>
  */
 function Application()
 {
+    const isWindows = useIsWindows();
+
     useEffect(() =>
     {
         const init = async() =>
@@ -80,14 +49,61 @@ function Application()
         };
 
         void init();
+
+        const windowsTray = async() =>
+        {
+            const appIcon = await defaultWindowIcon();
+
+            if (appIcon)
+            {
+                const trayMenuOption: MenuOptions =
+                {
+                    items: [
+                        {
+                            id: 'open',
+                            text: T('App.Tray.Open'),
+                            action: () =>
+                            {
+                                void getCurrentWindow().show();
+                            }
+                        },
+                        {
+                            id: 'quit',
+                            text: T('App.Tray.Quit'),
+                            action: () =>
+                            {
+                                void getCurrentWindow().close();
+                            }
+                        }
+                    ]
+                };
+
+                const trayMenu = await Menu.new(trayMenuOption);
+
+                await TrayIcon.new({ tooltip: T('App.Name'), menu: trayMenu, icon: appIcon, showMenuOnLeftClick: false });
+            }
+        };
+
+        if (isWindows)
+        {
+            void windowsTray();
+        }
     }, [ ]);
 
     return (
-        <>
+        <div className='flex size-full flex-col'>
 
-            <PageLayout />
+            {
+                isWindows && <TitleBar />
+            }
 
-        </>
+            <div className='relative min-h-0 flex-1'>
+
+                <PageLayout />
+
+            </div>
+
+        </div>
     );
 }
 
@@ -121,11 +137,6 @@ if (rootElement)
 {
     await initTheme();
     await initLanguage();
-
-    if (platform() === 'windows')
-    {
-        // await applyWindowsTray();
-    }
 
     createRoot(rootElement).render(<Application />);
 }
