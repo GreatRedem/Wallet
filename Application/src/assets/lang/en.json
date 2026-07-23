@@ -65,6 +65,7 @@
         "Submit": "Unlock Wallet",
         "Loading": "Unlocking...",
         "Hint": "Your wallet data stays on this device and is decrypted locally.",
+        "Recovery": "If you forget your password, you will not be able to recover it.",
         "ErrorRequired": "Please enter your password",
         "ErrorInvalid": "Password is incorrect",
         "ErrorMissing": "Wallet data could not be loaded",

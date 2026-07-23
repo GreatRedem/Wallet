@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
 import { FaQuestion } from 'react-icons/fa';
 import { invoke } from '@tauri-apps/api/core';
+import { motion, AnimatePresence } from 'motion/react';
 import { HiEye, HiEyeOff, HiOutlineLockClosed } from 'react-icons/hi';
 
 import IntroPage from './intro';
@@ -15,6 +15,7 @@ export default function UnlockPage()
 {
     const [ error, setError ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ showHint, setShowHint ] = useState(false);
     const [ isLoading, setIsLoading ] = useState(false);
     const [ showPassword, setShowPassword ] = useState(false);
 
@@ -95,15 +96,49 @@ export default function UnlockPage()
 
                     </div>
 
-                    <button
-                        type='button'
-                        className='btn-muted flex size-10 shrink-0 items-center justify-center rounded-lg'>
+                    <div className='relative z-20'>
 
-                        <FaQuestion size={ 18 } />
+                        <button
+                            type='button'
+                            onClick={ () => { setShowHint((value) => !value); } }
+                            className='btn-muted flex size-10 shrink-0 items-center justify-center rounded-lg'>
 
-                    </button>
+                            <FaQuestion size={ 18 } />
+
+                        </button>
+
+                        <AnimatePresence>
+
+                            {
+                                showHint &&
+                                (
+                                    <motion.div
+                                        initial={ { opacity: 0, scale: 0.95, y: -4 } }
+                                        animate={ { opacity: 1, scale: 1, y: 0 } }
+                                        exit={ { opacity: 0, scale: 0.95, y: -4 } }
+                                        transition={ { duration: 0.15 } }
+                                        className='glass-panel absolute inset-e-0 top-12 w-56 origin-top rounded-xl p-3 text-start text-tiny text-txt-normal'>
+
+                                        { T('Unlock.Recovery') }
+
+                                    </motion.div>
+                                )
+                            }
+
+                        </AnimatePresence>
+
+                    </div>
 
                 </div>
+
+                {
+                    showHint &&
+                    (
+                        <div
+                            className='fixed inset-0 z-10'
+                            onClick={ () => { setShowHint(false); } } />
+                    )
+                }
 
                 {
                     error.length > 0 &&

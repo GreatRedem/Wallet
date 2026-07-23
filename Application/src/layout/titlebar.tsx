@@ -82,7 +82,7 @@ export default function TitleBar()
     return (
         <div
             data-tauri-drag-region
-            className='titlebar flex h-8 shrink-0 items-center justify-between cursor-pointer'>
+            className='z-20 flex h-8 shrink-0 cursor-pointer items-center justify-between bg-base-3 backdrop-blur-xl backdrop-saturate-180'>
 
             <div className='flex items-center gap-2 px-2'>
 
@@ -105,7 +105,7 @@ export default function TitleBar()
                 <button
                     type='button'
                     onClick={ onMinimize }
-                    className='titlebar-button'>
+                    className={ 'flex h-full w-11.5 cursor-pointer items-center justify-center text-txt-normal duration-200 hover:bg-btn-muted-hover active:bg-btn-muted-active' }>
 
                     <VscChromeMinimize size={ 14 } />
 
@@ -114,7 +114,7 @@ export default function TitleBar()
                 <button
                     type='button'
                     onClick={ onToggleMaximize }
-                    className='titlebar-button'>
+                    className={ 'flex h-full w-11.5 cursor-pointer items-center justify-center text-txt-normal duration-200 hover:bg-btn-muted-hover active:bg-btn-muted-active' }>
 
                     {
                         maximized ? <VscChromeRestore size={ 14 } /> : <VscChromeMaximize size={ 14 } />
@@ -125,7 +125,7 @@ export default function TitleBar()
                 <button
                     type='button'
                     onClick={ onClose }
-                    className='titlebar-button titlebar-close'>
+                    className={ 'flex h-full w-11.5 cursor-pointer items-center justify-center text-txt-normal duration-200 hover:bg-[oklch(55%_0.21_25)] hover:text-txt-reverse active:bg-[oklch(55%_0.21_25)] active:text-txt-reverse' }>
 
                     <VscChromeClose size={ 14 } />
 
