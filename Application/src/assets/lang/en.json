@@ -72,6 +72,12 @@
         "ErrorGeneric": "Unable to unlock wallet right now"
     },
     "Dashboard": {
+        "Nav": {
+            "Wallet": "Wallet",
+            "Activity": "Activity",
+            "Settings": "Settings"
+        },
+        "Empty": "Nothing to show yet.",
         "Title": "Wallet Ready",
         "Subtitle": "Your wallet is unlocked and ready to use",
         "Address": "Address",
